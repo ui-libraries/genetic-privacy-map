@@ -57,7 +57,11 @@
         // You have access to the data like this...
         console.log(topojson.feature(states, states.objects.states));
 
-        svg.selectAll("path")
+        // Create a group for all SVG elements
+        const svgGroup = svg.append("g");
+
+        // Append a new SVG path element for each state
+        svgGroup.selectAll("path")
             .data(topojson.feature(states, states.objects.states).features)
             .enter()
             .append("path")
@@ -65,6 +69,26 @@
             .attr("fill", "lightgray")
             .attr("stroke", "white")
             .attr("stroke-width", 0.5);
+        
+        // Add zoom functionality to the group
+        const zoom = d3.zoom()
+            .scaleExtent([0, 8]) // Set the zoom scale limits
+            .on("zoom", zoomed);
+
+        svg.call(zoom);      
+
+        function zoomed(event) {
+            svgGroup.attr("transform", event.transform);
+        }
+        
+        // get bounds of the states features
+        const bounds = path.bounds(topojson.feature(states, states.objects.states));
+
+        // Calculate the initial scale based on the bounding box of the circles
+        const initialScale = Math.min(width / (bounds[1][0] - bounds[0][0]), height / (bounds[1][1] - bounds[0][1])) * 0.9;
+
+        // Set the initial zoom level
+        svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(initialScale).translate(-width / 2, -height / 2));
 
     };    
    
