@@ -7,7 +7,8 @@
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <style>
-    body, html {
+    body,
+    html {
       height: 100%;
       margin: 0;
     }
@@ -19,79 +20,182 @@
       right: 0;
       top: 0;
     }
+
+    .layer-control {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: white;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .layer-control input {
+      margin-right: 5px;
+    }
+
+    .tooltip {
+      position: absolute;
+      text-align: center;
+      padding: 5px;
+      font: 12px sans-serif;
+      background: lightsteelblue;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease-in-out;
+    }
+
+    .highlighted {
+      stroke: yellow;
+      stroke-width: 2px;
+    }
   </style>
 </head>
 
 <body>
 
-  <!--<h1>US Genetic Privacy Laws by State</h1>
-  <h2></h2>-->
   <div id="map"></div>
+
+  <!-- Layer control -->
+  <div class="layer-control">
+    <div>
+      <input type="radio" id="lifeLayerToggle" name="layer" value="life" checked>
+      <label for="lifeLayerToggle">Life</label>
+    </div>
+    <div>
+      <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
+      <label for="disabilityLayerToggle">Disability</label>
+    </div>
+    <div>
+      <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
+      <label for="ltcLayerToggle">LTC</label>
+    </div>
+  </div>
+
+  <!-- Tooltip -->
+  <div class="tooltip" id="tooltip"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.js"></script>
 
   <script>
-    // set the width and height to 75% of the viewport width and 100% of the viewport height
     const width = window.innerWidth * 0.75;
     const height = window.innerHeight;
 
-    const svg = d3.select("#map") // select the document's body
-      .append("svg") // create and append a new svg element to it
-      .attr("width", width) // give the svg width
-      .attr("height", height); // give the svg height
+    const svg = d3.select("#map")
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height);
 
     const projection = d3.geoAlbersUsa()
       .translate([width / 2, height / 2])
       .scale(1000);
-    
+
     const path = d3.geoPath(projection);
 
+    const tooltip = d3.select("#tooltip");
+
     Promise.all([
-      // Load your data here
-      d3.json("data/states-10m.json") 
+      d3.csv("data/genetic-privacy.csv"),
+      d3.json("data/states-10m.json")
     ]).then(makeMap).catch(error => console.error('Error loading data:', error));
 
-    function makeMap([states]) {
+    let lifeGroup, disabilityGroup, ltcGroup;
 
-        // You have access to the data like this...
-        console.log(topojson.feature(states, states.objects.states));
+    function makeMap([dnaPrivacy, states]) {
+      const lifeData = checkDataForStates(dnaPrivacy, 'Life');
+      const disabilityData = checkDataForStates(dnaPrivacy, 'Disability');
+      const ltcData = checkDataForStates(dnaPrivacy, 'LTC');
 
-        // Create a group for all SVG elements
-        const svgGroup = svg.append("g");
+      lifeGroup = svg.append("g").attr("id", "lifeLayer");
+      disabilityGroup = svg.append("g").attr("id", "disabilityLayer");
+      ltcGroup = svg.append("g").attr("id", "ltcLayer");
 
-        // Append a new SVG path element for each state
-        svgGroup.selectAll("path")
-            .data(topojson.feature(states, states.objects.states).features)
-            .enter()
-            .append("path")
-            .attr("d", path)
-            .attr("fill", "lightgray")
-            .attr("stroke", "white")
-            .attr("stroke-width", 0.5);
-        
-        // Add zoom functionality to the group
-        const zoom = d3.zoom()
-            .scaleExtent([0, 8]) // Set the zoom scale limits
-            .on("zoom", zoomed);
+      drawLayer(lifeGroup, states, lifeData, "blue");
+      drawLayer(disabilityGroup, states, disabilityData, "blue");
+      drawLayer(ltcGroup, states, ltcData, "blue");
 
-        svg.call(zoom);      
+      const zoom = d3.zoom().scaleExtent([0, 8]).on("zoom", zoomed);
+      svg.call(zoom);
 
-        function zoomed(event) {
-            svgGroup.attr("transform", event.transform);
+      function zoomed(event) {
+        svg.selectAll("g").attr("transform", event.transform);
+      }
+
+      const bounds = path.bounds(topojson.feature(states, states.objects.states));
+      const initialScale = Math.min(width / (bounds[1][0] - bounds[0][0]), height / (bounds[1][1] - bounds[0][1])) * 0.9;
+      svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(initialScale).translate(-width / 2, -height / 2));
+
+      document.querySelectorAll('input[name="layer"]').forEach(input => {
+        input.addEventListener("change", function () {
+          if (this.value === "life") {
+            lifeGroup.style("visibility", "visible");
+            disabilityGroup.style("visibility", "hidden");
+            ltcGroup.style("visibility", "hidden");
+          } else if (this.value === "disability") {
+            lifeGroup.style("visibility", "hidden");
+            disabilityGroup.style("visibility", "visible");
+            ltcGroup.style("visibility", "hidden");
+          } else if (this.value === "ltc") {
+            lifeGroup.style("visibility", "hidden");
+            disabilityGroup.style("visibility", "hidden");
+            ltcGroup.style("visibility", "visible");
+          }
+        });
+      });
+
+      // Initially show only the life layer
+      disabilityGroup.style("visibility", "hidden");
+      ltcGroup.style("visibility", "hidden");
+    }
+
+    function drawLayer(layerGroup, states, data, color) {
+      layerGroup.selectAll("path")
+        .data(topojson.feature(states, states.objects.states).features)
+        .enter()
+        .append("path")
+        .attr("d", path)
+        .attr("fill", d => {
+          const stateData = data.find(state => state.name === d.properties.name);
+          return stateData && stateData.hasData ? color : "gray";
+        })
+        .attr("stroke", "white")
+        .attr("stroke-width", 0.5)
+        .on("mouseover", function(event, d) {
+          d3.select(this).classed("highlighted", true).raise(); // Add highlighted class and bring to front on mouseover
+          tooltip.transition().duration(200).style("opacity", .9);
+          tooltip.html(d.properties.name);
+        })
+        .on("mousemove", function(event) {
+          tooltip.style("left", (event.pageX + 5) + "px")
+            .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function() {
+          d3.select(this).classed("highlighted", false); // Remove highlighted class on mouseout
+          tooltip.transition().duration(500).style("opacity", 0);
+        });
+    }
+
+    function checkDataForStates(data, field) {
+      const stateDataMap = {};
+      data.forEach(row => {
+        const state = row.State;
+        if (!stateDataMap[state]) {
+          stateDataMap[state] = {
+            name: state,
+            hasData: false
+          };
         }
-        
-        // get bounds of the states features
-        const bounds = path.bounds(topojson.feature(states, states.objects.states));
-
-        // Calculate the initial scale based on the bounding box of the circles
-        const initialScale = Math.min(width / (bounds[1][0] - bounds[0][0]), height / (bounds[1][1] - bounds[0][1])) * 0.9;
-
-        // Set the initial zoom level
-        svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(initialScale).translate(-width / 2, -height / 2));
-
-    };    
-   
+        if (row[field]) {
+          stateDataMap[state].hasData = true;
+        }
+      });
+      return Object.values(stateDataMap);
+    }
   </script>
 </body>
 
