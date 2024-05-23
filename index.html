@@ -3,33 +3,51 @@
 
 <head>
   <meta charset="utf-8">
-  <title>US Genetic Privacy Laws</title>
+  <title>Genetic Privacy Laws in the US</title>
 
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <style>
+    
     body,
     html {
       height: 100%;
       margin: 0;
+      font-family: 'Montserrat', sans-serif;
     }
 
     #map {
-      width: 75vw;
       height: 100vh;
+      width: calc(100vw - 350px); /* Adjusted map width calculation */
       position: absolute;
       right: 0;
       top: 0;
+      overflow: hidden; /* Prevent overflow */
+    }
+
+    .sidebar {
+      width: 350px;
+      height: 100vh;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: white;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: width 0.3s ease; /* Add transition for width */
+    }
+
+    .sidebar-header {
+      padding: 15px 0 15px 15px; /* Adjusted padding */
+      background: #007BFF;
+      color: white;
+      text-align: left; /* Changed text alignment */
+      font-size: 18px;
+      font-weight: bold;
     }
 
     .layer-control {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: white;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+      padding-left: 15px; /* Added padding to separate from collapse button */
     }
 
     .layer-control input {
@@ -53,28 +71,34 @@
       stroke: yellow;
       stroke-width: 2px;
     }
+    
   </style>
 </head>
 
 <body>
 
-  <div id="map"></div>
-
-  <!-- Layer control -->
-  <div class="layer-control">
-    <div>
-      <input type="radio" id="lifeLayerToggle" name="layer" value="life" checked>
-      <label for="lifeLayerToggle">Life</label>
-    </div>
-    <div>
-      <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
-      <label for="disabilityLayerToggle">Disability</label>
-    </div>
-    <div>
-      <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
-      <label for="ltcLayerToggle">LTC</label>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">Genetic Privacy Laws in the USA</div>
+    <div class="sidebar-content">
+      <!-- Layer control -->
+      <div class="layer-control">
+        <div>
+          <input type="radio" id="lifeLayerToggle" name="layer" value="life" checked>
+          <label for="lifeLayerToggle">Life</label>
+        </div>
+        <div>
+          <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
+          <label for="disabilityLayerToggle">Disability</label>
+        </div>
+        <div>
+          <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
+          <label for="ltcLayerToggle">LTC</label>
+        </div>
+      </div>
     </div>
   </div>
+
+  <div id="map"></div>
 
   <!-- Tooltip -->
   <div class="tooltip" id="tooltip"></div>
@@ -131,7 +155,7 @@
       svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(initialScale).translate(-width / 2, -height / 2));
 
       document.querySelectorAll('input[name="layer"]').forEach(input => {
-        input.addEventListener("change", function () {
+        input.addEventListener("change", function() {
           if (this.value === "life") {
             lifeGroup.style("visibility", "visible");
             disabilityGroup.style("visibility", "hidden");
