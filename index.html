@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <title>Genetic Privacy Laws in the US</title>
-
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
   <style>
     body,
@@ -17,17 +16,15 @@
     #map {
       height: 100vh;
       width: calc(100vw - 350px);
-      /* Adjusted map width calculation */
       position: absolute;
       right: 0;
       top: 0;
       overflow: hidden;
-      /* Prevent overflow */
     }
 
     .sidebar {
       width: 350px;
-      height: 100vh;
+      height: calc(100vh - 190px);
       position: absolute;
       left: 0;
       top: 0;
@@ -35,28 +32,38 @@
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       transition: width 0.3s ease;
-      /* Add transition for width */
     }
 
     .sidebar-header {
       padding: 15px 0 15px 15px;
-      /* Adjusted padding */
       background: #007BFF;
       color: white;
       text-align: left;
-      /* Changed text alignment */
       font-size: 18px;
       font-weight: bold;
+    }
+
+    p {
+      padding: 0 15px;
+      font-size: 14px;
     }
 
     .layer-control {
       margin-top: 20px;
       padding-left: 15px;
-      /* Added padding to separate from collapse button */
     }
 
     .layer-control input {
       margin-right: 5px;
+    }
+
+    .layer-control button {
+      margin: 10px;
+      padding: 5px 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
     }
 
     .tooltip {
@@ -84,31 +91,46 @@
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">Genetic Privacy Laws in the USA</div>
     <div class="sidebar-content">
-      <!-- Layer control -->
+      <p>To filter the map, select your desired combination of genetic privacy regulations and press the filter button. Press the reset button to return to the general coverage map.</p>
       <div class="layer-control">
         <div>
-          <input type="radio" id="coverageLayerToggle" name="layer" value="coverage">
-          <label for="coverageLayerToggle">Extent of Coverage</label>
-        </div>
-        <div>
-          <input type="radio" id="lifeLayerToggle" name="layer" value="life" checked>
+          <input type="checkbox" id="lifeLayerToggle" name="layer" value="life">
           <label for="lifeLayerToggle">Life</label>
         </div>
         <div>
-          <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
+          <input type="checkbox" id="disabilityLayerToggle" name="layer" value="disability">
           <label for="disabilityLayerToggle">Disability</label>
         </div>
         <div>
-          <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
+          <input type="checkbox" id="ltcLayerToggle" name="layer" value="ltc">
           <label for="ltcLayerToggle">LTC</label>
         </div>
-      </div>
+        <button id="filterButton">Filter</button>
+        <button id="resetButton">Reset</button>
+      </div>     
     </div>
   </div>
 
+  <div id="legend" style="position: absolute; left: 20px; bottom: 20px; background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+    <h4 style="margin-top: 0;">Total Categories Covered</h4>
+    <div>
+      <div style="display: flex; align-items: center;">
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: gray; margin-right: 5px;"></span> 0
+      </div>
+      <div style="display: flex; align-items: center;">
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: lightblue; margin-right: 5px;"></span> 1
+      </div>
+      <div style="display: flex; align-items: center;">
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: blue; margin-right: 5px;"></span> 2
+      </div>
+      <div style="display: flex; align-items: center;">
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: darkblue; margin-right: 5px;"></span> 3
+      </div>
+    </div>
+  </div>     
+
   <div id="map"></div>
 
-  <!-- Tooltip -->
   <div class="tooltip" id="tooltip"></div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -136,23 +158,13 @@
       d3.json("data/states-10m.json")
     ]).then(makeMap).catch(error => console.error('Error loading data:', error));
 
-    let lifeGroup, disabilityGroup, ltcGroup, coverageGroup;
+    let stateGroups = {};
 
     function makeMap([dnaPrivacy, states]) {
-
-      const lifeData = checkDataForStates(dnaPrivacy, 'Life');
-      const disabilityData = checkDataForStates(dnaPrivacy, 'Disability');
-      const ltcData = checkDataForStates(dnaPrivacy, 'LTC');
-
-      lifeGroup = svg.append("g").attr("id", "lifeLayer");
-      disabilityGroup = svg.append("g").attr("id", "disabilityLayer");
-      ltcGroup = svg.append("g").attr("id", "ltcLayer");
-      coverageGroup = svg.append("g").attr("id", "coverageLayer"); // Add a new group for the coverage layer
-
-      drawLayer(lifeGroup, states, lifeData, "blue");
-      drawLayer(disabilityGroup, states, disabilityData, "blue");
-      drawLayer(ltcGroup, states, ltcData, "blue");
-      drawCoverageLayer(coverageGroup, states, groupAndCountEntriesForStates(dnaPrivacy));
+      stateGroups = {
+        coverageGroup: svg.append("g").attr("id", "coverageLayer"),
+        filterGroup: svg.append("g").attr("id", "filterLayer"),
+      };
 
       const zoom = d3.zoom().scaleExtent([0, 8]).on("zoom", zoomed);
       svg.call(zoom);
@@ -165,46 +177,32 @@
       const initialScale = Math.min(width / (bounds[1][0] - bounds[0][0]), height / (bounds[1][1] - bounds[0][1])) * 0.9;
       svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(initialScale).translate(-width / 2, -height / 2));
 
-      document.querySelectorAll('input[name="layer"]').forEach(input => {
-        input.addEventListener("change", function() {
-          if (this.value === "life") {
-            lifeGroup.style("visibility", "visible");
-            disabilityGroup.style("visibility", "hidden");
-            ltcGroup.style("visibility", "hidden");
-            coverageGroup.style("visibility", "hidden"); // Hide the coverage layer
-          } else if (this.value === "disability") {
-            lifeGroup.style("visibility", "hidden");
-            disabilityGroup.style("visibility", "visible");
-            ltcGroup.style("visibility", "hidden");
-            coverageGroup.style("visibility", "hidden"); // Hide the coverage layer
-          } else if (this.value === "ltc") {
-            lifeGroup.style("visibility", "hidden");
-            disabilityGroup.style("visibility", "hidden");
-            ltcGroup.style("visibility", "visible");
-            coverageGroup.style("visibility", "hidden"); // Hide the coverage layer
-          } else if (this.value === "coverage") {
-            lifeGroup.style("visibility", "hidden");
-            disabilityGroup.style("visibility", "hidden");
-            ltcGroup.style("visibility", "hidden");
-            coverageGroup.style("visibility", "visible"); // Show the coverage layer
-          }
-        });
+      document.getElementById('filterButton').addEventListener('click', function() {
+        const filters = {
+          life: document.getElementById('lifeLayerToggle').checked,
+          disability: document.getElementById('disabilityLayerToggle').checked,
+          ltc: document.getElementById('ltcLayerToggle').checked
+        };
+        applyFilters(states, dnaPrivacy, filters);
       });
 
-      // Show coverage layer by default
-      coverageGroup.style("visibility", "visible");
+      document.getElementById('resetButton').addEventListener('click', function() {
+        stateGroups.coverageGroup.style("visibility", "visible");
+        stateGroups.filterGroup.style("visibility", "hidden");
+      });
 
-      // Hide these layers
-      lifeGroup.style("visibility", "hidden");
-      disabilityGroup.style("visibility", "hidden");
-      ltcGroup.style("visibility", "hidden");
+      stateGroups.coverageGroup.style("visibility", "visible");
+      stateGroups.filterGroup.style("visibility", "hidden");
+
+      // Draw initial map
+      drawCoverageLayer(stateGroups.coverageGroup, states, groupAndCountEntriesForStates(dnaPrivacy));
+
     }
 
     function drawLayer(layerGroup, states, data, color) {
       layerGroup.selectAll("path")
         .data(topojson.feature(states, states.objects.states).features)
-        .enter()
-        .append("path")
+        .join("path")
         .attr("d", path)
         .attr("fill", d => {
           const stateData = data.find(state => state.name === d.properties.name);
@@ -213,7 +211,7 @@
         .attr("stroke", "white")
         .attr("stroke-width", 0.5)
         .on("mouseover", function(event, d) {
-          d3.select(this).classed("highlighted", true).raise(); // Add highlighted class and bring to front on mouseover
+          d3.select(this).classed("highlighted", true).raise();
           tooltip.transition().duration(200).style("opacity", .9);
           tooltip.html(d.properties.name);
         })
@@ -222,7 +220,7 @@
             .style("top", (event.pageY - 28) + "px");
         })
         .on("mouseout", function() {
-          d3.select(this).classed("highlighted", false); // Remove highlighted class on mouseout
+          d3.select(this).classed("highlighted", false);
           tooltip.transition().duration(500).style("opacity", 0);
         });
     }
@@ -232,12 +230,9 @@
         .domain([1, 2, 3])
         .range(["lightblue", "blue", "darkblue"]);
 
-      const tooltip = d3.select("#tooltip");
-
       layerGroup.selectAll("path")
         .data(topojson.feature(states, states.objects.states).features)
-        .enter()
-        .append("path")
+        .join("path")
         .attr("d", path)
         .attr("fill", d => {
           const stateData = data.find(state => state.name === d.properties.name);
@@ -246,7 +241,7 @@
         .attr("stroke", "white")
         .attr("stroke-width", 0.5)
         .on("mouseover", function(event, d) {
-          d3.select(this).classed("highlighted", true).raise(); // Add highlighted class and bring to front on mouseover
+          d3.select(this).classed("highlighted", true).raise();
           tooltip.transition().duration(200).style("opacity", .9);
           tooltip.html(d.properties.name);
         })
@@ -255,26 +250,42 @@
             .style("top", (event.pageY - 28) + "px");
         })
         .on("mouseout", function() {
-          d3.select(this).classed("highlighted", false); // Remove highlight from state border
+          d3.select(this).classed("highlighted", false);
           tooltip.transition().duration(500).style("opacity", 0);
         });
     }
 
-    function checkDataForStates(data, field) {
-      const stateDataMap = {};
-      data.forEach(row => {
-        const state = row.State;
-        if (!stateDataMap[state]) {
-          stateDataMap[state] = {
-            name: state,
-            hasData: false
-          };
-        }
-        if (row[field]) {
-          stateDataMap[state].hasData = true;
-        }
+    function applyFilters(states, dnaPrivacy, filters) {
+      
+      const filteredData = dnaPrivacy.filter(row => {
+        return (!filters.life || row['Life']) ||
+              (!filters.disability || row['Disability']) ||
+              (!filters.ltc || row['LTC']);
       });
-      return Object.values(stateDataMap);
+
+      console.log(filteredData);
+
+      const groupedData = groupAndCountEntriesForStates(filteredData);
+
+      console.log(groupedData);
+
+      // Filter out states with data in all selected options
+      const filteredStateData = groupedData.filter(d => {
+        return (filters.life ? d.life : true) &&
+              (filters.disability ? d.disability : true) &&
+              (filters.ltc ? d.ltc : true);
+      });
+
+      console.log(filteredStateData);
+
+      stateGroups.coverageGroup.style("visibility", "hidden");
+      stateGroups.filterGroup.style("visibility", "visible");
+
+      drawCoverageLayer(stateGroups.filterGroup, states, filteredStateData);
+    }
+
+    function checkDataForStates(data, field) {
+      return data.some(row => row[field]);
     }
 
     function groupAndCountEntriesForStates(data) {
@@ -297,10 +308,14 @@
 
       const result = Object.values(stateDataMap).map(state => ({
         name: state.name,
+        life: state.life,
+        disability: state.disability,
+        ltc: state.ltc,
         count: [state.life, state.disability, state.ltc].filter(Boolean).length
       }));
 
       return result;
+
     }
   </script>
 </body>
