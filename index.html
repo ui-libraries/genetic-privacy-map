@@ -69,7 +69,7 @@
 
     .tooltip {
       position: absolute;
-      text-align: center;
+      text-align: left;
       padding: 5px;
       font: 12px sans-serif;
       background: lightsteelblue;
@@ -201,32 +201,6 @@
 
     }
 
-    function drawLayer(layerGroup, states, data, color) {
-      layerGroup.selectAll("path")
-        .data(topojson.feature(states, states.objects.states).features)
-        .join("path")
-        .attr("d", path)
-        .attr("fill", d => {
-          const stateData = data.find(state => state.name === d.properties.name);
-          return stateData && stateData.hasData ? color : "gray";
-        })
-        .attr("stroke", "white")
-        .attr("stroke-width", 0.5)
-        .on("mouseover", function(event, d) {
-          d3.select(this).classed("highlighted", true).raise();
-          tooltip.transition().duration(200).style("opacity", .9);
-          tooltip.html(d.properties.name);
-        })
-        .on("mousemove", function(event) {
-          tooltip.style("left", (event.pageX + 5) + "px")
-            .style("top", (event.pageY - 28) + "px");
-        })
-        .on("mouseout", function() {
-          d3.select(this).classed("highlighted", false);
-          tooltip.transition().duration(500).style("opacity", 0);
-        });
-    }
-
     function drawCoverageLayer(layerGroup, states, data) {
       const colorScale = d3.scaleLinear()
         .domain([1, 2, 3])
@@ -243,9 +217,13 @@
         .attr("stroke", "white")
         .attr("stroke-width", 0.5)
         .on("mouseover", function(event, d) {
-          d3.select(this).classed("highlighted", true).raise();
+          const stateName = d.properties.name;
+          const stateData = data.find(state => state.name === stateName);
+          const codeList = stateData ? stateData.codes.map(code => `<tr><td>${code}</td></tr>`).join('') : '<tr><td>N/A</td></tr>'; // Convert codes to table rows
+
+          d3.select(this).classed("highlighted", true).raise(); // Add highlighted class and bring to front on mouseover
           tooltip.transition().duration(200).style("opacity", .9);
-          tooltip.html(d.properties.name);
+          tooltip.html(`<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${codeList}</table>`); // Include state name in larger and bold font, and codes in a table
         })
         .on("mousemove", function(event) {
           tooltip.style("left", (event.pageX + 5) + "px")
@@ -300,12 +278,14 @@
             name: state,
             life: false,
             disability: false,
-            ltc: false
+            ltc: false,
+            codes: [] // Store an array of codes
           };
         }
         if (row.Life) stateDataMap[state].life = true;
         if (row.Disability) stateDataMap[state].disability = true;
         if (row.LTC) stateDataMap[state].ltc = true;
+        stateDataMap[state].codes.push(row.Code + '<br>Life: ' + stateDataMap[state].life + '<br>Disability: ' + stateDataMap[state].disability + '<br>LTC: ' + stateDataMap[state].ltc); // Push code to the array
       });
 
       const result = Object.values(stateDataMap).map(state => ({
@@ -313,12 +293,13 @@
         life: state.life,
         disability: state.disability,
         ltc: state.ltc,
-        count: [state.life, state.disability, state.ltc].filter(Boolean).length
+        count: [state.life, state.disability, state.ltc].filter(Boolean).length,
+        codes: state.codes // Return the array of codes
       }));
 
       return result;
-
     }
+
   </script>
 </body>
 
