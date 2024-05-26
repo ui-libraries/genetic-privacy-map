@@ -141,6 +141,24 @@
   <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.js"></script>
 
   <script>
+
+    // Ensure checkboxes are unchecked on page reload
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('lifeLayerToggle').checked = false;
+      document.getElementById('disabilityLayerToggle').checked = false;
+      document.getElementById('ltcLayerToggle').checked = false;
+    });
+
+    // Event listener for the "Reset" button
+    document.getElementById('resetButton').addEventListener('click', function() {
+      stateGroups.coverageGroup.style("visibility", "visible");
+      stateGroups.filterGroup.style("visibility", "hidden");
+      // Uncheck all checkboxes
+      uncheckAllCheckboxes();
+      // Repopulate sidebar with original data
+      populateStateDetails(groupAndCountEntriesForStates(dnaPrivacy));
+    });    
+
     const width = window.innerWidth * 0.75;
     const height = window.innerHeight;
 
@@ -318,6 +336,13 @@
       }));
 
       return result;
+    }
+
+    // Function to uncheck all checkboxes
+    function uncheckAllCheckboxes() {
+      document.getElementById('lifeLayerToggle').checked = false;
+      document.getElementById('disabilityLayerToggle').checked = false;
+      document.getElementById('ltcLayerToggle').checked = false;
     }
   </script>
 </body>
