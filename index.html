@@ -109,7 +109,9 @@
         </div>
         <button id="filterButton">Filter</button>
         <button id="resetButton">Reset</button>
-      </div>     
+      </div>
+      <h4 style="padding: 0 15px;">Read the Laws:</h4>
+      <div id="stateDetails" style="padding: 15px;"></div>
     </div>
   </div>
 
@@ -129,7 +131,7 @@
         <span style="display: inline-block; width: 20px; height: 20px; background-color: darkblue; margin-right: 5px;"></span> Life, Disability, and LTC Covered
       </div>
     </div>
-  </div>     
+  </div>
 
   <div id="map"></div>
 
@@ -191,14 +193,20 @@
       document.getElementById('resetButton').addEventListener('click', function() {
         stateGroups.coverageGroup.style("visibility", "visible");
         stateGroups.filterGroup.style("visibility", "hidden");
+        // Repopulate sidebar with original data
+        populateStateDetails(groupAndCountEntriesForStates(dnaPrivacy));
       });
 
       stateGroups.coverageGroup.style("visibility", "visible");
       stateGroups.filterGroup.style("visibility", "hidden");
 
-      // Draw initial map
-      drawCoverageLayer(stateGroups.coverageGroup, states, groupAndCountEntriesForStates(dnaPrivacy));
+      const groupedData = groupAndCountEntriesForStates(dnaPrivacy);
 
+      // Draw initial map
+      drawCoverageLayer(stateGroups.coverageGroup, states, groupedData);
+
+      // Populate the sidebar with all state details
+      populateStateDetails(groupedData);
     }
 
     function drawCoverageLayer(layerGroup, states, data) {
@@ -219,11 +227,11 @@
         .on("mouseover", function(event, d) {
           const stateName = d.properties.name;
           const stateData = data.find(state => state.name === stateName);
-          const codeList = stateData ? stateData.codes.map(code => `<tr><td>${code}</td></tr>`).join('') : '<tr><td>N/A</td></tr>'; // Convert codes to table rows
+          const codeList = stateData ? stateData.codes.map(code => `<tr><td>${code.code}</td></tr>`).join('') : '<tr><td>N/A</td></tr>';
 
-          d3.select(this).classed("highlighted", true).raise(); // Add highlighted class and bring to front on mouseover
+          d3.select(this).classed("highlighted", true).raise();
           tooltip.transition().duration(200).style("opacity", .9);
-          tooltip.html(`<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${codeList}</table>`); // Include state name in larger and bold font, and codes in a table
+          tooltip.html(`<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${codeList}</table>`);
         })
         .on("mousemove", function(event) {
           tooltip.style("left", (event.pageX + 5) + "px")
@@ -236,36 +244,48 @@
     }
 
     function applyFilters(states, dnaPrivacy, filters) {
-      
       const filteredData = dnaPrivacy.filter(row => {
         return (!filters.life || row['Life']) ||
-              (!filters.disability || row['Disability']) ||
-              (!filters.ltc || row['LTC']);
+               (!filters.disability || row['Disability']) ||
+               (!filters.ltc || row['LTC']);
       });
-
-      console.log(filteredData);
 
       const groupedData = groupAndCountEntriesForStates(filteredData);
 
-      console.log(groupedData);
-
-      // Filter out states with data in all selected options
       const filteredStateData = groupedData.filter(d => {
         return (filters.life ? d.life : true) &&
-              (filters.disability ? d.disability : true) &&
-              (filters.ltc ? d.ltc : true);
+               (filters.disability ? d.disability : true) &&
+               (filters.ltc ? d.ltc : true);
       });
-
-      console.log(filteredStateData);
 
       stateGroups.coverageGroup.style("visibility", "hidden");
       stateGroups.filterGroup.style("visibility", "visible");
 
       drawCoverageLayer(stateGroups.filterGroup, states, filteredStateData);
+
+      // Populate state details in the sidebar
+      populateStateDetails(filteredStateData);
     }
 
-    function checkDataForStates(data, field) {
-      return data.some(row => row[field]);
+    function populateStateDetails(stateData) {
+      const stateDetailsContainer = document.getElementById('stateDetails');
+      stateDetailsContainer.innerHTML = '';
+
+      stateData.forEach(state => {
+        const stateElement = document.createElement('div');
+        stateElement.style.marginBottom = '10px';
+
+        const stateName = document.createElement('div');
+        stateName.innerHTML = `<strong>${state.name}</strong>`;
+        stateElement.appendChild(stateName);
+
+        const codeList = state.codes.map(code => `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td></tr>`).join('');
+        const codeTable = document.createElement('table');
+        codeTable.innerHTML = codeList;
+        stateElement.appendChild(codeTable);
+
+        stateDetailsContainer.appendChild(stateElement);
+      });
     }
 
     function groupAndCountEntriesForStates(data) {
@@ -279,13 +299,13 @@
             life: false,
             disability: false,
             ltc: false,
-            codes: [] // Store an array of codes
+            codes: []
           };
         }
         if (row.Life) stateDataMap[state].life = true;
         if (row.Disability) stateDataMap[state].disability = true;
         if (row.LTC) stateDataMap[state].ltc = true;
-        stateDataMap[state].codes.push(row.Code + '<br>Life: ' + stateDataMap[state].life + '<br>Disability: ' + stateDataMap[state].disability + '<br>LTC: ' + stateDataMap[state].ltc); // Push code to the array
+        stateDataMap[state].codes.push({ code: row.Code, link: row.Link });
       });
 
       const result = Object.values(stateDataMap).map(state => ({
@@ -294,12 +314,11 @@
         disability: state.disability,
         ltc: state.ltc,
         count: [state.life, state.disability, state.ltc].filter(Boolean).length,
-        codes: state.codes // Return the array of codes
+        codes: state.codes
       }));
 
       return result;
     }
-
   </script>
 </body>
 
