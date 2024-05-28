@@ -73,6 +73,17 @@
       background-color: #f0f0f0; /* very light gray */
     }
 
+/*
+    .layer-control button {
+      margin: 10px;
+      padding: 5px 10px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+*/
+
     .tooltip {
       position: absolute;
       text-align: left;
@@ -102,15 +113,15 @@
       <h4 style="padding: 0 15px;">Filter by Regulation Type:</h4>
       <div class="layer-control">
         <div>
-          <input type="radio" id="lifeLayerToggle" name="layer" value="life">
+          <input type="checkbox" id="lifeLayerToggle" name="layer" value="life">
           <label for="lifeLayerToggle">Life</label>
         </div>
         <div>
-          <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
+          <input type="checkbox" id="disabilityLayerToggle" name="layer" value="disability">
           <label for="disabilityLayerToggle">Disability</label>
         </div>
         <div>
-          <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
+          <input type="checkbox" id="ltcLayerToggle" name="layer" value="ltc">
           <label for="ltcLayerToggle">LTC</label>
         </div>
         <button id="filterButton">Filter</button>
@@ -139,18 +150,6 @@
     </div>
   </div>
 
-  <div id="filter-legend" style="position: absolute; left: 20px; bottom: 20px; background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-    <h4 style="margin-top: 0;">Regulatory Coverage</h4>
-    <div> 
-      <div style="display: flex; align-items: center;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: gray; margin-right: 5px;"></span> Absent
-      </div>
-      <div style="display: flex; align-items: center;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: green; margin-right: 5px;"></span> Present
-      </div>
-    </div>
-  </div>
-
   <div id="map"></div>
 
   <div class="tooltip" id="tooltip"></div>
@@ -159,8 +158,6 @@
   <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.js"></script>
 
   <script>
-    // Hide the filter-legend by default
-    document.getElementById('filter-legend').style.display = 'none';
 
     // Ensure checkboxes are unchecked on page reload
     document.addEventListener('DOMContentLoaded', () => {
@@ -171,10 +168,6 @@
 
     // Event listener for the "Reset" button
     document.getElementById('resetButton').addEventListener('click', function() {
-      // Show the legend
-      document.getElementById('legend').style.display = 'block';
-      // Hide the filter-legend
-      document.getElementById('filter-legend').style.display = 'none';
       stateGroups.coverageGroup.style("visibility", "visible");
       stateGroups.filterGroup.style("visibility", "hidden");
       // Uncheck all checkboxes
@@ -224,10 +217,6 @@
       svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(initialScale).translate(-width / 2, -height / 2));
 
       document.getElementById('filterButton').addEventListener('click', function() {
-        // Hide the legend
-        document.getElementById('legend').style.display = 'none';
-        // Show the filter-legend
-        document.getElementById('filter-legend').style.display = 'block';
         const filters = {
           life: document.getElementById('lifeLayerToggle').checked,
           disability: document.getElementById('disabilityLayerToggle').checked,
@@ -289,60 +278,6 @@
         });
     }
 
-    function drawCoverageLayerFiltered(layerGroup, states, data) {
-
-
-      const newFilters = {
-        life: document.getElementById('lifeLayerToggle').checked,
-        disability: document.getElementById('disabilityLayerToggle').checked,
-        ltc: document.getElementById('ltcLayerToggle').checked
-      };
-
-
-      layerGroup.selectAll("path")
-        .data(topojson.feature(states, states.objects.states).features)
-        .join("path")
-        .attr("d", path)
-        .attr("fill", d => {
-          const stateData = data.find(state => state.name === d.properties.name);
-          return stateData ? "green" : "gray";
-        })
-        .attr("stroke", "white")
-        .attr("stroke-width", 0.5)
-        .on("mouseover", function(event, d) {
-          const stateName = d.properties.name;
-          const stateData = data.find(state => state.name === stateName);
-          
-
-          // if life in newFilters is true, then filter out all codes that are not life
-          if (newFilters.life) {
-            stateData.codes = stateData.codes.filter(code => code.life);
-          } // otherwise, if disability in newFilters is true, then filter out all codes that are not disability
-          else if (newFilters.disability) {
-            stateData.codes = stateData.codes.filter(code => code.disability);
-          } // otherwise, if ltc in newFilters is true, then filter out all codes that are not ltc
-          else if (newFilters.ltc) {
-            stateData.codes = stateData.codes.filter(code => code.ltc);
-          }
-
-          // set codeList to the filtered codes
-          const codeList = stateData ? stateData.codes.map(code => `<tr><td>${code.code}</td></tr>`).join('') : '<tr><td>N/A</td></tr>';
-
-
-          d3.select(this).classed("highlighted", true).raise();
-          tooltip.transition().duration(200).style("opacity", .9);
-          tooltip.html(`<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${codeList}</table>`);
-        })
-        .on("mousemove", function(event) {
-          tooltip.style("left", (event.pageX + 5) + "px")
-            .style("top", (event.pageY - 28) + "px");
-        })
-        .on("mouseout", function() {
-          d3.select(this).classed("highlighted", false);
-          tooltip.transition().duration(500).style("opacity", 0);
-        });
-    }    
-
     function applyFilters(states, dnaPrivacy, filters) {
       const filteredData = dnaPrivacy.filter(row => {
         return (!filters.life || row['Life']) ||
@@ -361,13 +296,13 @@
       stateGroups.coverageGroup.style("visibility", "hidden");
       stateGroups.filterGroup.style("visibility", "visible");
 
-      drawCoverageLayerFiltered(stateGroups.filterGroup, states, filteredStateData);
+      drawCoverageLayer(stateGroups.filterGroup, states, filteredStateData);
 
       // Populate state details in the sidebar
-      populateStateDetails(filteredStateData, filters);
+      populateStateDetails(filteredStateData);
     }
 
-    function populateStateDetails(stateData, filters) {
+    function populateStateDetails(stateData) {
       const stateDetailsContainer = document.getElementById('stateDetails');
       stateDetailsContainer.innerHTML = '';
 
@@ -379,20 +314,7 @@
         stateName.innerHTML = `<strong>${state.name}</strong>`;
         stateElement.appendChild(stateName);
 
-        let filteredCodes = state.codes;
-
-        // Apply filters if they are defined
-        if (filters) {
-          if (filters.life) {
-            filteredCodes = filteredCodes.filter(code => code.life);
-          } else if (filters.disability) {
-            filteredCodes = filteredCodes.filter(code => code.disability);
-          } else if (filters.ltc) {
-            filteredCodes = filteredCodes.filter(code => code.ltc);
-          }
-        }
-
-        const codeList = filteredCodes.map(code => `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td></tr>`).join('');
+        const codeList = state.codes.map(code => `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td></tr>`).join('');
         const codeTable = document.createElement('table');
         codeTable.innerHTML = codeList;
         stateElement.appendChild(codeTable);
@@ -418,7 +340,7 @@
         if (row.Life) stateDataMap[state].life = true;
         if (row.Disability) stateDataMap[state].disability = true;
         if (row.LTC) stateDataMap[state].ltc = true;
-        stateDataMap[state].codes.push({ code: row.Code, link: row.Link, life: row.Life, disability: row.Disability, ltc: row.LTC});
+        stateDataMap[state].codes.push({ code: row.Code, link: row.Link });
       });
 
       const result = Object.values(stateDataMap).map(state => ({
