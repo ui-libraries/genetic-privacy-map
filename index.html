@@ -256,9 +256,11 @@
     }
 
     function drawCoverageLayer(layerGroup, states, data) {
+
+      // define the color scale
       const colorScale = d3.scaleLinear()
-        .domain([1, 2, 3])
-        .range(["lightblue", "blue", "darkblue"]);
+        .domain([0, 1, 2, 3])
+        .range(["gray", "lightblue", "blue", "darkblue"]);
 
       layerGroup.selectAll("path")
         .data(topojson.feature(states, states.objects.states).features)
@@ -273,10 +275,19 @@
         .on("mouseover", function(event, d) {
           const stateName = d.properties.name;
           const stateData = data.find(state => state.name === stateName);
-          const codeList = stateData ? stateData.codes.map(code => `<tr><td>${code.code}</td></tr>`).join('') : '<tr><td>N/A</td></tr>';
-
+          const codeList = stateData ? stateData.codes.map(code => {
+              let entries = [];
+              if (code.disability) entries.push("Disability");
+              if (code.life) entries.push("Life");
+              if (code.ltc) entries.push("LTC");
+              let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
+              return `<tr>
+                          <td>${code.code}</td>
+                          <td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td>
+                      </tr>`;
+          }).join('') : '<tr><td title="N/A">N/A</td></tr>';
           d3.select(this).classed("highlighted", true).raise();
-          tooltip.transition().duration(200).style("opacity", .9);
+          tooltip.transition().duration(0).style("opacity", .9);
           tooltip.html(`<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${codeList}</table>`);
         })
         .on("mousemove", function(event) {
@@ -285,12 +296,11 @@
         })
         .on("mouseout", function() {
           d3.select(this).classed("highlighted", false);
-          tooltip.transition().duration(500).style("opacity", 0);
+          tooltip.transition().duration(0).style("opacity", 0);
         });
     }
 
-    function drawCoverageLayerFiltered(layerGroup, states, data) {
-
+    function drawCoverageLayerFiltered(layerGroup, states, filtered, all) {
 
       const newFilters = {
         life: document.getElementById('lifeLayerToggle').checked,
@@ -298,22 +308,20 @@
         ltc: document.getElementById('ltcLayerToggle').checked
       };
 
-
       layerGroup.selectAll("path")
         .data(topojson.feature(states, states.objects.states).features)
         .join("path")
         .attr("d", path)
         .attr("fill", d => {
-          const stateData = data.find(state => state.name === d.properties.name);
+          const stateData = filtered.find(state => state.name === d.properties.name);
           return stateData ? "green" : "gray";
         })
         .attr("stroke", "white")
         .attr("stroke-width", 0.5)
         .on("mouseover", function(event, d) {
           const stateName = d.properties.name;
-          const stateData = data.find(state => state.name === stateName);
+          const stateData = all.find(state => state.name === stateName);
           
-
           // if life in newFilters is true, then filter out all codes that are not life
           if (newFilters.life) {
             stateData.codes = stateData.codes.filter(code => code.life);
@@ -326,12 +334,21 @@
           }
 
           // set codeList to the filtered codes
-          const codeList = stateData ? stateData.codes.map(code => `<tr><td>${code.code}</td></tr>`).join('') : '<tr><td>N/A</td></tr>';
+          const codeList = stateData.codes.map(code => 
+              `<tr><td>${code.code ? code.code : 'N/A'}</td></tr>`
+          ).join('');
 
+          let newCodeList;
+
+          if (codeList === '') {
+            newCodeList = '<tr><td>N/A</td></tr>';
+          } else {
+            newCodeList = codeList; 
+          };
 
           d3.select(this).classed("highlighted", true).raise();
-          tooltip.transition().duration(200).style("opacity", .9);
-          tooltip.html(`<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${codeList}</table>`);
+          tooltip.transition().duration(0).style("opacity", .9);
+          tooltip.html(`<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${newCodeList}</table>`);
         })
         .on("mousemove", function(event) {
           tooltip.style("left", (event.pageX + 5) + "px")
@@ -339,11 +356,12 @@
         })
         .on("mouseout", function() {
           d3.select(this).classed("highlighted", false);
-          tooltip.transition().duration(500).style("opacity", 0);
+          tooltip.transition().duration(0).style("opacity", 0);
         });
     }    
 
     function applyFilters(states, dnaPrivacy, filters) {
+
       const filteredData = dnaPrivacy.filter(row => {
         return (!filters.life || row['Life']) ||
                (!filters.disability || row['Disability']) ||
@@ -361,7 +379,7 @@
       stateGroups.coverageGroup.style("visibility", "hidden");
       stateGroups.filterGroup.style("visibility", "visible");
 
-      drawCoverageLayerFiltered(stateGroups.filterGroup, states, filteredStateData);
+      drawCoverageLayerFiltered(stateGroups.filterGroup, states, filteredStateData, groupedData);
 
       // Populate state details in the sidebar
       populateStateDetails(filteredStateData, filters);
@@ -374,10 +392,6 @@
       stateData.forEach(state => {
         const stateElement = document.createElement('div');
         stateElement.style.marginBottom = '10px';
-
-        const stateName = document.createElement('div');
-        stateName.innerHTML = `<strong>${state.name}</strong>`;
-        stateElement.appendChild(stateName);
 
         let filteredCodes = state.codes;
 
@@ -392,16 +406,31 @@
           }
         }
 
-        const codeList = filteredCodes.map(code => `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td></tr>`).join('');
-        const codeTable = document.createElement('table');
-        codeTable.innerHTML = codeList;
-        stateElement.appendChild(codeTable);
+        // define empty variables
+        let stateName;
+        let codeList;
+        let codeTable;
 
-        stateDetailsContainer.appendChild(stateElement);
+        if (state.count != 0) {
+          stateName = document.createElement('div');
+          stateName.innerHTML = `<strong>${state.name}</strong>`;
+          stateElement.appendChild(stateName);
+          codeList = filteredCodes.map(code => `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td></tr>`).join('');
+          codeTable = document.createElement('table');
+          codeTable.innerHTML = codeList;
+          stateElement.appendChild(codeTable);
+          stateDetailsContainer.appendChild(stateElement);   
+        } else {
+          stateName = '';
+          codeList = '';
+          codeTable = '';
+        }
+
       });
     }
 
     function groupAndCountEntriesForStates(data) {
+
       const stateDataMap = {};
 
       data.forEach(row => {
@@ -428,9 +457,10 @@
         ltc: state.ltc,
         count: [state.life, state.disability, state.ltc].filter(Boolean).length,
         codes: state.codes
-      }));
+      })); 
 
       return result;
+
     }
 
     // Function to uncheck all checkboxes
