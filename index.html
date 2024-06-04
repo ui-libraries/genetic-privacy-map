@@ -73,6 +73,11 @@
       background-color: #f0f0f0; /* very light gray */
     }
 
+    .checkbox-group {
+      padding-left: 20px;
+      margin-bottom: 10px;
+    }
+
     .tooltip {
       position: absolute;
       text-align: left;
@@ -102,16 +107,52 @@
       <h4 style="padding: 0 15px;">Filter by Regulation Type:</h4>
       <div class="layer-control">
         <div>
-          <input type="radio" id="lifeLayerToggle" name="layer" value="life">
-          <label for="lifeLayerToggle">Life</label>
+            <input type="radio" id="lifeLayerToggle" name="layer" value="life">
+            <label for="lifeLayerToggle">Life</label>
+            <div id="lifeLayerOptions" class="checkbox-group" style="display: none;">
+                <input type="checkbox" id="lifeOption1" name="lifeOptions" value="1">
+                <label for="lifeOption1">Requires informed consent</label><br>
+                <input type="checkbox" id="lifeOption2" name="lifeOptions" value="2">
+                <label for="lifeOption2">Prohibits use of genetic info</label><br>
+                <input type="checkbox" id="lifeOption3" name="lifeOptions" value="3">
+                <label for="lifeOption3">Allowed if actuarially justified</label><br>
+                <input type="checkbox" id="lifeOption4" name="lifeOptions" value="4">
+                <label for="lifeOption4">Bars use of a specific trait</label><br>
+                <input type="checkbox" id="lifeOption5" name="lifeOptions" value="5">
+                <label for="lifeOption5">Other</label>
+            </div>
         </div>
         <div>
-          <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
-          <label for="disabilityLayerToggle">Disability</label>
+            <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
+            <label for="disabilityLayerToggle">Disability</label>
+            <div id="disabilityLayerOptions" class="checkbox-group" style="display: none;">
+                <input type="checkbox" id="disabilityOption1" name="disabilityOptions" value="1">
+                <label for="disabilityOption1">Requires informed consent</label><br>
+                <input type="checkbox" id="disabilityOption2" name="disabilityOptions" value="2">
+                <label for="disabilityOption2">Prohibits use of genetic info</label><br>
+                <input type="checkbox" id="disabilityOption3" name="disabilityOptions" value="3">
+                <label for="disabilityOption3">Allowed if actuarially justified</label><br>
+                <input type="checkbox" id="disabilityOption4" name="disabilityOptions" value="4">
+                <label for="disabilityOption4">Bars use of a specific trait</label><br>
+                <input type="checkbox" id="disabilityOption5" name="disabilityOptions" value="5">
+                <label for="disabilityOption5">Other</label>
+            </div>
         </div>
         <div>
-          <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
-          <label for="ltcLayerToggle">LTC</label>
+            <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
+            <label for="ltcLayerToggle">LTC</label>
+            <div id="ltcLayerOptions" class="checkbox-group" style="display: none;">
+                <input type="checkbox" id="ltcOption1" name="ltcOptions" value="1">
+                <label for="ltcOption1">Requires informed consent</label><br>
+                <input type="checkbox" id="ltcOption2" name="ltcOptions" value="2">
+                <label for="ltcOption2">Prohibits use of genetic info</label><br>
+                <input type="checkbox" id="ltcOption3" name="ltcOptions" value="3">
+                <label for="ltcOption3">Allowed if actuarially justified</label><br>
+                <input type="checkbox" id="ltcOption4" name="ltcOptions" value="4">
+                <label for="ltcOption4">Bars use of a specific trait</label><br>
+                <input type="checkbox" id="ltcOption5" name="ltcOptions" value="5">
+                <label for="ltcOption5">Other</label>
+            </div>
         </div>
         <button id="filterButton">Filter</button>
         <button id="resetButton">Reset</button>
@@ -162,6 +203,37 @@
     // Hide the filter-legend by default
     document.getElementById('filter-legend').style.display = 'none';
 
+    // Hide all checkbox groups by default
+    document.querySelectorAll('.checkbox-group').forEach(group => {
+      group.style.display = 'none';
+    });
+
+    // Show the corresponding checkbox group when a radio button is clicked
+    document.querySelectorAll('input[name="layer"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('.checkbox-group').forEach(group => {
+          group.style.display = 'none';
+        });
+
+        const selectedLayer = radio.value;
+        const checkboxGroup = document.getElementById(selectedLayer + 'LayerOptions');
+        if (checkboxGroup) {
+          checkboxGroup.style.display = 'block';
+        }
+      });
+    });
+/*
+    // Initial setup: show the correct checkbox group based on the initially selected radio button
+    document.addEventListener('DOMContentLoaded', () => {
+      const selectedRadio = document.querySelector('input[name="layer"]:checked');
+      if (selectedRadio) {
+        const selectedGroup = document.querySelector(`#${selectedRadio.id}Options`);
+        if (selectedGroup) {
+          selectedGroup.style.display = 'block';
+        }
+      }
+    });    
+*/
     // Ensure checkboxes are unchecked on page reload
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('lifeLayerToggle').checked = false;
