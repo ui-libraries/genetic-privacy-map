@@ -234,11 +234,18 @@
       }
     });    
 */
-    // Ensure checkboxes are unchecked on page reload
+    // Ensure radio buttons are unchecked on page reload
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('lifeLayerToggle').checked = false;
       document.getElementById('disabilityLayerToggle').checked = false;
       document.getElementById('ltcLayerToggle').checked = false;
+    });
+
+    // Ensure that all checkbox inputs are unchecked on page reload
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+      });
     });
 
     // Event listener for the "Reset" button
@@ -253,59 +260,105 @@
       uncheckAllCheckboxes();
       // Repopulate sidebar with original data
       populateStateDetails(groupAndCountEntriesForStates(dnaPrivacy));
-    });    
+    }); 
+    
+    // Whenever a radio button is clicked, uncheck all checkboxes
+    document.querySelectorAll('input[name="layer"]').forEach(radio => {
+      radio.addEventListener('change', () => {
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+          checkbox.checked = false;
+        });
+      });
+    });
 
+    // Define the width and height for the SVG
     const width = window.innerWidth * 0.75;
     const height = window.innerHeight;
 
+    // Create the SVG
     const svg = d3.select("#map")
       .append("svg")
       .attr("width", width)
       .attr("height", height);
 
+    // Define the projection
     const projection = d3.geoAlbersUsa()
       .translate([width / 2, height / 2])
       .scale(1000);
 
+    // Define the path
     const path = d3.geoPath(projection);
 
+    // Create a tooltip
     const tooltip = d3.select("#tooltip");
 
+    // Undefined variable to store the selected filter
+    let selectedFilter;
+    let selectedRowKey;
+
+    // Load the data
     Promise.all([
       d3.csv("data/genetic-privacy.csv"),
       d3.json("data/states-10m.json")
     ]).then(makeMap).catch(error => console.error('Error loading data:', error));
 
+    // Define an empty object to store the state groups
     let stateGroups = {};
 
+    // Define the function to make the map
     function makeMap([dnaPrivacy, states]) {
+      
+      // Store the data in a global variable
       stateGroups = {
         coverageGroup: svg.append("g").attr("id", "coverageLayer"),
         filterGroup: svg.append("g").attr("id", "filterLayer"),
       };
 
+      // Define the zoom behavior
       const zoom = d3.zoom().scaleExtent([0, 8]).on("zoom", zoomed);
+      // Call the zoom behavior on the SVG
       svg.call(zoom);
 
+      // Define the zoomed function
       function zoomed(event) {
         svg.selectAll("g").attr("transform", event.transform);
       }
 
+      // Get the bounds of the map
       const bounds = path.bounds(topojson.feature(states, states.objects.states));
+      // Calculate the initial scale
       const initialScale = Math.min(width / (bounds[1][0] - bounds[0][0]), height / (bounds[1][1] - bounds[0][1])) * 0.9;
+      // Call the zoom behavior on the SVG
       svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(initialScale).translate(-width / 2, -height / 2));
 
+      // Event listener for the "Filter" button
       document.getElementById('filterButton').addEventListener('click', function() {
         // Hide the legend
         document.getElementById('legend').style.display = 'none';
         // Show the filter-legend
         document.getElementById('filter-legend').style.display = 'block';
+        // Get the current filters
         const filters = {
           life: document.getElementById('lifeLayerToggle').checked,
           disability: document.getElementById('disabilityLayerToggle').checked,
           ltc: document.getElementById('ltcLayerToggle').checked
         };
-        applyFilters(states, dnaPrivacy, filters);
+        // Determine which filter is checked
+        selectedFilter = Object.keys(filters).find(key => filters[key]);
+        // If selectedFilter is 'ltc', change selectedRowKey to 'LTC'
+        if (selectedFilter === 'ltc') {
+          selectedRowKey = 'LTC';
+        } else {
+          // Create a capitalized version of the selected filter
+          selectedRowKey = selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1);
+        };
+        // Get the layer options filters using selectedFilter
+        const subfilters = Object.fromEntries(
+          Array.from(document.querySelectorAll('input[name="' + selectedFilter + 'Options"]'))
+            .map(option => [option.value, option.checked])
+        );
+        // Apply the filters
+        applyFilters(states, dnaPrivacy, filters, subfilters);
       });
 
       document.getElementById('resetButton').addEventListener('click', function() {
@@ -372,7 +425,7 @@
         });
     }
 
-    function drawCoverageLayerFiltered(layerGroup, states, filtered, all) {
+    function drawCoverageLayerFiltered(layerGroup, states, filtered, all, subfilters) {
 
       const newFilters = {
         life: document.getElementById('lifeLayerToggle').checked,
@@ -405,6 +458,15 @@
             stateData.codes = stateData.codes.filter(code => code.ltc);
           }
 
+          // for each code in stateData.codes, check if the code[selectedFilter] includes the selected subfilter
+          if (subfilters) {
+            stateData.codes = stateData.codes.filter(code => {
+              return Object.entries(subfilters).every(([key, value]) => {
+                return value ? code[selectedFilter].includes(key) : true;
+              });
+            });
+          }
+       
           // set codeList to the filtered codes
           const codeList = stateData.codes.map(code => 
               `<tr><td>${code.code ? code.code : 'N/A'}</td></tr>`
@@ -432,7 +494,7 @@
         });
     }    
 
-    function applyFilters(states, dnaPrivacy, filters) {
+    function applyFilters(states, dnaPrivacy, filters, subfilters) {
 
       const filteredData = dnaPrivacy.filter(row => {
         return (!filters.life || row['Life']) ||
@@ -443,21 +505,28 @@
       const groupedData = groupAndCountEntriesForStates(filteredData);
 
       const filteredStateData = groupedData.filter(d => {
-        return (filters.life ? d.life : true) &&
-               (filters.disability ? d.disability : true) &&
-               (filters.ltc ? d.ltc : true);
+        const mainFiltersMatch = (filters.life ? d.life : true) &&
+                                (filters.disability ? d.disability : true) &&
+                                (filters.ltc ? d.ltc : true);
+
+        // Check if all true values in subfilters are also true in filteredStateData
+        const subfiltersMatch = Object.entries(subfilters).every(([key, value]) => {
+          return value ? d[key] : true;
+        });
+
+        return mainFiltersMatch && subfiltersMatch;
       });
 
       stateGroups.coverageGroup.style("visibility", "hidden");
       stateGroups.filterGroup.style("visibility", "visible");
 
-      drawCoverageLayerFiltered(stateGroups.filterGroup, states, filteredStateData, groupedData);
+      drawCoverageLayerFiltered(stateGroups.filterGroup, states, filteredStateData, groupedData, subfilters);
 
       // Populate state details in the sidebar
-      populateStateDetails(filteredStateData, filters);
+      populateStateDetails(filteredStateData, filters, subfilters);
     }
 
-    function populateStateDetails(stateData, filters) {
+    function populateStateDetails(stateData, filters, subfilters) {
       const stateDetailsContainer = document.getElementById('stateDetails');
       stateDetailsContainer.innerHTML = '';
 
@@ -477,6 +546,16 @@
             filteredCodes = filteredCodes.filter(code => code.ltc);
           }
         }
+
+        // Apply subfilters if they are defined
+        if (subfilters) {
+          filteredCodes = filteredCodes.filter(code => {
+            // Check if all of the subfilters that return true are present in the code object
+            return Object.entries(subfilters).every(([key, value]) => {
+              return value ? code[selectedFilter].includes(key) : true;
+            });
+          });
+        }        
 
         // define empty variables
         let stateName;
@@ -513,12 +592,37 @@
             life: false,
             disability: false,
             ltc: false,
+            1: false,
+            2: false,
+            3: false,
+            4: false,
+            5: false,
             codes: []
           };
         }
         if (row.Life) stateDataMap[state].life = true;
         if (row.Disability) stateDataMap[state].disability = true;
         if (row.LTC) stateDataMap[state].ltc = true;
+
+        // Check if row[selectedRowKey] exists and process subfilter selections
+        if (row[selectedRowKey]) {
+          // Split the selectedRowKey string into an array of values
+          const selectedValues = row[selectedRowKey].split(',');
+          
+          // Iterate over each value and update corresponding object keys
+          selectedValues.forEach(value => {
+          
+            stateDataMap[state][value] = true;
+/*            
+            // Check if the value is a valid key in the subfilters object
+            if (subfilters[value]) {
+              // Set the corresponding key in the stateDataMap to true
+              stateDataMap[state][value] = true;
+            }
+*/
+          });
+        }
+
         stateDataMap[state].codes.push({ code: row.Code, link: row.Link, life: row.Life, disability: row.Disability, ltc: row.LTC});
       });
 
@@ -527,6 +631,11 @@
         life: state.life,
         disability: state.disability,
         ltc: state.ltc,
+        1: state[1],
+        2: state[2],
+        3: state[3],
+        4: state[4],
+        5: state[5],
         count: [state.life, state.disability, state.ltc].filter(Boolean).length,
         codes: state.codes
       })); 
@@ -537,9 +646,18 @@
 
     // Function to uncheck all checkboxes
     function uncheckAllCheckboxes() {
+      // radio buttons
       document.getElementById('lifeLayerToggle').checked = false;
       document.getElementById('disabilityLayerToggle').checked = false;
       document.getElementById('ltcLayerToggle').checked = false;
+      // subcategory check boxes
+      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = false;
+      });
+      // hide all checkbox groups
+      document.querySelectorAll('.checkbox-group').forEach(group => {
+        group.style.display = 'none';
+      });
     }
   </script>
 </body>
