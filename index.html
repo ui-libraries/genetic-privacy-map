@@ -70,7 +70,8 @@
     }
 
     .layer-control button:hover {
-      background-color: #f0f0f0; /* very light gray */
+      background-color: #f0f0f0;
+      /* very light gray */
     }
 
     .checkbox-group {
@@ -91,9 +92,25 @@
       transition: opacity 0.2s ease-in-out;
     }
 
+    .tooltip.visible {
+      opacity: 1;
+    }
+
     .highlighted {
       stroke: yellow;
       stroke-width: 2px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th,
+    td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
     }
   </style>
 </head>
@@ -107,52 +124,52 @@
       <h4 style="padding: 0 15px;">Filter by Regulation Type:</h4>
       <div class="layer-control">
         <div>
-            <input type="radio" id="lifeLayerToggle" name="layer" value="life">
-            <label for="lifeLayerToggle">Life</label>
-            <div id="lifeLayerOptions" class="checkbox-group" style="display: none;">
-                <input type="checkbox" id="lifeOption1" name="lifeOptions" value="1">
-                <label for="lifeOption1">Requires informed consent</label><br>
-                <input type="checkbox" id="lifeOption2" name="lifeOptions" value="2">
-                <label for="lifeOption2">Prohibits use of genetic info</label><br>
-                <input type="checkbox" id="lifeOption3" name="lifeOptions" value="3">
-                <label for="lifeOption3">Allowed if actuarially justified</label><br>
-                <input type="checkbox" id="lifeOption4" name="lifeOptions" value="4">
-                <label for="lifeOption4">Bars use of a specific trait</label><br>
-                <input type="checkbox" id="lifeOption5" name="lifeOptions" value="5">
-                <label for="lifeOption5">Other</label>
-            </div>
+          <input type="radio" id="lifeLayerToggle" name="layer" value="life">
+          <label for="lifeLayerToggle">Life</label>
+          <div id="lifeLayerOptions" class="checkbox-group" style="display: none;">
+            <input type="checkbox" id="lifeOption1" name="lifeOptions" value="1">
+            <label for="lifeOption1">Requires informed consent</label><br>
+            <input type="checkbox" id="lifeOption2" name="lifeOptions" value="2">
+            <label for="lifeOption2">Prohibits use of genetic info</label><br>
+            <input type="checkbox" id="lifeOption3" name="lifeOptions" value="3">
+            <label for="lifeOption3">Allowed if actuarially justified</label><br>
+            <input type="checkbox" id="lifeOption4" name="lifeOptions" value="4">
+            <label for="lifeOption4">Bars use of a specific trait</label><br>
+            <input type="checkbox" id="lifeOption5" name="lifeOptions" value="5">
+            <label for="lifeOption5">Other</label>
+          </div>
         </div>
         <div>
-            <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
-            <label for="disabilityLayerToggle">Disability</label>
-            <div id="disabilityLayerOptions" class="checkbox-group" style="display: none;">
-                <input type="checkbox" id="disabilityOption1" name="disabilityOptions" value="1">
-                <label for="disabilityOption1">Requires informed consent</label><br>
-                <input type="checkbox" id="disabilityOption2" name="disabilityOptions" value="2">
-                <label for="disabilityOption2">Prohibits use of genetic info</label><br>
-                <input type="checkbox" id="disabilityOption3" name="disabilityOptions" value="3">
-                <label for="disabilityOption3">Allowed if actuarially justified</label><br>
-                <input type="checkbox" id="disabilityOption4" name="disabilityOptions" value="4">
-                <label for="disabilityOption4">Bars use of a specific trait</label><br>
-                <input type="checkbox" id="disabilityOption5" name="disabilityOptions" value="5">
-                <label for="disabilityOption5">Other</label>
-            </div>
+          <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
+          <label for="disabilityLayerToggle">Disability</label>
+          <div id="disabilityLayerOptions" class="checkbox-group" style="display: none;">
+            <input type="checkbox" id="disabilityOption1" name="disabilityOptions" value="1">
+            <label for="disabilityOption1">Requires informed consent</label><br>
+            <input type="checkbox" id="disabilityOption2" name="disabilityOptions" value="2">
+            <label for="disabilityOption2">Prohibits use of genetic info</label><br>
+            <input type="checkbox" id="disabilityOption3" name="disabilityOptions" value="3">
+            <label for="disabilityOption3">Allowed if actuarially justified</label><br>
+            <input type="checkbox" id="disabilityOption4" name="disabilityOptions" value="4">
+            <label for="disabilityOption4">Bars use of a specific trait</label><br>
+            <input type="checkbox" id="disabilityOption5" name="disabilityOptions" value="5">
+            <label for="disabilityOption5">Other</label>
+          </div>
         </div>
         <div>
-            <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
-            <label for="ltcLayerToggle">LTC</label>
-            <div id="ltcLayerOptions" class="checkbox-group" style="display: none;">
-                <input type="checkbox" id="ltcOption1" name="ltcOptions" value="1">
-                <label for="ltcOption1">Requires informed consent</label><br>
-                <input type="checkbox" id="ltcOption2" name="ltcOptions" value="2">
-                <label for="ltcOption2">Prohibits use of genetic info</label><br>
-                <input type="checkbox" id="ltcOption3" name="ltcOptions" value="3">
-                <label for="ltcOption3">Allowed if actuarially justified</label><br>
-                <input type="checkbox" id="ltcOption4" name="ltcOptions" value="4">
-                <label for="ltcOption4">Bars use of a specific trait</label><br>
-                <input type="checkbox" id="ltcOption5" name="ltcOptions" value="5">
-                <label for="ltcOption5">Other</label>
-            </div>
+          <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
+          <label for="ltcLayerToggle">LTC</label>
+          <div id="ltcLayerOptions" class="checkbox-group" style="display: none;">
+            <input type="checkbox" id="ltcOption1" name="ltcOptions" value="1">
+            <label for="ltcOption1">Requires informed consent</label><br>
+            <input type="checkbox" id="ltcOption2" name="ltcOptions" value="2">
+            <label for="ltcOption2">Prohibits use of genetic info</label><br>
+            <input type="checkbox" id="ltcOption3" name="ltcOptions" value="3">
+            <label for="ltcOption3">Allowed if actuarially justified</label><br>
+            <input type="checkbox" id="ltcOption4" name="ltcOptions" value="4">
+            <label for="ltcOption4">Bars use of a specific trait</label><br>
+            <input type="checkbox" id="ltcOption5" name="ltcOptions" value="5">
+            <label for="ltcOption5">Other</label>
+          </div>
         </div>
         <button id="filterButton">Filter</button>
         <button id="resetButton">Reset</button>
@@ -182,12 +199,12 @@
 
   <div id="filter-legend" style="position: absolute; left: 20px; bottom: 20px; background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
     <h4 style="margin-top: 0;">Regulatory Coverage</h4>
-    <div> 
+    <div>
       <div style="display: flex; align-items: center;">
         <span style="display: inline-block; width: 20px; height: 20px; background-color: gray; margin-right: 5px;"></span> Absent
       </div>
       <div style="display: flex; align-items: center;">
-        <span style="display: inline-block; width: 20px; height: 20px; background-color: green; margin-right: 5px;"></span> Present
+        <span style="display: inline-block; width: 20px; height: 20px; background-color: blue; margin-right: 5px;"></span> Present
       </div>
     </div>
   </div>
@@ -222,18 +239,18 @@
         }
       });
     });
-/*
-    // Initial setup: show the correct checkbox group based on the initially selected radio button
-    document.addEventListener('DOMContentLoaded', () => {
-      const selectedRadio = document.querySelector('input[name="layer"]:checked');
-      if (selectedRadio) {
-        const selectedGroup = document.querySelector(`#${selectedRadio.id}Options`);
-        if (selectedGroup) {
-          selectedGroup.style.display = 'block';
-        }
-      }
-    });    
-*/
+    /*
+        // Initial setup: show the correct checkbox group based on the initially selected radio button
+        document.addEventListener('DOMContentLoaded', () => {
+          const selectedRadio = document.querySelector('input[name="layer"]:checked');
+          if (selectedRadio) {
+            const selectedGroup = document.querySelector(`#${selectedRadio.id}Options`);
+            if (selectedGroup) {
+              selectedGroup.style.display = 'block';
+            }
+          }
+        });    
+    */
     // Ensure radio buttons are unchecked on page reload
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('lifeLayerToggle').checked = false;
@@ -260,8 +277,8 @@
       uncheckAllCheckboxes();
       // Repopulate sidebar with original data
       populateStateDetails(groupAndCountEntriesForStates(dnaPrivacy));
-    }); 
-    
+    });
+
     // Whenever a radio button is clicked, uncheck all checkboxes
     document.querySelectorAll('input[name="layer"]').forEach(radio => {
       radio.addEventListener('change', () => {
@@ -307,7 +324,7 @@
 
     // Define the function to make the map
     function makeMap([dnaPrivacy, states]) {
-      
+
       // Store the data in a global variable
       stateGroups = {
         coverageGroup: svg.append("g").attr("id", "coverageLayer"),
@@ -355,7 +372,7 @@
         // Get the layer options filters using selectedFilter
         const subfilters = Object.fromEntries(
           Array.from(document.querySelectorAll('input[name="' + selectedFilter + 'Options"]'))
-            .map(option => [option.value, option.checked])
+          .map(option => [option.value, option.checked])
         );
         // Apply the filters
         applyFilters(states, dnaPrivacy, filters, subfilters);
@@ -401,27 +418,76 @@
           const stateName = d.properties.name;
           const stateData = data.find(state => state.name === stateName);
           const codeList = stateData ? stateData.codes.map(code => {
-              let entries = [];
-              if (code.disability) entries.push("Disability");
-              if (code.life) entries.push("Life");
-              if (code.ltc) entries.push("LTC");
-              let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
-              return `<tr>
-                          <td>${code.code}</td>
-                          <td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td>
-                      </tr>`;
-          }).join('') : '<tr><td title="N/A">N/A</td></tr>';
+            let entries = [];
+            if (code.disability) entries.push("Disability");
+            if (code.life) entries.push("Life");
+            if (code.ltc) entries.push("LTC");
+            let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
+            return `<tr>
+                    <td>${code.code || 'N/A'}</td>
+                    <td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td>
+                </tr>`;
+          }).join('') : '<tr><td title="N/A">N/A</td><td title="N/A">N/A</td></tr>';
+
+          // Add the table headers
+          const tableHeaders = `
+      <thead>
+        <tr>
+          <th>Laws</th>
+          <th>Type</th>
+        </tr>
+      </thead>
+    `;
+
           d3.select(this).classed("highlighted", true).raise();
-          tooltip.transition().duration(0).style("opacity", .9);
-          tooltip.html(`<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${codeList}</table>`);
+
+          const tooltipContent = `
+      <div style="font-size: 16px; font-weight: bold;">${stateName}</div>
+      <table>${tableHeaders}<tbody>${codeList}</tbody></table>
+    `;
+
+          const x = event.pageX;
+          const y = event.pageY;
+
+          showTooltip(tooltipContent, x, y);
         })
         .on("mousemove", function(event) {
-          tooltip.style("left", (event.pageX + 5) + "px")
-            .style("top", (event.pageY - 28) + "px");
+          const x = event.pageX;
+          const y = event.pageY;
+
+          const tooltip = document.querySelector('.tooltip');
+
+          // Set initial position
+          tooltip.style.left = `${x + 5}px`;
+          tooltip.style.top = `${y - 28}px`;
+
+          // Get the tooltip and map dimensions
+          const tooltipRect = tooltip.getBoundingClientRect();
+          const mapRect = document.querySelector('#map').getBoundingClientRect();
+
+          // Adjust the position if the tooltip is too close to the right edge
+          if (tooltipRect.right > mapRect.right) {
+            tooltip.style.left = `${mapRect.right - tooltipRect.width}px`;
+          }
+
+          // Adjust the position if the tooltip is too close to the left edge
+          if (tooltipRect.left < mapRect.left) {
+            tooltip.style.left = `${mapRect.left}px`;
+          }
+
+          // Adjust the position if the tooltip is too close to the bottom edge
+          if (tooltipRect.bottom > mapRect.bottom) {
+            tooltip.style.top = `${mapRect.bottom - tooltipRect.height}px`;
+          }
+
+          // Adjust the position if the tooltip is too close to the top edge
+          if (tooltipRect.top < mapRect.top) {
+            tooltip.style.top = `${mapRect.top}px`;
+          }
         })
         .on("mouseout", function() {
           d3.select(this).classed("highlighted", false);
-          tooltip.transition().duration(0).style("opacity", 0);
+          hideTooltip();
         });
     }
 
@@ -441,14 +507,14 @@
         .attr("d", path)
         .attr("fill", d => {
           const stateData = filtered.find(state => state.name === d.properties.name);
-          return stateData ? "green" : "gray";
+          return stateData ? "blue" : "gray";
         })
         .attr("stroke", "white")
         .attr("stroke-width", 0.5)
         .on("mouseover", function(event, d) {
           const stateName = d.properties.name;
           const stateData = all.find(state => state.name === stateName);
-          
+
           // if life in newFilters is true, then filter out all codes that are not life
           if (newFilters.life) {
             stateData.codes = stateData.codes.filter(code => code.life);
@@ -498,49 +564,87 @@
           // check if the subcons array and subconsMatch array are equivalent
           if (arraysAreEquivalent(subcons, subconsMatch)) {
             // set codeList to the filtered codes
-            codeList = stateData.codes.map(code => 
-                `<tr><td>${code.code ? code.code : 'N/A'}</td></tr>`
+            codeList = stateData.codes.map(code =>
+              `<tr><td>${code.code ? code.code : 'N/A'}</td><td>${code[selectedFilter] ? code[selectedFilter] : 'N/A'}</td></tr>`
             ).join('');
           } else {
             codeList = '';
           }
-       
+
           let newCodeList;
 
           if (codeList === '') {
             newCodeList = '<tr><td>N/A</td></tr>';
           } else {
-            newCodeList = codeList; 
+            newCodeList = codeList;
           };
 
+          const tooltipContent = `
+      <div style="font-size: 16px; font-weight: bold;">${stateName}</div>
+      <table><thead><tr><th>Laws</th><th>Coverage</th></tr></thead><tbody>${newCodeList}</tbody></table>
+    `;
+
           d3.select(this).classed("highlighted", true).raise();
-          tooltip.transition().duration(0).style("opacity", .9);
-          tooltip.html(`<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${newCodeList}</table>`);
+
+          const x = event.pageX;
+          const y = event.pageY;
+
+          showTooltip(tooltipContent, x, y);
         })
         .on("mousemove", function(event) {
-          tooltip.style("left", (event.pageX + 5) + "px")
-            .style("top", (event.pageY - 28) + "px");
+          const x = event.pageX;
+          const y = event.pageY;
+
+          const tooltip = document.querySelector('.tooltip');
+
+          // Set initial position
+          tooltip.style.left = `${x + 5}px`;
+          tooltip.style.top = `${y - 28}px`;
+
+          // Get the tooltip and map dimensions
+          const tooltipRect = tooltip.getBoundingClientRect();
+          const mapRect = document.querySelector('#map').getBoundingClientRect();
+
+          // Adjust the position if the tooltip is too close to the right edge
+          if (tooltipRect.right > mapRect.right) {
+            tooltip.style.left = `${mapRect.right - tooltipRect.width}px`;
+          }
+
+          // Adjust the position if the tooltip is too close to the left edge
+          if (tooltipRect.left < mapRect.left) {
+            tooltip.style.left = `${mapRect.left}px`;
+          }
+
+          // Adjust the position if the tooltip is too close to the bottom edge
+          if (tooltipRect.bottom > mapRect.bottom) {
+            tooltip.style.top = `${mapRect.bottom - tooltipRect.height}px`;
+          }
+
+          // Adjust the position if the tooltip is too close to the top edge
+          if (tooltipRect.top < mapRect.top) {
+            tooltip.style.top = `${mapRect.top}px`;
+          }
         })
         .on("mouseout", function() {
           d3.select(this).classed("highlighted", false);
-          tooltip.transition().duration(0).style("opacity", 0);
+          hideTooltip();
         });
-    }    
+    }
 
     function applyFilters(states, dnaPrivacy, filters, subfilters) {
 
       const filteredData = dnaPrivacy.filter(row => {
         return (!filters.life || row['Life']) ||
-               (!filters.disability || row['Disability']) ||
-               (!filters.ltc || row['LTC']);
+          (!filters.disability || row['Disability']) ||
+          (!filters.ltc || row['LTC']);
       });
 
       const groupedData = groupAndCountEntriesForStates(filteredData);
 
       const filteredStateData = groupedData.filter(d => {
         const mainFiltersMatch = (filters.life ? d.life : true) &&
-                                (filters.disability ? d.disability : true) &&
-                                (filters.ltc ? d.ltc : true);
+          (filters.disability ? d.disability : true) &&
+          (filters.ltc ? d.ltc : true);
 
         // Check if all true values in subfilters are also true in filteredStateData
         const subfiltersMatch = Object.entries(subfilters).every(([key, value]) => {
@@ -591,7 +695,7 @@
               return value && code[selectedFilter] && code[selectedFilter].includes(key);
             });
           });
-        }        
+        }
 
         // define empty variables
         let stateName;
@@ -606,7 +710,7 @@
           codeTable = document.createElement('table');
           codeTable.innerHTML = codeList;
           stateElement.appendChild(codeTable);
-          stateDetailsContainer.appendChild(stateElement);   
+          stateDetailsContainer.appendChild(stateElement);
         } else {
           stateName = '';
           codeList = '';
@@ -644,22 +748,28 @@
         if (row[selectedRowKey]) {
           // Split the selectedRowKey string into an array of values
           const selectedValues = row[selectedRowKey].split(',');
-          
+
           // Iterate over each value and update corresponding object keys
           selectedValues.forEach(value => {
-          
+
             stateDataMap[state][value] = true;
-/*            
-            // Check if the value is a valid key in the subfilters object
-            if (subfilters[value]) {
-              // Set the corresponding key in the stateDataMap to true
-              stateDataMap[state][value] = true;
-            }
-*/
+            /*            
+                        // Check if the value is a valid key in the subfilters object
+                        if (subfilters[value]) {
+                          // Set the corresponding key in the stateDataMap to true
+                          stateDataMap[state][value] = true;
+                        }
+            */
           });
         }
 
-        stateDataMap[state].codes.push({ code: row.Code, link: row.Link, life: row.Life, disability: row.Disability, ltc: row.LTC});
+        stateDataMap[state].codes.push({
+          code: row.Code,
+          link: row.Link,
+          life: row.Life,
+          disability: row.Disability,
+          ltc: row.LTC
+        });
       });
 
       const result = Object.values(stateDataMap).map(state => ({
@@ -674,7 +784,7 @@
         5: state[5],
         count: [state.life, state.disability, state.ltc].filter(Boolean).length,
         codes: state.codes
-      })); 
+      }));
 
       return result;
 
@@ -694,6 +804,48 @@
       document.querySelectorAll('.checkbox-group').forEach(group => {
         group.style.display = 'none';
       });
+    }
+
+    // Functions to handle tooltip positioning
+    function showTooltip(htmlContent, x, y) {
+      const tooltip = document.querySelector('.tooltip');
+      tooltip.innerHTML = htmlContent;
+
+      // Set initial position
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top = `${y}px`;
+
+      // Get the tooltip and map dimensions
+      const tooltipRect = tooltip.getBoundingClientRect();
+      const mapRect = document.querySelector('#map').getBoundingClientRect();
+
+      // Adjust the position if the tooltip is too close to the right edge
+      if (tooltipRect.right > mapRect.right) {
+        tooltip.style.left = `${mapRect.right - tooltipRect.width}px`;
+      }
+
+      // Adjust the position if the tooltip is too close to the left edge
+      if (tooltipRect.left < mapRect.left) {
+        tooltip.style.left = `${mapRect.left}px`;
+      }
+
+      // Adjust the position if the tooltip is too close to the bottom edge
+      if (tooltipRect.bottom > mapRect.bottom) {
+        tooltip.style.top = `${mapRect.bottom - tooltipRect.height}px`;
+      }
+
+      // Adjust the position if the tooltip is too close to the top edge
+      if (tooltipRect.top < mapRect.top) {
+        tooltip.style.top = `${mapRect.top}px`;
+      }
+
+      // Show the tooltip
+      tooltip.classList.add('visible');
+    }
+
+    function hideTooltip() {
+      const tooltip = document.querySelector('.tooltip');
+      tooltip.classList.remove('visible');
     }
   </script>
 </body>
