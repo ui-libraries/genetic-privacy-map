@@ -516,16 +516,22 @@
               stateData.codes = stateData.codes.filter(code => code.ltc);
           }
 
+          // Check if any checkboxes are checked
+          const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+          const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);  
+
           // if 'input[type="checkbox"]' is not checked, then show all codes
-          if (!document.querySelector('input[type="checkbox"]').checked) {
-              stateData.codes = stateData.codes;
-          } else if (subfilters) {
-              stateData.codes = stateData.codes.filter(code => {
-                  // Check if code[selectedFilter] includes any of the keys from subfilters that are true
-                  return Object.entries(subfilters).some(([key, value]) => {
-                      return value && code[selectedFilter] && code[selectedFilter].includes(key);
-                  });
-              });
+          if (!anyChecked) {
+            stateData.codes = stateData.codes;
+          } else {
+            // Check subfilters and return the keys that are true
+            const selectedBox = Object.keys(subfilters).filter(key => subfilters[key]);
+
+            stateData.codes = stateData.codes.filter(code => {
+              // Return the codes where code[selectedFilter] includes one of the values in selectedBox
+              return selectedBox.some(value => code[selectedFilter].includes(value));
+            });
+
           }
 
           // clear the subcons array
@@ -680,15 +686,20 @@
           }
         }
 
+        // Check if any checkboxes are checked
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);        
+
         // if 'input[type="checkbox"]' is not checked, then show all codes
-        if (!document.querySelector('input[type="checkbox"]').checked) {
+        if (!anyChecked) {
           filteredCodes = filteredCodes;
-        } else if (subfilters) {
+        } else  {
+          // Check subfilters and return the keys that are true
+          const selectedBox = Object.keys(subfilters).filter(key => subfilters[key]);
+          // Filter the codes based on the selectedBox values
           filteredCodes = filteredCodes.filter(code => {
-            // Check if any of the subfilters that return true are present in the code object
-            return Object.entries(subfilters).some(([key, value]) => {
-              return value && code[selectedFilter] && code[selectedFilter].includes(key);
-            });
+            // Return the codes where code[selectedFilter] includes one of the values in selectedBox
+            return selectedBox.some(value => code[selectedFilter].includes(value));
           });
         }
 
@@ -768,15 +779,7 @@
 
           // Iterate over each value and update corresponding object keys
           selectedValues.forEach(value => {
-
             stateDataMap[state][value] = true;
-            /*            
-                        // Check if the value is a valid key in the subfilters object
-                        if (subfilters[value]) {
-                          // Set the corresponding key in the stateDataMap to true
-                          stateDataMap[state][value] = true;
-                        }
-            */
           });
         }
 
