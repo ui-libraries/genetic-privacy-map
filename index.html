@@ -553,10 +553,18 @@
 
           // check if the subcons array and subconsMatch array are equivalent
           if (arraysAreEquivalent(subcons, subconsMatch)) {
-              // set codeList to the filtered codes
-              codeList = stateData.codes.map(code =>
-                  `<tr><td>${code.code ? code.code : 'N/A'}</td><td>${code[selectedFilter] ? code[selectedFilter] : 'N/A'}</td></tr>`
-              ).join('');
+            // Set codeList to the filtered codes
+            codeList = stateData.codes.map(code => {
+                let entries = [];
+                if (code[selectedFilter].includes("1")) entries.push('<div style="white-space: nowrap;">1. <span style="text-indent: 1px; display: inline-block;">Requires informed consent</span></div>');
+                if (code[selectedFilter].includes("2")) entries.push('<div style="white-space: nowrap;">2. <span style="text-indent: 1px; display: inline-block;">Prohibits use of genetic info</span></div>');
+                if (code[selectedFilter].includes("3")) entries.push('<div style="white-space: nowrap;">3. <span style="text-indent: 1px; display: inline-block;">Allowed if actuarially justified</span></div>');
+                if (code[selectedFilter].includes("4")) entries.push('<div style="white-space: nowrap;">4. <span style="text-indent: 1px; display: inline-block;">Bars use of a specific trait</span></div>');
+                if (code[selectedFilter].includes("5")) entries.push('<div style="white-space: nowrap;">5. <span style="text-indent: 1px; display: inline-block;">Other</span></div>');
+                // Combine entries into a single string
+                let entriesText = entries.length > 0 ? entries.join('') : 'N/A';
+                return `<tr><td>${code.code ? code.code : 'N/A'}</td><td>${entriesText ? entriesText : 'N/A'}</td></tr>`;
+            }).join('');
           } else {
               codeList = '';
           }
@@ -696,7 +704,15 @@
           // If a radio button is selected
           if (filters) { 
             codeList = filteredCodes.map(code => {
-              return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td>${code[selectedFilter]}</td></tr>`
+              let entries = [];
+              if (code[selectedFilter].includes("1")) entries.push('<li>Requires informed consent</li>');
+              if (code[selectedFilter].includes("2")) entries.push('<li>Prohibits use of genetic info</li>');
+              if (code[selectedFilter].includes("3")) entries.push('<li>Allowed if actuarially justified</li>');
+              if (code[selectedFilter].includes("4")) entries.push('<li>Bars use of a specific trait</li>');
+              if (code[selectedFilter].includes("5")) entries.push('<li>Other</li>');
+              // Combine entries into a single string
+              let entriesText = entries.length > 0 ? entries.join('<br>') : '<li>N/A</li>';
+              return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}"><ul>${entriesText}</ul></td></tr>`;
             }).join('');
           } else {
             codeList = filteredCodes.map(code => {
