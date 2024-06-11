@@ -430,21 +430,11 @@
           }).join('') : '<tr><td title="N/A">N/A</td><td title="N/A">N/A</td></tr>';
 
           // Add the table headers
-          const tableHeaders = `
-      <thead>
-        <tr>
-          <th>Laws</th>
-          <th>Type</th>
-        </tr>
-      </thead>
-    `;
+          const tableHeaders = `<thead><tr><th>Laws</th><th>Type</th></tr></thead>`;
 
           d3.select(this).classed("highlighted", true).raise();
 
-          const tooltipContent = `
-      <div style="font-size: 16px; font-weight: bold;">${stateName}</div>
-      <table>${tableHeaders}<tbody>${codeList}</tbody></table>
-    `;
+          const tooltipContent = `<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${tableHeaders}<tbody>${codeList}</tbody></table>`;
 
           const x = event.pageX;
           const y = event.pageY;
@@ -517,72 +507,70 @@
 
           // if life in newFilters is true, then filter out all codes that are not life
           if (newFilters.life) {
-            stateData.codes = stateData.codes.filter(code => code.life);
+              stateData.codes = stateData.codes.filter(code => code.life);
           } // otherwise, if disability in newFilters is true, then filter out all codes that are not disability
           else if (newFilters.disability) {
-            stateData.codes = stateData.codes.filter(code => code.disability);
+              stateData.codes = stateData.codes.filter(code => code.disability);
           } // otherwise, if ltc in newFilters is true, then filter out all codes that are not ltc
           else if (newFilters.ltc) {
-            stateData.codes = stateData.codes.filter(code => code.ltc);
+              stateData.codes = stateData.codes.filter(code => code.ltc);
           }
 
           // if 'input[type="checkbox"]' is not checked, then show all codes
           if (!document.querySelector('input[type="checkbox"]').checked) {
-            stateData.codes = stateData.codes;
+              stateData.codes = stateData.codes;
           } else if (subfilters) {
-            stateData.codes = stateData.codes.filter(code => {
-              // Check if code[selectedFilter] includes any of the keys from subfilters that are true
-              return Object.entries(subfilters).some(([key, value]) => {
-                return value && code[selectedFilter] && code[selectedFilter].includes(key);
+              stateData.codes = stateData.codes.filter(code => {
+                  // Check if code[selectedFilter] includes any of the keys from subfilters that are true
+                  return Object.entries(subfilters).some(([key, value]) => {
+                      return value && code[selectedFilter] && code[selectedFilter].includes(key);
+                  });
               });
-            });
           }
 
           // clear the subcons array
           subcons.length = 0;
 
-          // iterate through the codes and remove any when the combination of codes in the stateData.codes do not satisfy all subfilters
+          // iterate through the codes and push the selectedFilter values to the subcons array
           stateData.codes.map(code => {
-            subcons.push(code[selectedFilter]);
+              subcons.push(code[selectedFilter]);
           });
 
           // from subfilters, return the keys that are true
           const subconsMatch = Object.keys(subfilters).filter(key => subfilters[key]);
 
           function arraysAreEquivalent(subcons, subconsMatch) {
-            // Flatten subcons array if it contains comma-separated values
-            const subconsSet = new Set(
-              subcons.flatMap(element => element.split(","))
-            );
+              // Flatten subcons array if it contains comma-separated values
+              const subconsSet = new Set(
+                  subcons.flatMap(element => element.split(","))
+              );
 
-            // Check if every element in subconsMatch is present in subconsSet
-            return subconsMatch.every(element => subconsSet.has(element));
+              // Check if every element in subconsMatch is present in subconsSet
+              return subconsMatch.every(element => subconsSet.has(element));
           }
 
           let codeList;
 
           // check if the subcons array and subconsMatch array are equivalent
           if (arraysAreEquivalent(subcons, subconsMatch)) {
-            // set codeList to the filtered codes
-            codeList = stateData.codes.map(code =>
-              `<tr><td>${code.code ? code.code : 'N/A'}</td><td>${code[selectedFilter] ? code[selectedFilter] : 'N/A'}</td></tr>`
-            ).join('');
+              // set codeList to the filtered codes
+              codeList = stateData.codes.map(code =>
+                  `<tr><td>${code.code ? code.code : 'N/A'}</td><td>${code[selectedFilter] ? code[selectedFilter] : 'N/A'}</td></tr>`
+              ).join('');
           } else {
-            codeList = '';
+              codeList = '';
           }
 
           let newCodeList;
 
+          // Update this condition to show "N/A" for both "Laws" and "Coverage" if no codes are returned
           if (codeList === '') {
-            newCodeList = '<tr><td>N/A</td></tr>';
+              newCodeList = '<tr><td>N/A</td><td>N/A</td></tr>';
           } else {
-            newCodeList = codeList;
+              newCodeList = codeList;
           };
 
-          const tooltipContent = `
-      <div style="font-size: 16px; font-weight: bold;">${stateName}</div>
-      <table><thead><tr><th>Laws</th><th>Coverage</th></tr></thead><tbody>${newCodeList}</tbody></table>
-    `;
+          const tooltipContent = `<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table><thead><tr><th>Laws</th><th>Coverage</th></tr></thead><tbody>${newCodeList}</tbody></table>`;
 
           d3.select(this).classed("highlighted", true).raise();
 
@@ -684,7 +672,6 @@
           }
         }
 
-
         // if 'input[type="checkbox"]' is not checked, then show all codes
         if (!document.querySelector('input[type="checkbox"]').checked) {
           filteredCodes = filteredCodes;
@@ -706,7 +693,21 @@
           stateName = document.createElement('div');
           stateName.innerHTML = `<strong>${state.name}</strong>`;
           stateElement.appendChild(stateName);
-          codeList = filteredCodes.map(code => `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td></tr>`).join('');
+          // If a radio button is selected
+          if (filters) { 
+            codeList = filteredCodes.map(code => {
+              return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td>${code[selectedFilter]}</td></tr>`
+            }).join('');
+          } else {
+            codeList = filteredCodes.map(code => {
+              let entries = [];
+              if (code.life) entries.push("Life");
+              if (code.disability) entries.push("Disability");
+              if (code.ltc) entries.push("LTC");
+              let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
+              return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
+            }).join('');
+          }
           codeTable = document.createElement('table');
           codeTable.innerHTML = codeList;
           stateElement.appendChild(codeTable);
