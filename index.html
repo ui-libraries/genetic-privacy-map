@@ -425,6 +425,8 @@
         });
     }
 
+    let subcons = [];
+
     function drawCoverageLayerFiltered(layerGroup, states, filtered, all, subfilters) {
 
       const newFilters = {
@@ -458,8 +460,10 @@
             stateData.codes = stateData.codes.filter(code => code.ltc);
           }
 
-          // for each code in stateData.codes, check if the code[selectedFilter] includes any of the selected subfilters
-          if (subfilters) {
+          // if 'input[type="checkbox"]' is not checked, then show all codes
+          if (!document.querySelector('input[type="checkbox"]').checked) {
+            stateData.codes = stateData.codes;
+          } else if (subfilters) {
             stateData.codes = stateData.codes.filter(code => {
               // Check if code[selectedFilter] includes any of the keys from subfilters that are true
               return Object.entries(subfilters).some(([key, value]) => {
@@ -467,12 +471,40 @@
               });
             });
           }
-       
-          // set codeList to the filtered codes
-          const codeList = stateData.codes.map(code => 
-              `<tr><td>${code.code ? code.code : 'N/A'}</td></tr>`
-          ).join('');
 
+          // clear the subcons array
+          subcons.length = 0;
+
+          // iterate through the codes and remove any when the combination of codes in the stateData.codes do not satisfy all subfilters
+          stateData.codes.map(code => {
+            subcons.push(code[selectedFilter]);
+          });
+
+          // from subfilters, return the keys that are true
+          const subconsMatch = Object.keys(subfilters).filter(key => subfilters[key]);
+
+          function arraysAreEquivalent(subcons, subconsMatch) {
+            // Flatten subcons array if it contains comma-separated values
+            const subconsSet = new Set(
+              subcons.flatMap(element => element.split(","))
+            );
+
+            // Check if every element in subconsMatch is present in subconsSet
+            return subconsMatch.every(element => subconsSet.has(element));
+          }
+
+          let codeList;
+
+          // check if the subcons array and subconsMatch array are equivalent
+          if (arraysAreEquivalent(subcons, subconsMatch)) {
+            // set codeList to the filtered codes
+            codeList = stateData.codes.map(code => 
+                `<tr><td>${code.code ? code.code : 'N/A'}</td></tr>`
+            ).join('');
+          } else {
+            codeList = '';
+          }
+       
           let newCodeList;
 
           if (codeList === '') {
@@ -548,8 +580,11 @@
           }
         }
 
-        // Apply subfilters if they are defined
-        if (subfilters) {
+
+        // if 'input[type="checkbox"]' is not checked, then show all codes
+        if (!document.querySelector('input[type="checkbox"]').checked) {
+          filteredCodes = filteredCodes;
+        } else if (subfilters) {
           filteredCodes = filteredCodes.filter(code => {
             // Check if any of the subfilters that return true are present in the code object
             return Object.entries(subfilters).some(([key, value]) => {
