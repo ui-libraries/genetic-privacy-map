@@ -69,7 +69,20 @@
       cursor: pointer;
     }
 
-    .layer-control button:hover {
+    #compareButton {
+      /* center the button */
+      display: block;
+      margin: 0 auto;
+      padding: 5px 10px;
+      background-color: white;
+      color: black;
+      box-shadow: 2px 0 3px rgba(0, 0, 0, 0.5);
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;      
+    }
+
+    .layer-control button:hover, #compareButton:hover {
       background-color: #f0f0f0;
       /* very light gray */
     }
@@ -112,6 +125,86 @@
       padding: 8px;
       text-align: left;
     }
+
+    .collapsible-header {
+      cursor: pointer;
+    }
+
+    .arrow-icon {
+      display: inline-block;
+      width: 20px;
+      text-align: center;
+    }
+
+    .collapsible-content {
+      display: none;
+    }
+
+    /* Modal CSS */
+    /* Style for the modal background */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    /* Style for the modal content box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding-top: 0px;
+        padding-left: 20px;
+        padding-bottom: 10px;
+        padding-right: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 500px;
+    }
+
+    /* Style for the close button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Style for the table inside the modal */
+    #stateCompTable {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    #typeHead, #firstStateHead, #secondStateHead, #Life, #Disability, #LTC, #firstStateLife, #secondStateLife, #firstStateDisability, #secondStateDisability, #fistStateLTC, #secondStateLTC {
+        padding: 8px;
+        text-align: left;
+    }
+
+    #typeHead, #firstStateHead, #secondStateHead {
+        background-color: #f2f2f2;
+    }    
+
+    /* Style for the dropdown container */
+    .dropdown-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }    
+
   </style>
 </head>
 
@@ -174,8 +267,67 @@
         <button id="filterButton">Filter</button>
         <button id="resetButton">Reset</button>
       </div>
+      
+      <!-- STATE LAW COMPARISON START -->
+      <div class="collapsible">
+        <div class="collapsible-header">
+          <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span> <!-- Right-facing arrow icon -->Compare State Laws:</h4>
+        </div>
+        <div class="collapsible-content">
+          <p>To compare the legal coverage between two states, select the two states you want to compare from the dropdown menus. Click the "Compare" button and a table will display showing the key legal differences.</p>
+          <!-- Dropdown menus for selecting states -->
+          <div class="dropdown-container">
+            <select id="firstStateDropdown">
+                <!-- Populate with US states -->
+            </select>
+            <select id="secondStateDropdown">
+                <!-- Populate with US states -->
+            </select>
+          </div>      
+          <!-- Trigger/Open The Modal -->
+          <button id="compareButton">Compare</button>
+        </div>
+      </div>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>State Comparison</h2>
+            <table id="stateCompTable">
+                <thead>
+                    <tr>
+                        <th id="typeHead">Type</th>
+                        <th id="firstStateHead">None selected</th>
+                        <th id="secondStateHead">None selected</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="Life">Life</td>
+                        <td id="firstStateLife"></td>
+                        <td id="secondStateLife"></td>
+                    </tr>
+                    <tr>
+                        <td id="Disability">Disability</td>
+                        <td id="firstStateDisability"></td>
+                        <td id="secondStateDisability"></td>
+                    </tr>
+                    <tr>
+                        <td id="LTC">LTC</td>
+                        <td id="firstStateLTC"></td>
+                        <td id="secondStateLTC"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+      <!-- STATE LAW COMPARISON END -->
+
       <h4 style="padding: 0 15px;">Read the State-by-State Laws:</h4>
       <div id="stateDetails" style="padding: 15px;"></div>
+
+      
     </div>
   </div>
 
@@ -395,6 +547,219 @@
 
       // Populate the sidebar with all state details
       populateStateDetails(groupedData);
+
+      // STATE LAW COMPARISON START
+      // List of US states
+      const compStates = [
+          "None selected", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", 
+          "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", 
+          "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", 
+          "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", 
+          "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", 
+          "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", 
+          "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", 
+          "Wisconsin", "Wyoming"
+      ];
+
+      // Populate the dropdown menus
+      const firstStateDropdown = document.getElementById('firstStateDropdown');
+      const secondStateDropdown = document.getElementById('secondStateDropdown');
+
+      compStates.forEach(state => {
+          const option1 = document.createElement('option');
+          option1.value = state;
+          option1.textContent = state;
+          firstStateDropdown.appendChild(option1);
+
+          const option2 = document.createElement('option');
+          option2.value = state;
+          option2.textContent = state;
+          secondStateDropdown.appendChild(option2);
+      });
+
+      // Get the modal
+      const modal = document.getElementById("myModal");
+
+      // Get the button that opens the modal
+      const btn = document.getElementById("compareButton");
+
+      // Get the <span> element that closes the modal
+      const span = document.getElementsByClassName("close")[0];
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+          modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      }
+
+      // Update the table headers when a state is selected
+      firstStateDropdown.onchange = function() {
+          document.getElementById('firstStateHead').textContent = firstStateDropdown.value;
+      }
+
+      secondStateDropdown.onchange = function() {
+          document.getElementById('secondStateHead').textContent = secondStateDropdown.value;
+      }
+
+      // When the user clicks the button, open the modal
+      btn.onclick = function() {
+        modal.style.display = "block";
+          
+        // run needed functions here
+
+        // create an empty array to store the firstStateLife values
+        const firstStateLife = [];
+        // create an empty array to store the secondStateLife values
+        const secondStateLife = [];
+        // create an empty array to store the firstStateDisability values
+        const firstStateDisability = [];
+        // create an empty array to store the secondStateDisability values
+        const secondStateDisability = [];
+        // create an empty array to store the firstStateLTC values
+        const firstStateLTC = [];
+        // create an empty array to store the secondStateLTC values
+        const secondStateLTC = [];
+
+        // Iterate through each key in the first object of groupAndCountEntriesForComparison(dnaPrivacy, firstStateDropdown.value, secondStateDropdown.value)
+        const firstState = groupAndCountEntriesForComparison(dnaPrivacy, firstStateDropdown.value, secondStateDropdown.value)[0][firstStateDropdown.value];
+        const secondState = groupAndCountEntriesForComparison(dnaPrivacy, firstStateDropdown.value, secondStateDropdown.value)[1][secondStateDropdown.value];
+
+        if (firstState.life1) {
+          firstStateLife.push('Requires informed consent');
+        } 
+        if (firstState.life2) {
+          firstStateLife.push('Prohibits use of genetic info');
+        } 
+        if (firstState.life3) {
+          firstStateLife.push('Allowed if actuarially justified');
+        } 
+        if (firstState.life4) {
+          firstStateLife.push('Bars use of a specific trait');
+        } 
+        if (firstState.life5) {
+          firstStateLife.push('Other');
+        } 
+        // if none of the above conditions are met, push 'N/A' to the firstStateLife array
+        if (!firstState.life1 && !firstState.life2 && !firstState.life3 && !firstState.life4 && !firstState.life5) {
+          firstStateLife.push('N/A');
+        }
+
+        if (secondState.life1) {
+          secondStateLife.push('Requires informed consent');
+        }
+        if (secondState.life2) {
+          secondStateLife.push('Prohibits use of genetic info');
+        }
+        if (secondState.life3) {
+          secondStateLife.push('Allowed if actuarially justified');
+        }
+        if (secondState.life4) {
+          secondStateLife.push('Bars use of a specific trait');
+        }
+        if (secondState.life5) {
+          secondStateLife.push('Other');
+        }
+        // if none of the above conditions are met, push 'N/A' to the secondStateLife array
+        if (!secondState.life1 && !secondState.life2 && !secondState.life3 && !secondState.life4 && !secondState.life5) {
+          secondStateLife.push('N/A');
+        }
+
+        if (firstState.disability1) {
+          firstStateDisability.push('Requires informed consent');
+        }
+        if (firstState.disability2) {
+          firstStateDisability.push('Prohibits use of genetic info');
+        }
+        if (firstState.disability3) {
+          firstStateDisability.push('Allowed if actuarially justified');
+        }
+        if (firstState.disability4) {
+          firstStateDisability.push('Bars use of a specific trait');
+        }
+        if (firstState.disability5) {
+          firstStateDisability.push('Other');
+        }
+        // if none of the above conditions are met, push 'N/A' to the firstStateDisability array
+        if (!firstState.disability1 && !firstState.disability2 && !firstState.disability3 && !firstState.disability4 && !firstState.disability5) {
+          firstStateDisability.push('N/A');
+        }
+
+        if (secondState.disability1) {
+          secondStateDisability.push('Requires informed consent');
+        }
+        if (secondState.disability2) {
+          secondStateDisability.push('Prohibits use of genetic info');
+        } 
+        if (secondState.disability3) {
+          secondStateDisability.push('Allowed if actuarially justified');
+        }
+        if (secondState.disability4) {
+          secondStateDisability.push('Bars use of a specific trait');
+        }
+        if (secondState.disability5) {
+          secondStateDisability.push('Other');
+        }
+        // if none of the above conditions are met, push 'N/A' to the secondStateDisability array
+        if (!secondState.disability1 && !secondState.disability2 && !secondState.disability3 && !secondState.disability4 && !secondState.disability5) {
+          secondStateDisability.push('N/A');
+        }
+
+        if (firstState.ltc1) {
+          firstStateLTC.push('Requires informed consent');
+        }
+        if (firstState.ltc2) {
+          firstStateLTC.push('Prohibits use of genetic info');
+        }
+        if (firstState.ltc3) {
+          firstStateLTC.push('Allowed if actuarially justified');
+        }
+        if (firstState.ltc4) {
+          firstStateLTC.push('Bars use of a specific trait');
+        }
+        if (firstState.ltc5) {
+          firstStateLTC.push('Other');
+        }
+        // if none of the above conditions are met, push 'N/A' to the firstStateLTC array
+        if (!firstState.ltc1 && !firstState.ltc2 && !firstState.ltc3 && !firstState.ltc4 && !firstState.ltc5) {
+          firstStateLTC.push('N/A');
+        }
+
+        if (secondState.ltc1) {
+          secondStateLTC.push('Requires informed consent');
+        }
+        if (secondState.ltc2) {
+          secondStateLTC.push('Prohibits use of genetic info');
+        }
+        if (secondState.ltc3) {
+          secondStateLTC.push('Allowed if actuarially justified');
+        }
+        if (secondState.ltc4) {
+          secondStateLTC.push('Bars use of a specific trait');
+        }
+        if (secondState.ltc5) {
+          secondStateLTC.push('Other');
+        }
+        // if none of the above conditions are met, push 'N/A' to the secondStateLTC array
+        if (!secondState.ltc1 && !secondState.ltc2 && !secondState.ltc3 && !secondState.ltc4 && !secondState.ltc5) {
+          secondStateLTC.push('N/A');
+        }
+
+        // Update the table with the values
+        document.getElementById('firstStateLife').innerHTML = firstStateLife.join('<br>');
+        document.getElementById('secondStateLife').innerHTML = secondStateLife.join('<br>');
+        document.getElementById('firstStateDisability').innerHTML = firstStateDisability.join('<br>');
+        document.getElementById('secondStateDisability').innerHTML = secondStateDisability.join('<br>');
+        document.getElementById('firstStateLTC').innerHTML = firstStateLTC.join('<br>');
+        document.getElementById('secondStateLTC').innerHTML = secondStateLTC.join('<br>');
+      }    
+      // STATE LAW COMPARISON END
+
     }
 
     function drawCoverageLayer(layerGroup, states, data) {
@@ -748,6 +1113,158 @@
       });
     }
 
+    function groupAndCountEntriesForComparison(data, selection1, selection2) {
+
+      const selection1DataMap = {};
+      const selection2DataMap = {};
+
+      data.forEach(row => {
+        const state = row.State;
+        if (state === selection1) {
+          if (!selection1DataMap[state]) {
+            selection1DataMap[state] = {
+              name: state,
+              life: false,
+              life1: false,
+              life2: false,
+              life3: false,
+              life4: false,
+              life5: false,
+              disability: false,
+              disability1: false,
+              disability2: false,
+              disability3: false,
+              disability4: false,
+              disability5: false,
+              ltc: false,
+              ltc1: false,
+              ltc2: false,
+              ltc3: false,
+              ltc4: false,
+              ltc5: false,
+              codes: []
+            };
+          }
+          if (row.Life) selection1DataMap[state].life = true;
+          if (row.Disability) selection1DataMap[state].disability = true;
+          if (row.LTC) selection1DataMap[state].ltc = true;
+
+          // Process subfilter selections
+          // Check if row.Life exists and process subfilter selections
+          if (row.Life) {
+            // Split the string into an array of values
+            const lifeSubValues = row['Life'].split(',');
+            // Iterate over each value and...
+            lifeSubValues.forEach(value => {
+              // ...update corresponding object keys
+              selection1DataMap[state]['life' + value] = true;
+            });
+          }
+          // Check if row.Disability exists and process subfilter selections
+          if (row.Disability) {
+            // Split the string into an array of values
+            const disabilitySubValues = row['Disability'].split(',');
+            // Iterate over each value and...
+            disabilitySubValues.forEach(value => {
+              // ...update corresponding object keys
+              selection1DataMap[state]['disability' + value] = true;
+            });
+          }
+          // Check if row.LTC exists and process subfilter selections
+          if (row.LTC) {
+            // Split the string into an array of values
+            const ltcSubValues = row['LTC'].split(',');
+            // Iterate over each value and...
+            ltcSubValues.forEach(value => {
+              // ...update corresponding object keys
+              selection1DataMap[state]['ltc' + value] = true;
+            });
+          }
+          // Push the code object to the codes array
+          selection1DataMap[state].codes.push({
+            code: row.Code,
+            link: row.Link,
+            life: row.Life,
+            disability: row.Disability,
+            ltc: row.LTC
+          });
+        } else if (state === selection2) {
+          if (!selection2DataMap[state]) {
+            selection2DataMap[state] = {
+              name: state,
+              life: false,
+              life1: false,
+              life2: false,
+              life3: false,
+              life4: false,
+              life5: false,
+              disability: false,
+              disability1: false,
+              disability2: false,
+              disability3: false,
+              disability4: false,
+              disability5: false,
+              ltc: false,
+              ltc1: false,
+              ltc2: false,
+              ltc3: false,
+              ltc4: false,
+              ltc5: false,
+              codes: []
+            };
+          }
+          if (row.Life) selection2DataMap[state].life = true;
+          if (row.Disability) selection2DataMap[state].disability = true;
+          if (row.LTC) selection2DataMap[state].ltc = true;
+
+          // Process subfilter selections
+          // Check if row.Life exists and process subfilter selections
+          if (row.Life) {
+            // Split the string into an array of values
+            const lifeSubValues = row['Life'].split(',');
+            // Iterate over each value and...
+            lifeSubValues.forEach(value => {
+              // ...update corresponding object keys
+              selection2DataMap[state]['life' + value] = true;
+            });
+          }
+          // Check if row.Disability exists and process subfilter selections
+          if (row.Disability) {
+            // Split the string into an array of values
+            const disabilitySubValues = row['Disability'].split(',');
+            // Iterate over each value and...
+            disabilitySubValues.forEach(value => {
+              // ...update corresponding object keys
+              selection2DataMap[state]['disability' + value] = true;
+            });
+          }
+          // Check if row.LTC exists and process subfilter selections
+          if (row.LTC) {
+            // Split the string into an array of values
+            const ltcSubValues = row['LTC'].split(',');
+            // Iterate over each value and...
+            ltcSubValues.forEach(value => {
+              // ...update corresponding object keys
+              selection2DataMap[state]['ltc' + value] = true;
+            });
+          }
+
+          selection2DataMap[state].codes.push({
+            code: row.Code,
+            link: row.Link,
+            life: row.Life,
+            disability: row.Disability,
+            ltc: row.LTC
+          });    
+          
+        }
+      });
+
+      // return selection1DataMap and selection2DataMap
+      return [selection1DataMap, selection2DataMap];
+
+    }
+
     function groupAndCountEntriesForStates(data) {
 
       const stateDataMap = {};
@@ -867,6 +1384,35 @@
       const tooltip = document.querySelector('.tooltip');
       tooltip.classList.remove('visible');
     }
+
+    // Collapsible content instructions
+    // Get the collapsible section, header, and button
+    const collapsibleSection = document.querySelector('.collapsible');
+    const collapsibleHeader = document.querySelector('.collapsible-header');
+    const compareButton = document.getElementById('compareButton');
+
+    // Toggle the visibility of the collapsible content when the header is clicked
+    collapsibleHeader.addEventListener('click', function() {
+      const content = collapsibleSection.querySelector('.collapsible-content');
+      const arrowIcon = collapsibleHeader.querySelector('.arrow-icon');
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+        arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
+      } else {
+        content.style.display = 'block';
+        arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
+      }
+    });
+
+    // Show the content if the button is clicked (for demonstration purposes)
+    compareButton.addEventListener('click', function() {
+      const content = collapsibleSection.querySelector('.collapsible-content');
+      const arrowIcon = collapsibleHeader.querySelector('.arrow-icon');
+      content.style.display = 'block';
+      arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
+    });
+
+
   </script>
 </body>
 
