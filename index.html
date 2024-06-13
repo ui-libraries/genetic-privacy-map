@@ -604,27 +604,40 @@
       }
 
       secondStateDropdown.onchange = function() {
+          // Prevent the user from selecting the same state in both dropdowns
+          if (firstStateDropdown.value === secondStateDropdown.value) {
+              alert('Please select two different states to compare.');
+              secondStateDropdown.value = 'None selected';
+          }
           document.getElementById('secondStateHead').textContent = secondStateDropdown.value;
       }
+
+      // create an empty array to store the firstStateLife values
+      const firstStateLife = [];
+      // create an empty array to store the secondStateLife values
+      const secondStateLife = [];
+      // create an empty array to store the firstStateDisability values
+      const firstStateDisability = [];
+      // create an empty array to store the secondStateDisability values
+      const secondStateDisability = [];
+      // create an empty array to store the firstStateLTC values
+      const firstStateLTC = [];
+      // create an empty array to store the secondStateLTC values
+      const secondStateLTC = [];
 
       // When the user clicks the button, open the modal
       btn.onclick = function() {
         modal.style.display = "block";
+
+        // clear the arrays
+        firstStateLife.length = 0;
+        secondStateLife.length = 0;
+        firstStateDisability.length = 0;
+        secondStateDisability.length = 0;
+        firstStateLTC.length = 0;
+        secondStateLTC.length = 0;
           
         // run needed functions here
-
-        // create an empty array to store the firstStateLife values
-        const firstStateLife = [];
-        // create an empty array to store the secondStateLife values
-        const secondStateLife = [];
-        // create an empty array to store the firstStateDisability values
-        const firstStateDisability = [];
-        // create an empty array to store the secondStateDisability values
-        const secondStateDisability = [];
-        // create an empty array to store the firstStateLTC values
-        const firstStateLTC = [];
-        // create an empty array to store the secondStateLTC values
-        const secondStateLTC = [];
 
         // Iterate through each key in the first object of groupAndCountEntriesForComparison(dnaPrivacy, firstStateDropdown.value, secondStateDropdown.value)
         const firstState = groupAndCountEntriesForComparison(dnaPrivacy, firstStateDropdown.value, secondStateDropdown.value)[0][firstStateDropdown.value];
