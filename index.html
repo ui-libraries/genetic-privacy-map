@@ -126,7 +126,7 @@
       text-align: left;
     }
 
-    .collapsible-header {
+    .collapsible-header-overview, .collapsible-header-comparison {
       cursor: pointer;
     }
 
@@ -136,7 +136,7 @@
       text-align: center;
     }
 
-    .collapsible-content {
+    .collapsible-content-overview, .collapsible-content-comparison {
       display: none;
     }
 
@@ -213,7 +213,69 @@
   <div class="sidebar" id="sidebar">
     <div class="sidebar-header">Genetic Privacy Laws in the USA</div>
     <div class="sidebar-content">
-      <p>To filter the map, select your desired combination of genetic privacy regulations and press the filter button. Press the reset button to return to the general coverage map.</p>
+      <div class="collapsible-overview">
+        <div class="collapsible-header-overview">
+          <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span> <!-- Right-facing arrow icon -->Overview</h4>
+        </div>
+        <div class="collapsible-content-overview">
+          <p>To filter the map, select your desired combination of genetic privacy regulations and press the filter button. Press the reset button to return to the general coverage map.</p>
+        </div>
+      </div>
+      <!-- STATE LAW COMPARISON START -->
+      <div class="collapsible-comparison">
+        <div class="collapsible-header-comparison">
+          <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span> <!-- Right-facing arrow icon -->Compare State Laws</h4>
+        </div>
+        <div class="collapsible-content-comparison">
+          <p>To compare the legal coverage between two states, select the two states you want to compare from the dropdown menus. Click the "Compare" button and a table will display showing the key legal differences.</p>
+          <!-- Dropdown menus for selecting states -->
+          <div class="dropdown-container">
+            <select id="firstStateDropdown">
+                <!-- Populate with US states -->
+            </select>
+            <select id="secondStateDropdown">
+                <!-- Populate with US states -->
+            </select>
+          </div>      
+          <!-- Trigger/Open The Modal -->
+          <button id="compareButton">Compare</button>
+        </div>
+      </div>
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>State Comparison</h2>
+            <table id="stateCompTable">
+                <thead>
+                    <tr>
+                        <th id="typeHead">Type</th>
+                        <th id="firstStateHead">None selected</th>
+                        <th id="secondStateHead">None selected</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td id="Life">Life</td>
+                        <td id="firstStateLife"></td>
+                        <td id="secondStateLife"></td>
+                    </tr>
+                    <tr>
+                        <td id="Disability">Disability</td>
+                        <td id="firstStateDisability"></td>
+                        <td id="secondStateDisability"></td>
+                    </tr>
+                    <tr>
+                        <td id="LTC">LTC</td>
+                        <td id="firstStateLTC"></td>
+                        <td id="secondStateLTC"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+      <!-- STATE LAW COMPARISON END -->      
       <h4 style="padding: 0 15px;">Filter by Regulation Type:</h4>
       <div class="layer-control">
         <div>
@@ -267,62 +329,6 @@
         <button id="filterButton">Filter</button>
         <button id="resetButton">Reset</button>
       </div>
-      
-      <!-- STATE LAW COMPARISON START -->
-      <div class="collapsible">
-        <div class="collapsible-header">
-          <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span> <!-- Right-facing arrow icon -->Compare State Laws:</h4>
-        </div>
-        <div class="collapsible-content">
-          <p>To compare the legal coverage between two states, select the two states you want to compare from the dropdown menus. Click the "Compare" button and a table will display showing the key legal differences.</p>
-          <!-- Dropdown menus for selecting states -->
-          <div class="dropdown-container">
-            <select id="firstStateDropdown">
-                <!-- Populate with US states -->
-            </select>
-            <select id="secondStateDropdown">
-                <!-- Populate with US states -->
-            </select>
-          </div>      
-          <!-- Trigger/Open The Modal -->
-          <button id="compareButton">Compare</button>
-        </div>
-      </div>
-
-      <!-- The Modal -->
-      <div id="myModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>State Comparison</h2>
-            <table id="stateCompTable">
-                <thead>
-                    <tr>
-                        <th id="typeHead">Type</th>
-                        <th id="firstStateHead">None selected</th>
-                        <th id="secondStateHead">None selected</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td id="Life">Life</td>
-                        <td id="firstStateLife"></td>
-                        <td id="secondStateLife"></td>
-                    </tr>
-                    <tr>
-                        <td id="Disability">Disability</td>
-                        <td id="firstStateDisability"></td>
-                        <td id="secondStateDisability"></td>
-                    </tr>
-                    <tr>
-                        <td id="LTC">LTC</td>
-                        <td id="firstStateLTC"></td>
-                        <td id="secondStateLTC"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-      </div>
-      <!-- STATE LAW COMPARISON END -->
 
       <h4 style="padding: 0 15px;">Read the State-by-State Laws:</h4>
       <div id="stateDetails" style="padding: 15px;"></div>
@@ -1400,14 +1406,29 @@
 
     // Collapsible content instructions
     // Get the collapsible section, header, and button
-    const collapsibleSection = document.querySelector('.collapsible');
-    const collapsibleHeader = document.querySelector('.collapsible-header');
+    const collapsibleSectionOverview = document.querySelector('.collapsible-overview');
+    const collapsibleSectionComparison = document.querySelector('.collapsible-comparison');
+    const collapsibleHeaderOverview = document.querySelector('.collapsible-header-overview');
+    const collapsibleHeaderComparison = document.querySelector('.collapsible-header-comparison');
     const compareButton = document.getElementById('compareButton');
 
     // Toggle the visibility of the collapsible content when the header is clicked
-    collapsibleHeader.addEventListener('click', function() {
-      const content = collapsibleSection.querySelector('.collapsible-content');
-      const arrowIcon = collapsibleHeader.querySelector('.arrow-icon');
+    collapsibleHeaderOverview.addEventListener('click', function() {
+      const content = collapsibleSectionOverview.querySelector('.collapsible-content-overview');
+      const arrowIcon = collapsibleHeaderOverview.querySelector('.arrow-icon');
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+        arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
+      } else {
+        content.style.display = 'block';
+        arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
+      }
+    });
+
+    // Toggle the visibility of the collapsible content when the header is clicked
+    collapsibleHeaderComparison.addEventListener('click', function() {
+      const content = collapsibleSectionComparison.querySelector('.collapsible-content-comparison');
+      const arrowIcon = collapsibleHeaderComparison.querySelector('.arrow-icon');
       if (content.style.display === 'block') {
         content.style.display = 'none';
         arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
@@ -1419,8 +1440,8 @@
 
     // Show the content if the button is clicked (for demonstration purposes)
     compareButton.addEventListener('click', function() {
-      const content = collapsibleSection.querySelector('.collapsible-content');
-      const arrowIcon = collapsibleHeader.querySelector('.arrow-icon');
+      const content = collapsibleSectionComparison.querySelector('.collapsible-content-comparison');
+      const arrowIcon = collapsibleHeaderComparison.querySelector('.arrow-icon');
       content.style.display = 'block';
       arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
     });
