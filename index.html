@@ -126,7 +126,7 @@
       text-align: left;
     }
 
-    .collapsible-header-overview, .collapsible-header-comparison {
+    .collapsible-header-overview, .collapsible-header-comparison, .collapsible-header-regulation, .collapsible-header-laws {
       cursor: pointer;
     }
 
@@ -136,7 +136,7 @@
       text-align: center;
     }
 
-    .collapsible-content-overview, .collapsible-content-comparison {
+    .collapsible-content-overview, .collapsible-content-comparison, .collapsible-content-regulation, .collapsible-content-laws {
       display: none;
     }
 
@@ -275,65 +275,76 @@
             </table>
         </div>
       </div>
-      <!-- STATE LAW COMPARISON END -->      
-      <h4 style="padding: 0 15px;">Filter by Regulation Type:</h4>
-      <div class="layer-control">
-        <div>
-          <input type="radio" id="lifeLayerToggle" name="layer" value="life">
-          <label for="lifeLayerToggle">Life</label>
-          <div id="lifeLayerOptions" class="checkbox-group" style="display: none;">
-            <input type="checkbox" id="lifeOption1" name="lifeOptions" value="1">
-            <label for="lifeOption1">Requires informed consent</label><br>
-            <input type="checkbox" id="lifeOption2" name="lifeOptions" value="2">
-            <label for="lifeOption2">Prohibits use of genetic info</label><br>
-            <input type="checkbox" id="lifeOption3" name="lifeOptions" value="3">
-            <label for="lifeOption3">Allowed if actuarially justified</label><br>
-            <input type="checkbox" id="lifeOption4" name="lifeOptions" value="4">
-            <label for="lifeOption4">Bars use of a specific trait</label><br>
-            <input type="checkbox" id="lifeOption5" name="lifeOptions" value="5">
-            <label for="lifeOption5">Other</label>
+      <!-- STATE LAW COMPARISON END --> 
+      <div class="collapsible-regulation">
+        <div class="collapsible-header-regulation">
+          <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span> <!-- Right-facing arrow icon -->Filter by Regulation Type</h4>
+        </div>
+        <div class="collapsible-content-regulation">
+          <div class="layer-control">
+            <div>
+              <input type="radio" id="lifeLayerToggle" name="layer" value="life">
+              <label for="lifeLayerToggle">Life</label>
+              <div id="lifeLayerOptions" class="checkbox-group" style="display: none;">
+                <input type="checkbox" id="lifeOption1" name="lifeOptions" value="1">
+                <label for="lifeOption1">Requires informed consent</label><br>
+                <input type="checkbox" id="lifeOption2" name="lifeOptions" value="2">
+                <label for="lifeOption2">Prohibits use of genetic info</label><br>
+                <input type="checkbox" id="lifeOption3" name="lifeOptions" value="3">
+                <label for="lifeOption3">Allowed if actuarially justified</label><br>
+                <input type="checkbox" id="lifeOption4" name="lifeOptions" value="4">
+                <label for="lifeOption4">Bars use of a specific trait</label><br>
+                <input type="checkbox" id="lifeOption5" name="lifeOptions" value="5">
+                <label for="lifeOption5">Other</label>
+              </div>
+            </div>
+            <div>
+              <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
+              <label for="disabilityLayerToggle">Disability</label>
+              <div id="disabilityLayerOptions" class="checkbox-group" style="display: none;">
+                <input type="checkbox" id="disabilityOption1" name="disabilityOptions" value="1">
+                <label for="disabilityOption1">Requires informed consent</label><br>
+                <input type="checkbox" id="disabilityOption2" name="disabilityOptions" value="2">
+                <label for="disabilityOption2">Prohibits use of genetic info</label><br>
+                <input type="checkbox" id="disabilityOption3" name="disabilityOptions" value="3">
+                <label for="disabilityOption3">Allowed if actuarially justified</label><br>
+                <input type="checkbox" id="disabilityOption4" name="disabilityOptions" value="4">
+                <label for="disabilityOption4">Bars use of a specific trait</label><br>
+                <input type="checkbox" id="disabilityOption5" name="disabilityOptions" value="5">
+                <label for="disabilityOption5">Other</label>
+              </div>
+            </div>
+            <div>
+              <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
+              <label for="ltcLayerToggle">LTC</label>
+              <div id="ltcLayerOptions" class="checkbox-group" style="display: none;">
+                <input type="checkbox" id="ltcOption1" name="ltcOptions" value="1">
+                <label for="ltcOption1">Requires informed consent</label><br>
+                <input type="checkbox" id="ltcOption2" name="ltcOptions" value="2">
+                <label for="ltcOption2">Prohibits use of genetic info</label><br>
+                <input type="checkbox" id="ltcOption3" name="ltcOptions" value="3">
+                <label for="ltcOption3">Allowed if actuarially justified</label><br>
+                <input type="checkbox" id="ltcOption4" name="ltcOptions" value="4">
+                <label for="ltcOption4">Bars use of a specific trait</label><br>
+                <input type="checkbox" id="ltcOption5" name="ltcOptions" value="5">
+                <label for="ltcOption5">Other</label>
+              </div>
+            </div>
+            <button id="filterButton">Filter</button>
+            <button id="resetButton">Reset</button>
           </div>
         </div>
-        <div>
-          <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
-          <label for="disabilityLayerToggle">Disability</label>
-          <div id="disabilityLayerOptions" class="checkbox-group" style="display: none;">
-            <input type="checkbox" id="disabilityOption1" name="disabilityOptions" value="1">
-            <label for="disabilityOption1">Requires informed consent</label><br>
-            <input type="checkbox" id="disabilityOption2" name="disabilityOptions" value="2">
-            <label for="disabilityOption2">Prohibits use of genetic info</label><br>
-            <input type="checkbox" id="disabilityOption3" name="disabilityOptions" value="3">
-            <label for="disabilityOption3">Allowed if actuarially justified</label><br>
-            <input type="checkbox" id="disabilityOption4" name="disabilityOptions" value="4">
-            <label for="disabilityOption4">Bars use of a specific trait</label><br>
-            <input type="checkbox" id="disabilityOption5" name="disabilityOptions" value="5">
-            <label for="disabilityOption5">Other</label>
-          </div>
-        </div>
-        <div>
-          <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
-          <label for="ltcLayerToggle">LTC</label>
-          <div id="ltcLayerOptions" class="checkbox-group" style="display: none;">
-            <input type="checkbox" id="ltcOption1" name="ltcOptions" value="1">
-            <label for="ltcOption1">Requires informed consent</label><br>
-            <input type="checkbox" id="ltcOption2" name="ltcOptions" value="2">
-            <label for="ltcOption2">Prohibits use of genetic info</label><br>
-            <input type="checkbox" id="ltcOption3" name="ltcOptions" value="3">
-            <label for="ltcOption3">Allowed if actuarially justified</label><br>
-            <input type="checkbox" id="ltcOption4" name="ltcOptions" value="4">
-            <label for="ltcOption4">Bars use of a specific trait</label><br>
-            <input type="checkbox" id="ltcOption5" name="ltcOptions" value="5">
-            <label for="ltcOption5">Other</label>
-          </div>
-        </div>
-        <button id="filterButton">Filter</button>
-        <button id="resetButton">Reset</button>
       </div>
 
-      <h4 style="padding: 0 15px;">Read the State-by-State Laws:</h4>
-      <div id="stateDetails" style="padding: 15px;"></div>
+      <div class="collapsible-laws">
+        <div class="collapsible-header-laws">
+          <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span> <!-- Right-facing arrow icon -->Read the State-by-State Laws</h4>
+        </div>
+        <div class="collapsible-content-laws">
+          <div id="stateDetails" style="padding: 15px;"></div>
+        </div>
+      </div>
 
-      
     </div>
   </div>
 
@@ -1408,8 +1419,12 @@
     // Get the collapsible section, header, and button
     const collapsibleSectionOverview = document.querySelector('.collapsible-overview');
     const collapsibleSectionComparison = document.querySelector('.collapsible-comparison');
+    const collapsibleSectionRegulation = document.querySelector('.collapsible-regulation');
+    const collapsibleSectionLaws = document.querySelector('.collapsible-laws');
     const collapsibleHeaderOverview = document.querySelector('.collapsible-header-overview');
     const collapsibleHeaderComparison = document.querySelector('.collapsible-header-comparison');
+    const collapsibleHeaderRegulation = document.querySelector('.collapsible-header-regulation');
+    const collapsibleHeaderLaws = document.querySelector('.collapsible-header-laws');
     const compareButton = document.getElementById('compareButton');
 
     // Toggle the visibility of the collapsible content when the header is clicked
@@ -1429,6 +1444,32 @@
     collapsibleHeaderComparison.addEventListener('click', function() {
       const content = collapsibleSectionComparison.querySelector('.collapsible-content-comparison');
       const arrowIcon = collapsibleHeaderComparison.querySelector('.arrow-icon');
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+        arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
+      } else {
+        content.style.display = 'block';
+        arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
+      }
+    });
+
+    // Toggle the visibility of the collapsible content when the header is clicked
+    collapsibleHeaderRegulation.addEventListener('click', function() {
+      const content = collapsibleSectionRegulation.querySelector('.collapsible-content-regulation');
+      const arrowIcon = collapsibleHeaderRegulation.querySelector('.arrow-icon');
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+        arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
+      } else {
+        content.style.display = 'block';
+        arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
+      }
+    });
+
+    // Toggle the visibility of the collapsible content when the header is clicked
+    collapsibleHeaderLaws.addEventListener('click', function() {
+      const content = collapsibleSectionLaws.querySelector('.collapsible-content-laws');
+      const arrowIcon = collapsibleHeaderLaws.querySelector('.arrow-icon');
       if (content.style.display === 'block') {
         content.style.display = 'none';
         arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
