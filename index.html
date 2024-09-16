@@ -465,6 +465,9 @@
 
     // Event listener for the "Reset" button
     document.getElementById('resetButton').addEventListener('click', function() {
+      // Reload the page
+      location.reload();
+/*      
       // Show the legend
       document.getElementById('legend').style.display = 'block';
       // Hide the filter-legend
@@ -475,6 +478,7 @@
       uncheckAllCheckboxes();
       // Repopulate sidebar with original data
       populateStateDetails(groupAndCountEntriesForStates(dnaPrivacy));
+*/
     });
 
     // Whenever a radio button is clicked, uncheck all checkboxes
@@ -548,6 +552,71 @@ const svg = d3.select("#map")
       // Call the zoom behavior on the SVG
       svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(initialScale).translate(-width / 2, -height / 2));
 
+      // Listen for a click on a radio button
+      document.querySelectorAll('input[name="layer"]').forEach(radio => {
+        radio.addEventListener('click', function() {
+          // Hide the legend
+          document.getElementById('legend').style.display = 'none';
+          // Show the filter-legend
+          document.getElementById('filter-legend').style.display = 'block';
+          // Get the current filters
+          const filters = {
+            life: document.getElementById('lifeLayerToggle').checked,
+            disability: document.getElementById('disabilityLayerToggle').checked,
+            ltc: document.getElementById('ltcLayerToggle').checked
+          };
+          // Determine which filter is checked
+          selectedFilter = Object.keys(filters).find(key => filters[key]);
+          // If selectedFilter is 'ltc', change selectedRowKey to 'LTC'
+          if (selectedFilter === 'ltc') {
+            selectedRowKey = 'LTC';
+          } else {
+            // Create a capitalized version of the selected filter
+            selectedRowKey = selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1);
+          };
+
+
+
+// Iterate through every path (state) and apply a color based on the selectedRowKey value
+stateGroups.coverageGroup.selectAll("path")
+  .style("fill", d => {
+    // Check if any row in dnaPrivacy matches the state's name and has a truthy selectedRowKey value
+    const stateName = d.properties.name;
+    const isStateShadedBlue = dnaPrivacy.some(row => row.State === stateName && row[selectedRowKey]);
+
+    // Return the color based on whether any row meets the criteria
+    return isStateShadedBlue ? "blue" : "gray";
+  });
+
+
+
+          // Wait for a subfilter to be selected 
+          document.getElementById('filterButton').addEventListener('click', function() {
+            // Get the layer options filters using selectedFilter
+            const subfilters = Object.fromEntries(
+              Array.from(document.querySelectorAll('input[name="' + selectedFilter + 'Options"]'))
+              .map(option => [option.value, option.checked])
+            );
+            // Apply the filters
+            applyFilters(states, dnaPrivacy, filters, subfilters);
+          });
+          
+/*          
+          // Get the layer options filters using selectedFilter
+          const subfilters = Object.fromEntries(
+            Array.from(document.querySelectorAll('input[name="' + selectedFilter + 'Options"]'))
+            .map(option => [option.value, option.checked])
+          );
+
+          console.log(subfilters);
+          // Apply the filters
+          applyFilters(states, dnaPrivacy, filters, subfilters);
+*/
+
+        });
+      });
+
+/*
       // Event listener for the "Filter" button
       document.getElementById('filterButton').addEventListener('click', function() {
         // Hide the legend
@@ -577,14 +646,15 @@ const svg = d3.select("#map")
         // Apply the filters
         applyFilters(states, dnaPrivacy, filters, subfilters);
       });
-
+*/
+/*
       document.getElementById('resetButton').addEventListener('click', function() {
         stateGroups.coverageGroup.style("visibility", "visible");
         stateGroups.filterGroup.style("visibility", "hidden");
         // Repopulate sidebar with original data
         populateStateDetails(groupAndCountEntriesForStates(dnaPrivacy));
       });
-
+*/
       stateGroups.coverageGroup.style("visibility", "visible");
       stateGroups.filterGroup.style("visibility", "hidden");
 
