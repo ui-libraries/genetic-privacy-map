@@ -447,9 +447,26 @@
     <div id="legend" style="position: absolute; left: 20px; bottom: 20px; background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
       <h4 style="margin-top: 0;">Total Categories Covered</h4>
       <div>
+        <!-- Display "patterns/lines-d-02.png" for the case of "Life" coverage-->
+        <div style="display: flex; align-items: center;">
+          <span style="display: inline-block; width: 20px; height: 20px; background-image: url('patterns/lines-d-02.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> Life Covered
+        </div>
+
+        <!-- Display "patterns/lines-d-05.png" for the case of "Disability" coverage-->
+        <div style="display: flex; align-items: center;">
+          <span style="display: inline-block; width: 20px; height: 20px; background-image: url('patterns/lines-d-05.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> Disability Covered
+        </div>
+
+        <!-- Display "patterns/lines-v-02.png" for the case of "LTC" coverage-->
+        <div style="display: flex; align-items: center;">
+          <span style="display: inline-block; width: 20px; height: 20px; background-image: url('patterns/lines-v-02.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> LTC Covered
+        </div>
+
+        <!-- Display "gray" for the case of "No Genetic Privacy Laws"-->
         <div style="display: flex; align-items: center;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: gray; margin-right: 5px;"></span> No Genetic Privacy Laws
         </div>
+        <!--       
         <div style="display: flex; align-items: center;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: lightblue; margin-right: 5px;"></span> 1 of 3 Categories Covered
         </div>
@@ -459,6 +476,7 @@
         <div style="display: flex; align-items: center;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: darkblue; margin-right: 5px;"></span> Life, Disability, and LTC Covered
         </div>
+-->
       </div>
     </div>
 
@@ -510,18 +528,7 @@
         }
       });
     });
-    /*
-        // Initial setup: show the correct checkbox group based on the initially selected radio button
-        document.addEventListener('DOMContentLoaded', () => {
-          const selectedRadio = document.querySelector('input[name="layer"]:checked');
-          if (selectedRadio) {
-            const selectedGroup = document.querySelector(`#${selectedRadio.id}Options`);
-            if (selectedGroup) {
-              selectedGroup.style.display = 'block';
-            }
-          }
-        });    
-    */
+
     // Ensure radio buttons are unchecked on page reload
     document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('lifeLayerToggle').checked = false;
@@ -540,18 +547,6 @@
     document.getElementById('resetButton').addEventListener('click', function() {
       // Reload the page
       location.reload();
-      /*      
-            // Show the legend
-            document.getElementById('legend').style.display = 'block';
-            // Hide the filter-legend
-            document.getElementById('filter-legend').style.display = 'none';
-            stateGroups.coverageGroup.style("visibility", "visible");
-            stateGroups.filterGroup.style("visibility", "hidden");
-            // Uncheck all checkboxes
-            uncheckAllCheckboxes();
-            // Repopulate sidebar with original data
-            populateStateDetails(groupAndCountEntriesForStates(dnaPrivacy));
-      */
     });
 
     // Whenever a radio button is clicked, uncheck all checkboxes
@@ -608,6 +603,104 @@
         filterGroup: svg.append("g").attr("id", "filterLayer"),
       };
 
+      // Define the pattern and add it to the SVG
+      svg.append("defs")
+        .append("pattern")
+        .attr("id", "crosshatch-pattern-right")
+        .attr("patternUnits", "userSpaceOnUse")
+        .attr("width", 10)
+        .attr("height", 10)
+        .append("image")
+        .attr("href", "patterns/lines-d-02.png") // Make sure the path is correct
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 10)
+        .attr("height", 10);
+
+      // Define the pattern and add it to the SVG
+      svg.append("defs")
+        .append("pattern")
+        .attr("id", "crosshatch-pattern-left")
+        .attr("patternUnits", "userSpaceOnUse")
+        .attr("width", 10)
+        .attr("height", 10)
+        .append("image")
+        .attr("href", "patterns/lines-d-05.png") // Make sure the path is correct
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 10)
+        .attr("height", 10);
+
+      // Define the pattern and add it to the SVG
+      svg.append("defs")
+        .append("pattern")
+        .attr("id", "crosshatch-pattern-vertical")
+        .attr("patternUnits", "userSpaceOnUse")
+        .attr("width", 10)
+        .attr("height", 10)
+        .append("image")
+        .attr("href", "patterns/lines-v-02.png") // Make sure the path is correct
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 10)
+        .attr("height", 10);
+
+      // Define the pattern and add it to the SVG
+      svg.append("defs")
+        .append("pattern")
+        .attr("id", "crosshatch-pattern-cross")
+        .attr("patternUnits", "userSpaceOnUse")
+        .attr("width", 10)
+        .attr("height", 10)
+        .append("image")
+        .attr("href", "patterns/lines-d-25.png") // Make sure the path is correct
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 10)
+        .attr("height", 10);
+
+      // Define the pattern and add it to the SVG
+      svg.append("defs")
+        .append("pattern")
+        .attr("id", "crosshatch-pattern-right-vert")
+        .attr("patternUnits", "userSpaceOnUse")
+        .attr("width", 10)
+        .attr("height", 10)
+        .append("image")
+        .attr("href", "patterns/lines-dv-22.png") // Make sure the path is correct
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 10)
+        .attr("height", 10);
+
+      // Define the pattern and add it to the SVG
+      svg.append("defs")
+        .append("pattern")
+        .attr("id", "crosshatch-pattern-left-vert")
+        .attr("patternUnits", "userSpaceOnUse")
+        .attr("width", 10)
+        .attr("height", 10)
+        .append("image")
+        .attr("href", "patterns/lines-dv-25.png") // Make sure the path is correct
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 10)
+        .attr("height", 10);
+
+      // Define the pattern and add it to the SVG
+      svg.append("defs")
+        .append("pattern")
+        .attr("id", "crosshatch-pattern-all")
+        .attr("patternUnits", "userSpaceOnUse")
+        .attr("width", 10)
+        .attr("height", 10)
+        .append("image")
+        .attr("href", "patterns/lines-dv-all.png") // Make sure the path is correct
+        .attr("x", 0)
+        .attr("y", 0)
+        .attr("width", 10)
+        .attr("height", 10);
+
       // Define the zoom behavior
       const zoom = d3.zoom().scaleExtent([0, 8]).on("zoom", zoomed);
       // Call the zoom behavior on the SVG
@@ -662,8 +755,6 @@
               return isStateShadedBlue ? "blue" : "gray";
             });
 
-
-
           // Wait for a subfilter to be selected 
           document.getElementById('filterButton').addEventListener('click', function() {
             // Get the layer options filters using selectedFilter
@@ -675,60 +766,9 @@
             applyFilters(states, dnaPrivacy, filters, subfilters);
           });
 
-          /*          
-                    // Get the layer options filters using selectedFilter
-                    const subfilters = Object.fromEntries(
-                      Array.from(document.querySelectorAll('input[name="' + selectedFilter + 'Options"]'))
-                      .map(option => [option.value, option.checked])
-                    );
-
-                    console.log(subfilters);
-                    // Apply the filters
-                    applyFilters(states, dnaPrivacy, filters, subfilters);
-          */
-
         });
       });
 
-      /*
-            // Event listener for the "Filter" button
-            document.getElementById('filterButton').addEventListener('click', function() {
-              // Hide the legend
-              document.getElementById('legend').style.display = 'none';
-              // Show the filter-legend
-              document.getElementById('filter-legend').style.display = 'block';
-              // Get the current filters
-              const filters = {
-                life: document.getElementById('lifeLayerToggle').checked,
-                disability: document.getElementById('disabilityLayerToggle').checked,
-                ltc: document.getElementById('ltcLayerToggle').checked
-              };
-              // Determine which filter is checked
-              selectedFilter = Object.keys(filters).find(key => filters[key]);
-              // If selectedFilter is 'ltc', change selectedRowKey to 'LTC'
-              if (selectedFilter === 'ltc') {
-                selectedRowKey = 'LTC';
-              } else {
-                // Create a capitalized version of the selected filter
-                selectedRowKey = selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1);
-              };
-              // Get the layer options filters using selectedFilter
-              const subfilters = Object.fromEntries(
-                Array.from(document.querySelectorAll('input[name="' + selectedFilter + 'Options"]'))
-                .map(option => [option.value, option.checked])
-              );
-              // Apply the filters
-              applyFilters(states, dnaPrivacy, filters, subfilters);
-            });
-      */
-      /*
-            document.getElementById('resetButton').addEventListener('click', function() {
-              stateGroups.coverageGroup.style("visibility", "visible");
-              stateGroups.filterGroup.style("visibility", "hidden");
-              // Repopulate sidebar with original data
-              populateStateDetails(groupAndCountEntriesForStates(dnaPrivacy));
-            });
-      */
       stateGroups.coverageGroup.style("visibility", "visible");
       stateGroups.filterGroup.style("visibility", "hidden");
 
@@ -981,7 +1021,50 @@
         .attr("d", path)
         .attr("fill", d => {
           const stateData = data.find(state => state.name === d.properties.name);
-          return stateData ? colorScale(stateData.count) : "gray";
+          if (stateData) {
+            // If all three properties are set to true, overlay the crosshatch pattern
+            if (stateData.life && stateData.disability && stateData.ltc) {
+              // Fill state with the crosshatch pattern
+              return "url(#crosshatch-pattern-all)";
+            }
+            // If both the "life" and "disability" properties are set to true, overlay both crosshatch patterns
+            if (stateData.life && stateData.disability) {
+              // Fill state with the crosshatch pattern
+              return "url(#crosshatch-pattern-cross)";
+            }
+            // If both the "life" and "ltc" properties are set to true, overlay both crosshatch patterns
+            if (stateData.life && stateData.ltc) {
+              // Fill state with the crosshatch pattern
+              return "url(#crosshatch-pattern-right-vert)";
+            }
+            // If both the "disability" and "ltc" properties are set to true, overlay both crosshatch patterns
+            if (stateData.disability && stateData.ltc) {
+              // Fill state with the crosshatch pattern
+              return "url(#crosshatch-pattern-left-vert)";
+            }
+            // If the state has a "life" property set to true, fill it with a crosshatch pattern
+            if (stateData.life) {
+              // Fill state with the crosshatch pattern
+              return "url(#crosshatch-pattern-right)";
+            }
+            // If the state has a "disability" property set to true, fill it with a crosshatch pattern
+            if (stateData.disability) {
+              // Fill state with the crosshatch pattern
+              return "url(#crosshatch-pattern-left)";
+            }
+            // If the state has ONLY the "ltc" property set to true, fill it with a crosshatch pattern
+            if (stateData.ltc) {
+              // Fill state with the crosshatch pattern
+              return "url(#crosshatch-pattern-vertical)";
+            } else {
+              // Default fill color if stateData is not found
+              return "gray";
+            }
+          } else {
+            // Default fill color if stateData is not found
+            return "gray";
+          }
+          //return stateData ? colorScale(stateData.count) : "gray";
         })
         .attr("stroke", "white")
         .attr("stroke-width", 0.5)
