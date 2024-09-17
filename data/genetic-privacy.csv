@@ -1,6 +1,6 @@
 ﻿Code,State,Life,Disability,LTC,Note,Link,Programming note
 Alabama Code § 27-5-13,Alabama,4,4,4,,https://alisondb.legislature.state.al.us/alison/codeofalabama/1975/27-5-13.htm,
-Alabama Code (from HB21 2024),Alabama,1,1,1,,https://alison.legislature.state.al.us/bill-search,I still need to figure out which code citation this recently passed bill will be under
+Alabama Code (from HB21),Alabama,1,1,1,,https://alison.legislature.state.al.us/bill-search,I still need to figure out which code citation this recently passed bill will be under
 ,Alaska,,,,,,
 Arizona Revised Statutes Title 20. Insurance § 20-448,Arizona,4,4,,,https://www.azleg.gov/ars/20/00448.htm,
 Arizona Revised Statutes Title 20. Insurance § 20-448.02,Arizona,1,1,1,,https://www.azleg.gov/viewdocument/?docName=https://www.azleg.gov/ars/20/00448-02.htm,
@@ -12,10 +12,10 @@ Colorado Revised Statutes Annotated § 10-3-1104.7,Colorado,1,"1,2",2,Use of gen
 C.G.S.A. § 38a-833,Connecticut,5,5,5,"Other = (A) Any requirement or agreement that the individual undergo genetic testing; or
 (B) The results of any genetic testing of a member of the individual's family unless the results are contained in the individual's medical record.",https://1.next.westlaw.com/Document/N96F98EA01C0E11ECBCB3EEB3E0618ABB/View/FullText.html?originationContext=documenttoc&transitionType=CategoryPageItem&contextData=(sc.Default),
 Delaware Code Title 16 § 1202,Delaware,1,1,1,,https://delcode.delaware.gov/title16/c012/sc01/index.html,
-2020 Florida Statute 627.4301,Florida,2,2,2,,https://flsenate.gov/Laws/Statutes/2021/627.4301,
-2021 Florida Statutes § 760.40,Florida,1,1,1,,https://www.flsenate.gov/Laws/Statutes/2021/0760.40,
-2021 Florida Statutes § 626.9706,Florida,4,,,,https://www.flsenate.gov/Laws/Statutes/2021/0626.9706,
-2021 Florida Statutes § 626.9707,Florida,,4,,,https://www.flsenate.gov/Laws/Statutes/2021/0626.9707,
+Florida Statute 627.4301,Florida,2,2,2,,https://flsenate.gov/Laws/Statutes/2021/627.4301,
+Florida Statutes § 760.40,Florida,1,1,1,,https://www.flsenate.gov/Laws/Statutes/2021/0760.40,
+Florida Statutes § 626.9706,Florida,4,,,,https://www.flsenate.gov/Laws/Statutes/2021/0626.9706,
+Florida Statutes § 626.9707,Florida,,4,,,https://www.flsenate.gov/Laws/Statutes/2021/0626.9707,
 ,Georgia,,,,,,
 ,Hawaii,,,,,,
 Idaho Statutes § 41-1313,Idaho,,2,,,https://legislature.idaho.gov/statutesrules/idstat/title41/t41ch13/sect41-1313/,
@@ -38,7 +38,7 @@ Minnesota Statutes § 325F.995,Minnesota,1,1,1,,https://www.revisor.mn.gov/statu
 ,Missouri,,,,,,
 Montana Statutes 33-18-206,Montana,3,3,,,https://leg.mt.gov/bills/mca/title_0330/chapter_0180/part_0020/section_0060/0330-0180-0020-0060.html,
 Montana Statutes 33-18-206,Montana,1,,1,,https://www.leg.mt.gov/bills/mca/title_0300/chapter_0230/part_0010/section_0010/0300-0230-0010-0010.html,
-LB308,Nebraska,1,,1,,,I still need to figure out which code citation this recently passed bill will be under
+LB308,Nebraska,1,,1,,https://nebraskalegislature.gov/bills/view_bill.php?DocumentID=49940,I still need to figure out which code citation this recently passed bill will be under
 Nevada Revised Statutes Annotated § 629.151,Nevada,1,,,,https://www.leg.state.nv.us/nrs/NRS-629.html#NRS629Sec151,
 New Hampshire Statutes § 141-H:5,New Hampshire,1,1,1,,https://www.gencourt.state.nh.us/rsa/html/X/141-H/141-H-mrg.htm,
 New Jersey Revised Statutes § 17B:30-12,New Jersey,"1,3","1,3",,,https://lis.njleg.state.nj.us/nxt/gateway.dll?f=templates&fn=default.htm&vid=Publish:10.1048/Enu,
