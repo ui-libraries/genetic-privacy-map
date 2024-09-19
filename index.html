@@ -426,7 +426,7 @@
                   <label for="ltcOption5">Other</label>
                 </div>
               </div>
-              <button id="filterButton">Filter</button>
+              <!--<button id="filterButton">Filter</button>-->
               <button id="resetButton">Reset</button>
             </div>
           </div>
@@ -449,22 +449,22 @@
       <div>
         <!-- Display "patterns/lines-d-02.png" for the case of "Life" coverage-->
         <div style="display: flex; align-items: center;">
-          <span style="display: inline-block; width: 20px; height: 20px; background-image: url('patterns/lines-d-02.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> Life Covered
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173, 216, 230); background-image: url('patterns/lines-d-02.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> Life Covered
         </div>
 
         <!-- Display "patterns/lines-d-05.png" for the case of "Disability" coverage-->
         <div style="display: flex; align-items: center;">
-          <span style="display: inline-block; width: 20px; height: 20px; background-image: url('patterns/lines-d-05.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> Disability Covered
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173, 216, 230); background-image: url('patterns/lines-d-05.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> Disability Covered
         </div>
 
         <!-- Display "patterns/lines-v-02.png" for the case of "LTC" coverage-->
         <div style="display: flex; align-items: center;">
-          <span style="display: inline-block; width: 20px; height: 20px; background-image: url('patterns/lines-v-02.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> LTC Covered
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173, 216, 230); background-image: url('patterns/lines-v-02.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> LTC Covered
         </div>
 
         <!-- Display "gray" for the case of "No Genetic Privacy Laws"-->
         <div style="display: flex; align-items: center;">
-          <span style="display: inline-block; width: 20px; height: 20px; background-color: gray; margin-right: 5px;"></span> No Genetic Privacy Laws
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251,247,245); margin-right: 5px;"></span> No Genetic Privacy Laws
         </div>
         <!--       
         <div style="display: flex; align-items: center;">
@@ -484,10 +484,10 @@
       <h4 style="margin-top: 0;">Regulatory Coverage</h4>
       <div>
         <div style="display: flex; align-items: center;">
-          <span style="display: inline-block; width: 20px; height: 20px; background-color: gray; margin-right: 5px;"></span> Absent
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251,247,245); margin-right: 5px;"></span> Absent
         </div>
         <div style="display: flex; align-items: center;">
-          <span style="display: inline-block; width: 20px; height: 20px; background-color: blue; margin-right: 5px;"></span> Present
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173,216,230); margin-right: 5px;"></span> Present
         </div>
       </div>
     </div>
@@ -725,24 +725,36 @@
           document.getElementById('legend').style.display = 'none';
           // Show the filter-legend
           document.getElementById('filter-legend').style.display = 'block';
+
           // Get the current filters
           const filters = {
             life: document.getElementById('lifeLayerToggle').checked,
             disability: document.getElementById('disabilityLayerToggle').checked,
             ltc: document.getElementById('ltcLayerToggle').checked
           };
+
           // Determine which filter is checked
           selectedFilter = Object.keys(filters).find(key => filters[key]);
+
           // If selectedFilter is 'ltc', change selectedRowKey to 'LTC'
           if (selectedFilter === 'ltc') {
             selectedRowKey = 'LTC';
           } else {
             // Create a capitalized version of the selected filter
             selectedRowKey = selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1);
-          };
+          }
+
           // Feed the selectedRowKey to the title bar at the top of the page
           document.querySelector('.dynamictitle').textContent = `${selectedRowKey}-Related Laws`;
 
+          // Clear previous filters for checkboxes
+          const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+          checkboxes.forEach(checkbox => {
+            checkbox.checked = false; // Reset all checkboxes
+          });
+
+          // Clear previous shading before applying new shading
+          stateGroups.coverageGroup.selectAll("path").style("fill", "rgb(251,247,245)");
 
           // Iterate through every path (state) and apply a color based on the selectedRowKey value
           stateGroups.coverageGroup.selectAll("path")
@@ -752,20 +764,25 @@
               const isStateShadedBlue = dnaPrivacy.some(row => row.State === stateName && row[selectedRowKey]);
 
               // Return the color based on whether any row meets the criteria
-              return isStateShadedBlue ? "blue" : "gray";
+              return isStateShadedBlue ? "rgb(173,216,230)" : "rgb(251,247,245)";
             });
 
-          // Wait for a subfilter to be selected 
-          document.getElementById('filterButton').addEventListener('click', function() {
-            // Get the layer options filters using selectedFilter
-            const subfilters = Object.fromEntries(
-              Array.from(document.querySelectorAll('input[name="' + selectedFilter + 'Options"]'))
-              .map(option => [option.value, option.checked])
-            );
-            // Apply the filters
-            applyFilters(states, dnaPrivacy, filters, subfilters);
+          // Add click event listeners to checkboxes again, if they were reset
+          checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('click', function() {
+              // Get the layer options filters using selectedFilter
+              const subfilters = Object.fromEntries(
+                Array.from(document.querySelectorAll('input[name="' + selectedFilter + 'Options"]'))
+                .map(option => [option.value, option.checked])
+              );
+
+              // Apply the filters
+              applyFilters(states, dnaPrivacy, filters, subfilters);
+            });
           });
 
+          // Apply initial filters when a radio button is clicked (after checkbox resets)
+          applyFilters(states, dnaPrivacy, filters, {});
         });
       });
 
@@ -1012,13 +1029,23 @@
       // Define the color scale
       const colorScale = d3.scaleLinear()
         .domain([0, 1, 2, 3])
-        .range(["gray", "lightblue", "blue", "darkblue"]);
+        .range(["rgb(251,247,245)", "lightblue", "blue", "darkblue"]);
 
-      // Select paths and bind data
-      layerGroup.selectAll("path")
+      // Draw the background paths based on the state shapes
+      layerGroup.selectAll("path.background")
         .data(topojson.feature(states, states.objects.states).features)
         .join("path")
-        .attr("d", path)
+        .attr("class", "background")
+        .attr("d", path) // Use the path generator directly for the background
+        .attr("fill", "rgb(173,216,230)") // Background color
+        .attr("opacity", 1); // Optional: make it semi-transparent   
+
+      // Now, draw the state paths on top of the background
+      layerGroup.selectAll("path.state")
+        .data(topojson.feature(states, states.objects.states).features)
+        .join("path")
+        .attr("class", "state")
+        .attr("d", path) // Use the same path generator
         .attr("fill", d => {
           const stateData = data.find(state => state.name === d.properties.name);
           if (stateData) {
@@ -1058,15 +1085,16 @@
               return "url(#crosshatch-pattern-vertical)";
             } else {
               // Default fill color if stateData is not found
-              return "gray";
+              return "rgb(251,247,245)";
             }
-          } else {
-            // Default fill color if stateData is not found
-            return "gray";
           }
+          /*else {
+                     // Default fill color if stateData is not found
+                     return "rgb(251,247,245)";
+                   }*/
           //return stateData ? colorScale(stateData.count) : "gray";
         })
-        .attr("stroke", "white")
+        .attr("stroke", "gray")
         .attr("stroke-width", 0.5)
         .on("mouseover", function(event, d) {
           d3.select(this).classed("highlighted", true).raise();
@@ -1112,41 +1140,41 @@
         .on("mouseout", function() {
           d3.select(this).classed("highlighted", false);
         });
+      /*
+            function showTooltip(content, x, y) {
+              const tooltip = document.querySelector('#tooltip');
+              tooltip.innerHTML = content;
+              tooltip.style.opacity = 1;
+              tooltip.style.left = `${x + 5}px`;
+              tooltip.style.top = `${y - 28}px`;
 
-      function showTooltip(content, x, y) {
-        const tooltip = document.querySelector('#tooltip');
-        tooltip.innerHTML = content;
-        tooltip.style.opacity = 1;
-        tooltip.style.left = `${x + 5}px`;
-        tooltip.style.top = `${y - 28}px`;
+              // Ensure tooltip is visible and can capture mouse events
+              tooltip.classList.add('visible');
+              tooltip.classList.remove('hidden'); // Make sure the tooltip is not hidden
 
-        // Ensure tooltip is visible and can capture mouse events
-        tooltip.classList.add('visible');
-        tooltip.classList.remove('hidden'); // Make sure the tooltip is not hidden
+              // Attach event listener for the close button
+              const closeButton = tooltip.querySelector('.close');
+              if (closeButton) {
+                closeButton.addEventListener('click', function(event) {
+                  event.stopPropagation(); // Prevent click event from propagating
+                  hideTooltip();
+                });
+              }
 
-        // Attach event listener for the close button
-        const closeButton = tooltip.querySelector('.close');
-        if (closeButton) {
-          closeButton.addEventListener('click', function(event) {
-            event.stopPropagation(); // Prevent click event from propagating
-            hideTooltip();
-          });
-        }
+              // Ensure the tooltip captures clicks
+              tooltip.addEventListener('click', function(event) {
+                event.stopPropagation(); // Prevent click from propagating to the map
+              });
+            }
 
-        // Ensure the tooltip captures clicks
-        tooltip.addEventListener('click', function(event) {
-          event.stopPropagation(); // Prevent click from propagating to the map
-        });
-      }
-
-      function hideTooltip() {
-        const tooltip = document.querySelector('#tooltip');
-        if (tooltip) {
-          tooltip.classList.remove('visible'); // Hide tooltip with CSS
-          tooltip.classList.add('hidden'); // Ensure the tooltip is fully removed from the view
-        }
-      }
-
+            function hideTooltip() {
+              const tooltip = document.querySelector('#tooltip');
+              if (tooltip) {
+                tooltip.classList.remove('visible'); // Hide tooltip with CSS
+                tooltip.classList.add('hidden'); // Ensure the tooltip is fully removed from the view
+              }
+            }
+      */
       // Hide tooltip when clicking outside
       d3.select("body").on("click", function() {
         hideTooltip();
@@ -1170,9 +1198,9 @@
         .attr("d", path)
         .attr("fill", d => {
           const stateData = filtered.find(state => state.name === d.properties.name);
-          return stateData ? "blue" : "gray";
+          return stateData ? "rgb(173,216,230)" : "rgb(251,247,245)";
         })
-        .attr("stroke", "white")
+        .attr("stroke", "gray")
         .attr("stroke-width", 0.5)
         .on("mouseover", function(event, d) {
           const stateName = d.properties.name;
@@ -1650,49 +1678,49 @@
         group.style.display = 'none';
       });
     }
+    /*
+        // Functions to handle tooltip positioning
+        function showTooltip(htmlContent, x, y) {
+          const tooltip = document.querySelector('.tooltip');
+          tooltip.innerHTML = htmlContent;
 
-    // Functions to handle tooltip positioning
-    function showTooltip(htmlContent, x, y) {
-      const tooltip = document.querySelector('.tooltip');
-      tooltip.innerHTML = htmlContent;
+          // Set initial position
+          tooltip.style.left = `${x}px`;
+          tooltip.style.top = `${y}px`;
 
-      // Set initial position
-      tooltip.style.left = `${x}px`;
-      tooltip.style.top = `${y}px`;
+          // Get the tooltip and map dimensions
+          const tooltipRect = tooltip.getBoundingClientRect();
+          const mapRect = document.querySelector('#map').getBoundingClientRect();
 
-      // Get the tooltip and map dimensions
-      const tooltipRect = tooltip.getBoundingClientRect();
-      const mapRect = document.querySelector('#map').getBoundingClientRect();
+          // Adjust the position if the tooltip is too close to the right edge
+          if (tooltipRect.right > mapRect.right) {
+            tooltip.style.left = `${mapRect.right - tooltipRect.width}px`;
+          }
 
-      // Adjust the position if the tooltip is too close to the right edge
-      if (tooltipRect.right > mapRect.right) {
-        tooltip.style.left = `${mapRect.right - tooltipRect.width}px`;
-      }
+          // Adjust the position if the tooltip is too close to the left edge
+          if (tooltipRect.left < mapRect.left) {
+            tooltip.style.left = `${mapRect.left}px`;
+          }
 
-      // Adjust the position if the tooltip is too close to the left edge
-      if (tooltipRect.left < mapRect.left) {
-        tooltip.style.left = `${mapRect.left}px`;
-      }
+          // Adjust the position if the tooltip is too close to the bottom edge
+          if (tooltipRect.bottom > mapRect.bottom) {
+            tooltip.style.top = `${mapRect.bottom - tooltipRect.height}px`;
+          }
 
-      // Adjust the position if the tooltip is too close to the bottom edge
-      if (tooltipRect.bottom > mapRect.bottom) {
-        tooltip.style.top = `${mapRect.bottom - tooltipRect.height}px`;
-      }
+          // Adjust the position if the tooltip is too close to the top edge
+          if (tooltipRect.top < mapRect.top) {
+            tooltip.style.top = `${mapRect.top}px`;
+          }
 
-      // Adjust the position if the tooltip is too close to the top edge
-      if (tooltipRect.top < mapRect.top) {
-        tooltip.style.top = `${mapRect.top}px`;
-      }
+          // Show the tooltip
+          tooltip.classList.add('visible');
+        }
 
-      // Show the tooltip
-      tooltip.classList.add('visible');
-    }
-
-    function hideTooltip() {
-      const tooltip = document.querySelector('.tooltip');
-      tooltip.classList.remove('visible');
-    }
-
+        function hideTooltip() {
+          const tooltip = document.querySelector('.tooltip');
+          tooltip.classList.remove('visible');
+        }
+    */
     // Collapsible content instructions
     // Get the collapsible section, header, and button
     const collapsibleSectionOverview = document.querySelector('.collapsible-overview');
@@ -1762,6 +1790,53 @@
       content.style.display = 'block';
       arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
     });
+
+
+
+    // TOOLTIP CODE
+    // Function to show the tooltip
+    function showTooltip(content, x, y) {
+      const tooltip = document.querySelector('#tooltip');
+      tooltip.innerHTML = content;
+      tooltip.style.opacity = 1;
+      tooltip.style.left = `${x + 5}px`;
+      tooltip.style.top = `${y - 28}px`;
+      tooltip.classList.add('visible');
+      tooltip.classList.remove('hidden');
+
+      const closeButton = tooltip.querySelector('.close');
+      if (closeButton) {
+        closeButton.onclick = function(event) {
+          event.stopPropagation();
+          hideTooltip();
+        };
+      }
+
+      tooltip.onclick = function(event) {
+        event.stopPropagation();
+      };
+    }
+
+    // Function to hide the tooltip
+    function hideTooltip() {
+      const tooltip = document.querySelector('#tooltip');
+      if (tooltip) {
+        tooltip.classList.remove('visible');
+        tooltip.classList.add('hidden');
+      }
+    }
+
+    // Function to setup tooltips
+    function setupTooltips() {
+      stateGroups.coverageGroup.selectAll("path")
+        .on("mouseover", function(event, d) {
+          const tooltipText = d.properties.name; // Example: state name
+          const x = event.pageX;
+          const y = event.pageY;
+          showTooltip(tooltipText, x, y);
+        })
+        .on("mouseout", hideTooltip);
+    }
   </script>
 </body>
 
