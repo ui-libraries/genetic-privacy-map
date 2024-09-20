@@ -117,6 +117,11 @@
       margin-bottom: 10px;
     }
 
+    #tooltip {
+      display: none;
+      /* Initially hidden */
+    }
+
     .tooltip {
       position: absolute;
       text-align: left;
@@ -135,11 +140,16 @@
 
     .tooltip.visible {
       opacity: 1;
+      /* Fully visible */
+      display: block;
+      /* Use block to show the tooltip */
     }
 
     .tooltip.hidden {
-      display: none;
-      /* Hide the tooltip completely */
+      opacity: 0;
+      /* Hide the tooltip */
+      pointer-events: none;
+      /* Disable mouse events when hidden */
     }
 
     .tooltip .close {
@@ -154,6 +164,7 @@
       border: none;
       /* Remove border */
       cursor: pointer;
+      /* Show pointer cursor on hover */
       padding: 0;
       /* Remove default padding */
     }
@@ -1100,11 +1111,6 @@
               return "rgb(251,247,245)";
             }
           }
-          /*else {
-                     // Default fill color if stateData is not found
-                     return "rgb(251,247,245)";
-                   }*/
-          //return stateData ? colorScale(stateData.count) : "gray";
         })
         .attr("stroke", "gray")
         .attr("stroke-width", 0.5)
@@ -1124,21 +1130,14 @@
             let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
 
             // Create the table row with a hyperlink if code.link is present
-            return `<tr>
-    <td><a href="${code.link || '#'}" target="_blank">${code.code || 'N/A'}</a></td>
-    <td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td>
-  </tr>`;
+            return `<tr><td><a href="${code.link || '#'}" target="_blank">${code.code || 'N/A'}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`
           }).join('') : '<tr><td title="N/A">N/A</td><td title="N/A">N/A</td></tr>';
 
           // Add the table headers
           const tableHeaders = `<thead><tr><th>Laws</th><th>Type</th></tr></thead>`;
 
           // Create tooltip content with close button
-          const tooltipContent = `
-      <div style="font-size: 16px; font-weight: bold;">${stateName}</div>
-      <table>${tableHeaders}<tbody>${codeList}</tbody></table>
-      <button class="close" id="tooltip-close">&times;</button>
-    `;
+          const tooltipContent = `<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${tableHeaders}<tbody>${codeList}</tbody></table><button class="close" id="tooltip-close">&times;</button>`;
 
           const x = event.pageX;
           const y = event.pageY;
@@ -1152,41 +1151,7 @@
         .on("mouseout", function() {
           d3.select(this).classed("highlighted", false);
         });
-      /*
-            function showTooltip(content, x, y) {
-              const tooltip = document.querySelector('#tooltip');
-              tooltip.innerHTML = content;
-              tooltip.style.opacity = 1;
-              tooltip.style.left = `${x + 5}px`;
-              tooltip.style.top = `${y - 28}px`;
 
-              // Ensure tooltip is visible and can capture mouse events
-              tooltip.classList.add('visible');
-              tooltip.classList.remove('hidden'); // Make sure the tooltip is not hidden
-
-              // Attach event listener for the close button
-              const closeButton = tooltip.querySelector('.close');
-              if (closeButton) {
-                closeButton.addEventListener('click', function(event) {
-                  event.stopPropagation(); // Prevent click event from propagating
-                  hideTooltip();
-                });
-              }
-
-              // Ensure the tooltip captures clicks
-              tooltip.addEventListener('click', function(event) {
-                event.stopPropagation(); // Prevent click from propagating to the map
-              });
-            }
-
-            function hideTooltip() {
-              const tooltip = document.querySelector('#tooltip');
-              if (tooltip) {
-                tooltip.classList.remove('visible'); // Hide tooltip with CSS
-                tooltip.classList.add('hidden'); // Ensure the tooltip is fully removed from the view
-              }
-            }
-      */
       // Hide tooltip when clicking outside
       d3.select("body").on("click", function() {
         hideTooltip();
@@ -1223,7 +1188,7 @@
               delete stateData['2']; // Remove it from consideration
               return color;
             }
-            
+
             // Check for stateData['4']
             if (stateData['4']) {
               const color = coverageColorScale("4");
@@ -1251,7 +1216,7 @@
               delete stateData['5'];
               return color;
             }
-            
+
           } else {
             return "rgb(251,247,245)";
           }
@@ -1259,17 +1224,18 @@
         .attr("stroke", "gray")
         .attr("stroke-width", 0.5)
         .on("mouseover", function(event, d) {
+          d3.select(this).classed("highlighted", true).raise();
+        })
+        .on("click", function(event, d) {
           const stateName = d.properties.name;
           const stateData = all.find(state => state.name === stateName);
 
-          // if life in newFilters is true, then filter out all codes that are not life
+          // Apply filters based on newFilters
           if (newFilters.life) {
             stateData.codes = stateData.codes.filter(code => code.life);
-          } // otherwise, if disability in newFilters is true, then filter out all codes that are not disability
-          else if (newFilters.disability) {
+          } else if (newFilters.disability) {
             stateData.codes = stateData.codes.filter(code => code.disability);
-          } // otherwise, if ltc in newFilters is true, then filter out all codes that are not ltc
-          else if (newFilters.ltc) {
+          } else if (newFilters.ltc) {
             stateData.codes = stateData.codes.filter(code => code.ltc);
           }
 
@@ -1277,116 +1243,67 @@
           const checkboxes = document.querySelectorAll('input[type="checkbox"]');
           const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
 
-          // if 'input[type="checkbox"]' is not checked, then show all codes
+          // If no checkboxes are checked, show all codes
           if (!anyChecked) {
-            stateData.codes = stateData.codes;
+            stateData.codes = stateData.codes; // No need to filter
           } else {
-            // Check subfilters and return the keys that are true
             const selectedBox = Object.keys(subfilters).filter(key => subfilters[key]);
-
             stateData.codes = stateData.codes.filter(code => {
-              // Return the codes where code[selectedFilter] includes one of the values in selectedBox
               return selectedBox.some(value => code[selectedFilter].includes(value));
             });
-
           }
 
-          // clear the subcons array
-          subcons.length = 0;
+          // Create the code list with descriptions
+          const codeList = stateData.codes.map(code => {
+            let entries = [];
+            if (code[selectedFilter].includes("1")) entries.push('<div>1. Requires informed consent</div>');
+            if (code[selectedFilter].includes("2")) entries.push('<div>2. Prohibits use of genetic info</div>');
+            if (code[selectedFilter].includes("3")) entries.push('<div>3. Allowed if actuarially justified</div>');
+            if (code[selectedFilter].includes("4")) entries.push('<div>4. Bars use of a specific trait</div>');
+            if (code[selectedFilter].includes("5")) entries.push('<div>5. Other</div>');
 
-          // iterate through the codes and push the selectedFilter values to the subcons array
-          stateData.codes.map(code => {
-            subcons.push(code[selectedFilter]);
-          });
+            let entriesText = entries.length > 0 ? entries.join('') : 'N/A';
+            return `<tr><td>${code.code || 'N/A'}</td><td>${entriesText}</td></tr>`;
+          }).join('');
 
-          // from subfilters, return the keys that are true
-          const subconsMatch = Object.keys(subfilters).filter(key => subfilters[key]);
+          const newCodeList = codeList || '<tr><td>N/A</td><td>N/A</td></tr>';
 
-          function arraysAreEquivalent(subcons, subconsMatch) {
-            // Flatten subcons array if it contains comma-separated values
-            const subconsSet = new Set(
-              subcons.flatMap(element => element.split(","))
-            );
-
-            // Check if every element in subconsMatch is present in subconsSet
-            return subconsMatch.every(element => subconsSet.has(element));
-          }
-
-          let codeList;
-
-          // check if the subcons array and subconsMatch array are equivalent
-          if (arraysAreEquivalent(subcons, subconsMatch)) {
-            // Set codeList to the filtered codes
-            codeList = stateData.codes.map(code => {
-              let entries = [];
-              if (code[selectedFilter].includes("1")) entries.push('<div style="white-space: nowrap;">1. <span style="text-indent: 1px; display: inline-block;">Requires informed consent</span></div>');
-              if (code[selectedFilter].includes("2")) entries.push('<div style="white-space: nowrap;">2. <span style="text-indent: 1px; display: inline-block;">Prohibits use of genetic info</span></div>');
-              if (code[selectedFilter].includes("3")) entries.push('<div style="white-space: nowrap;">3. <span style="text-indent: 1px; display: inline-block;">Allowed if actuarially justified</span></div>');
-              if (code[selectedFilter].includes("4")) entries.push('<div style="white-space: nowrap;">4. <span style="text-indent: 1px; display: inline-block;">Bars use of a specific trait</span></div>');
-              if (code[selectedFilter].includes("5")) entries.push('<div style="white-space: nowrap;">5. <span style="text-indent: 1px; display: inline-block;">Other</span></div>');
-              // Combine entries into a single string
-              let entriesText = entries.length > 0 ? entries.join('') : 'N/A';
-              return `<tr><td>${code.code ? code.code : 'N/A'}</td><td>${entriesText ? entriesText : 'N/A'}</td></tr>`;
-            }).join('');
-          } else {
-            codeList = '';
-          }
-
-          let newCodeList;
-
-          // Update this condition to show "N/A" for both "Laws" and "Coverage" if no codes are returned
-          if (codeList === '') {
-            newCodeList = '<tr><td>N/A</td><td>N/A</td></tr>';
-          } else {
-            newCodeList = codeList;
-          };
-
-          const tooltipContent = `<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table><thead><tr><th>Laws</th><th>Coverage</th></tr></thead><tbody>${newCodeList}</tbody></table>`;
-
-          d3.select(this).classed("highlighted", true).raise();
+          // Create tooltip content with close button
+          const tooltipContent = `
+        <div style="font-size: 16px; font-weight: bold;">${stateName}</div>
+        <table>
+            <thead>
+                <tr><th>Laws</th><th>Coverage</th></tr>
+            </thead>
+            <tbody>${newCodeList}</tbody>
+        </table>
+        <button class="close" id="tooltip-close">&times;</button>
+    `;
 
           const x = event.pageX;
           const y = event.pageY;
 
+          // Show the tooltip with content
           showTooltip(tooltipContent, x, y);
+
+          // Prevent click event from bubbling up to the body
+          event.stopPropagation();
         })
-        .on("mousemove", function(event) {
-          const x = event.pageX;
-          const y = event.pageY;
+        /*        
+                .on("mousemove", function(event) {
+                  const x = event.pageX;
+                  const y = event.pageY;
 
-          const tooltip = document.querySelector('.tooltip');
+                  const tooltip = document.querySelector('.tooltip');
 
-          // Set initial position
-          tooltip.style.left = `${x + 5}px`;
-          tooltip.style.top = `${y - 28}px`;
-
-          // Get the tooltip and map dimensions
-          const tooltipRect = tooltip.getBoundingClientRect();
-          const mapRect = document.querySelector('#map').getBoundingClientRect();
-
-          // Adjust the position if the tooltip is too close to the right edge
-          if (tooltipRect.right > mapRect.right) {
-            tooltip.style.left = `${mapRect.right - tooltipRect.width}px`;
-          }
-
-          // Adjust the position if the tooltip is too close to the left edge
-          if (tooltipRect.left < mapRect.left) {
-            tooltip.style.left = `${mapRect.left}px`;
-          }
-
-          // Adjust the position if the tooltip is too close to the bottom edge
-          if (tooltipRect.bottom > mapRect.bottom) {
-            tooltip.style.top = `${mapRect.bottom - tooltipRect.height}px`;
-          }
-
-          // Adjust the position if the tooltip is too close to the top edge
-          if (tooltipRect.top < mapRect.top) {
-            tooltip.style.top = `${mapRect.top}px`;
-          }
-        })
+                  // Set initial position
+                  tooltip.style.left = `${x + 5}px`;
+                  tooltip.style.top = `${y - 28}px`;
+                })
+        */
         .on("mouseout", function() {
           d3.select(this).classed("highlighted", false);
-          hideTooltip();
+          //hideTooltip();
         });
     }
 
@@ -1855,33 +1772,63 @@
       const tooltip = document.querySelector('#tooltip');
       tooltip.innerHTML = content;
       tooltip.style.opacity = 1;
-      tooltip.style.left = `${x + 5}px`;
-      tooltip.style.top = `${y - 28}px`;
-      tooltip.classList.add('visible');
-      tooltip.classList.remove('hidden');
+      tooltip.style.display = 'block'; // Temporarily set to block
 
-      const closeButton = tooltip.querySelector('.close');
-      if (closeButton) {
-        closeButton.onclick = function(event) {
-          event.stopPropagation();
-          hideTooltip();
-        };
-      }
+      // Use setTimeout to ensure the tooltip is rendered before measuring
+      setTimeout(() => {
+        const tooltipRect = tooltip.getBoundingClientRect();
+        const mapRect = document.querySelector('#map').getBoundingClientRect();
+
+        // Initial position
+        let left = x + 5; // Add padding
+        let top = y - 28; // Adjust as needed
+
+        // Adjust positions based on tooltip and map dimensions
+        if (left + tooltipRect.width > mapRect.right) {
+          left = mapRect.right - tooltipRect.width - 5; // Add padding
+        }
+        if (left < mapRect.left) {
+          left = mapRect.left + 5; // Add padding
+        }
+        if (top + tooltipRect.height > mapRect.bottom) {
+          top = mapRect.bottom - tooltipRect.height - 5; // Add padding
+        }
+        if (top < mapRect.top) {
+          top = mapRect.top + 5; // Add padding
+        }
+
+        // Set the final position
+        tooltip.style.left = `${left}px`;
+        tooltip.style.top = `${top}px`;
+
+        // Ensure the tooltip classes are set correctly
+        tooltip.classList.add('visible');
+        tooltip.classList.remove('hidden');
+
+        // Close button functionality
+        const closeButton = tooltip.querySelector('.close');
+        if (closeButton) {
+          closeButton.onclick = function(event) {
+            event.stopPropagation(); // Prevent the event from bubbling up
+            hideTooltip();
+          };
+        }
+
+      }, 0); // Execute after rendering
 
       tooltip.onclick = function(event) {
-        event.stopPropagation();
+        event.stopPropagation(); // Prevent click event from bubbling up to other elements
       };
     }
 
-    // Function to hide the tooltip
     function hideTooltip() {
       const tooltip = document.querySelector('#tooltip');
-      if (tooltip) {
-        tooltip.classList.remove('visible');
-        tooltip.classList.add('hidden');
-      }
+      tooltip.style.display = 'none'; // Hide the tooltip
+      tooltip.style.opacity = 0; // Fade out if needed
+      tooltip.classList.remove('visible');
+      tooltip.classList.add('hidden');
     }
-
+/*
     // Function to setup tooltips
     function setupTooltips() {
       stateGroups.coverageGroup.selectAll("path")
@@ -1893,6 +1840,7 @@
         })
         .on("mouseout", hideTooltip);
     }
+*/        
   </script>
 </body>
 
