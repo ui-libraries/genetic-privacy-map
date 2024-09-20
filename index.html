@@ -445,7 +445,7 @@
     </div>
 
     <div id="legend" style="position: absolute; left: 20px; bottom: 20px; background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-      <h4 style="margin-top: 0;">Total Categories Covered</h4>
+      <h4 style="margin-top: 0; margin-bottom: 0;">Total Categories Covered</h4>
       <div>
         <!-- Display "patterns/lines-d-02.png" for the case of "Life" coverage-->
         <div style="display: flex; align-items: center;">
@@ -481,13 +481,25 @@
     </div>
 
     <div id="filter-legend" style="position: absolute; left: 20px; bottom: 20px; background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
-      <h4 style="margin-top: 0;">Regulatory Coverage</h4>
+      <h4 style="margin-top: 0; margin-bottom: 0;">Strength of Coverage</h4>
       <div>
         <div style="display: flex; align-items: center;">
-          <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251,247,245); margin-right: 5px;"></span> Absent
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: #03045e; margin-right: 5px;"></span> Prohibits use of genetic info
         </div>
         <div style="display: flex; align-items: center;">
-          <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173,216,230); margin-right: 5px;"></span> Present
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: #0077b6; margin-right: 5px;"></span> Bars use of a specific trait
+        </div>
+        <div style="display: flex; align-items: center;">
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: #00bfd8; margin-right: 5px;"></span> Allowed if actuarially justified
+        </div>
+        <div style="display: flex; align-items: center;">
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: #90e0ef; margin-right: 5px;"></span> Requires informed consent
+        </div>
+        <div style="display: flex; align-items: center;">
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: #caf0f8; margin-right: 5px;"></span> Other
+        </div>
+        <div style="display: flex; align-items: center;">
+          <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251,247,245); margin-right: 5px;"></span> Absent
         </div>
       </div>
     </div>
@@ -1186,6 +1198,11 @@
 
     function drawCoverageLayerFiltered(layerGroup, states, filtered, all, subfilters) {
 
+      // Define a coverage strength color scale
+      const coverageColorScale = d3.scaleOrdinal()
+        .domain(["2", "4", "3", "1", "5"])
+        .range(["#03045e", "#0077b6", "#00bfd8", "#90e0ef", "#caf0f8"]);
+
       const newFilters = {
         life: document.getElementById('lifeLayerToggle').checked,
         disability: document.getElementById('disabilityLayerToggle').checked,
@@ -1198,7 +1215,46 @@
         .attr("d", path)
         .attr("fill", d => {
           const stateData = filtered.find(state => state.name === d.properties.name);
-          return stateData ? "rgb(173,216,230)" : "rgb(251,247,245)";
+          // Skip 'undefined' values
+          if (stateData) {
+            // Check for stateData['2'] first
+            if (stateData['2']) {
+              const color = coverageColorScale("2");
+              delete stateData['2']; // Remove it from consideration
+              return color;
+            }
+            
+            // Check for stateData['4']
+            if (stateData['4']) {
+              const color = coverageColorScale("4");
+              delete stateData['4'];
+              return color;
+            }
+
+            // Check for stateData['3']
+            if (stateData['3']) {
+              const color = coverageColorScale("3");
+              delete stateData['3'];
+              return color;
+            }
+
+            // Check for stateData['1']
+            if (stateData['1']) {
+              const color = coverageColorScale("1");
+              delete stateData['1'];
+              return color;
+            }
+
+            // Check for stateData['5']
+            if (stateData['5']) {
+              const color = coverageColorScale("5");
+              delete stateData['5'];
+              return color;
+            }
+            
+          } else {
+            return "rgb(251,247,245)";
+          }
         })
         .attr("stroke", "gray")
         .attr("stroke-width", 0.5)
