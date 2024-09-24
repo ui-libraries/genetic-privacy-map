@@ -1263,7 +1263,7 @@
             if (code[selectedFilter].includes("5")) entries.push('<div>5. Other</div>');
 
             let entriesText = entries.length > 0 ? entries.join('') : 'N/A';
-            return `<tr><td>${code.code || 'N/A'}</td><td>${entriesText}</td></tr>`;
+            return `<tr><td><a href="${code.link || '#'}" target="_blank">${code.code || 'N/A'}</a></td><td>${entriesText}</td></tr>`;
           }).join('');
 
           const newCodeList = codeList || '<tr><td>N/A</td><td>N/A</td></tr>';
