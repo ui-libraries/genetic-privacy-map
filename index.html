@@ -321,10 +321,12 @@
     h1 {
       margin: 0;
       padding: 10px;
+      padding-bottom: 13px;
       color: black;
       font-size: 24px;
       font-weight: bold;
     }
+
   </style>
 </head>
 
@@ -606,10 +608,12 @@
       .attr("height", "100%")
       .attr("viewBox", `0 0 ${width} ${height}`); // Optional: Use viewBox to control scaling
 
+    // Get the height of the titlebar div
+    const titlebarHeight = document.getElementById('titlebar').offsetHeight;
 
     // Define the projection
     const projection = d3.geoAlbersUsa()
-      .translate([width / 2, height / 2])
+      .translate([width / 2, (height / 2) - titlebarHeight / 2])
       .scale(1000);
 
     // Define the path
@@ -750,6 +754,7 @@
 
       // Get the bounds of the map
       const bounds = path.bounds(topojson.feature(states, states.objects.states));
+
       // Calculate the initial scale
       const initialScale = Math.min(width / (bounds[1][0] - bounds[0][0]), height / (bounds[1][1] - bounds[0][1])) * 0.9;
       // Call the zoom behavior on the SVG
