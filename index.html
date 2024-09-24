@@ -4,7 +4,10 @@
 <head>
   <meta charset="utf-8">
   <title>Genetic Privacy Laws in the US</title>
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+  <!--<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Forum&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   <style>
     /* Hide scrollbar initially */
     .sidebar::-webkit-scrollbar {
@@ -20,7 +23,12 @@
     html {
       height: 100%;
       margin: 0;
-      font-family: 'Montserrat', sans-serif;
+      font-family: "Forum", serif;
+    }
+
+    label {
+      font-family: "Work Sans", sans-serif;
+      font-weight: 300;
     }
 
     #map {
@@ -71,6 +79,8 @@
     p {
       padding: 0 15px;
       font-size: 14px;
+      font-family: "Work Sans", sans-serif;
+      font-weight: 300;
     }
 
     .layer-control {
@@ -126,7 +136,8 @@
       position: absolute;
       text-align: left;
       padding: 10px;
-      font: 12px sans-serif;
+      font: 12px;
+      font-family: "Forum", serif;
       background: lightsteelblue;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -189,6 +200,9 @@
       border: 1px solid black;
       padding: 8px;
       text-align: left;
+      font-family: "Work Sans", sans-serif; 
+      font-weight: 300; 
+      font-size: 13px;
     }
 
     .collapsible-header-overview,
@@ -392,7 +406,7 @@
               <div>
                 <input type="radio" id="lifeLayerToggle" name="layer" value="life">
                 <label for="lifeLayerToggle">Life</label>
-                <div id="lifeLayerOptions" class="checkbox-group" style="display: none;">
+                <div id="lifeLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
                   <input type="checkbox" id="lifeOption1" name="lifeOptions" value="1">
                   <label for="lifeOption1">Requires informed consent</label><br>
                   <input type="checkbox" id="lifeOption2" name="lifeOptions" value="2">
@@ -408,7 +422,7 @@
               <div>
                 <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
                 <label for="disabilityLayerToggle">Disability</label>
-                <div id="disabilityLayerOptions" class="checkbox-group" style="display: none;">
+                <div id="disabilityLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
                   <input type="checkbox" id="disabilityOption1" name="disabilityOptions" value="1">
                   <label for="disabilityOption1">Requires informed consent</label><br>
                   <input type="checkbox" id="disabilityOption2" name="disabilityOptions" value="2">
@@ -424,7 +438,7 @@
               <div>
                 <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
                 <label for="ltcLayerToggle">LTC</label>
-                <div id="ltcLayerOptions" class="checkbox-group" style="display: none;">
+                <div id="ltcLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
                   <input type="checkbox" id="ltcOption1" name="ltcOptions" value="1">
                   <label for="ltcOption1">Requires informed consent</label><br>
                   <input type="checkbox" id="ltcOption2" name="ltcOptions" value="2">
@@ -459,22 +473,22 @@
       <h4 style="margin-top: 0; margin-bottom: 0;">Total Categories Covered</h4>
       <div>
         <!-- Display "patterns/lines-d-02.png" for the case of "Life" coverage-->
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173, 216, 230); background-image: url('patterns/lines-d-02.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> Life Covered
         </div>
 
         <!-- Display "patterns/lines-d-05.png" for the case of "Disability" coverage-->
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173, 216, 230); background-image: url('patterns/lines-d-05.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> Disability Covered
         </div>
 
         <!-- Display "patterns/lines-v-02.png" for the case of "LTC" coverage-->
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173, 216, 230); background-image: url('patterns/lines-v-02.png'); background-size: 10px 10px; background-repeat: repeat; margin-right: 5px;"></span> LTC Covered
         </div>
 
         <!-- Display "gray" for the case of "No Genetic Privacy Laws"-->
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251,247,245); margin-right: 5px;"></span> No Genetic Privacy Laws
         </div>
         <!--       
@@ -494,22 +508,22 @@
     <div id="filter-legend" style="position: absolute; left: 20px; bottom: 20px; background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
       <h4 style="margin-top: 0; margin-bottom: 0;">Strength of Coverage</h4>
       <div>
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: #03045e; margin-right: 5px;"></span> Prohibits use of genetic info
         </div>
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: #0077b6; margin-right: 5px;"></span> Bars use of a specific trait
         </div>
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: #00bfd8; margin-right: 5px;"></span> Allowed if actuarially justified
         </div>
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: #90e0ef; margin-right: 5px;"></span> Requires informed consent
         </div>
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: #caf0f8; margin-right: 5px;"></span> Other
         </div>
-        <div style="display: flex; align-items: center;">
+        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251,247,245); margin-right: 5px;"></span> Absent
         </div>
       </div>
