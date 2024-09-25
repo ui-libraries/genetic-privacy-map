@@ -1306,11 +1306,11 @@
           // Create the code list with descriptions
           const codeList = stateData.codes.map(code => {
             let entries = [];
-            if (code[selectedFilter].includes("1")) entries.push('<div>1. Requires informed consent</div>');
-            if (code[selectedFilter].includes("2")) entries.push('<div>2. Prohibits use of genetic info</div>');
-            if (code[selectedFilter].includes("3")) entries.push('<div>3. Allowed if actuarially justified</div>');
-            if (code[selectedFilter].includes("4")) entries.push('<div>4. Bars use of a specific trait</div>');
-            if (code[selectedFilter].includes("5")) entries.push('<div>5. Other</div>');
+            if (code[selectedFilter].includes("1")) entries.push('<div>• Requires informed consent</div>');
+            if (code[selectedFilter].includes("2")) entries.push('<div>• Prohibits use of genetic info</div>');
+            if (code[selectedFilter].includes("3")) entries.push('<div>• Allowed if actuarially justified</div>');
+            if (code[selectedFilter].includes("4")) entries.push('<div>• Bars use of a specific trait</div>');
+            if (code[selectedFilter].includes("5")) entries.push('<div>• Other</div>');
 
             let entriesText = entries.length > 0 ? entries.join('') : 'N/A';
             return `<tr><td><a href="${code.link || '#'}" target="_blank">${code.code || 'N/A'}</a></td><td>${entriesText}</td></tr>`;
