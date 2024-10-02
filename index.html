@@ -206,6 +206,7 @@
     }
 
     .collapsible-header-overview,
+    .collapsible-header-provisions,
     .collapsible-header-comparison,
     .collapsible-header-regulation,
     .collapsible-header-laws {
@@ -228,6 +229,7 @@
       display: block;
     }
 
+    .collapsible-content-provisions,
     .collapsible-content-comparison,
     .collapsible-content-regulation {
       display: none;
@@ -344,6 +346,21 @@
             <p>To filter the map, select your desired combination of genetic privacy regulations. You will notice the map change based on your combination of radio button and checkbox inputs. The scrollable list of linked regulations will also change according to your selections. Press the reset button to return to the general coverage map.</p>
           </div>
         </div>
+
+        <div class="collapsible-provisions">
+          <div class="collapsible-header-provisions">
+            <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span> <!-- Right-facing arrow icon -->Compare Key Provisions</h4>
+          </div>
+          <div class="collapsible-content-provisions">
+            <p>There are many different decisions that an insurer makes about an individual. They can make decisions about whether to insure them (underwriting), renew an existing policy, or how much to charge for coverage (premiums). <a href="key-provisions.html" target="_blank">Please click here to compare key provisions between a few states.</a></p>
+          </div>
+        </div>
+
+
+
+
+
+
         <!-- STATE LAW COMPARISON START -->
         <div class="collapsible-comparison">
           <div class="collapsible-header-comparison">
@@ -1750,10 +1767,12 @@
     // Collapsible content instructions
     // Get the collapsible section, header, and button
     const collapsibleSectionOverview = document.querySelector('.collapsible-overview');
+    const collapsibleSectionProvisions = document.querySelector('.collapsible-provisions');
     const collapsibleSectionComparison = document.querySelector('.collapsible-comparison');
     const collapsibleSectionRegulation = document.querySelector('.collapsible-regulation');
     const collapsibleSectionLaws = document.querySelector('.collapsible-laws');
     const collapsibleHeaderOverview = document.querySelector('.collapsible-header-overview');
+    const collapsibleHeaderProvisions = document.querySelector('.collapsible-header-provisions');
     const collapsibleHeaderComparison = document.querySelector('.collapsible-header-comparison');
     const collapsibleHeaderRegulation = document.querySelector('.collapsible-header-regulation');
     const collapsibleHeaderLaws = document.querySelector('.collapsible-header-laws');
@@ -1768,6 +1787,19 @@
         arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
       } else {
         arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
+      }
+    });
+
+    // Toggle the visibility of the collapsible content when the header is clicked
+    collapsibleHeaderProvisions.addEventListener('click', function() {
+      const content = collapsibleSectionProvisions.querySelector('.collapsible-content-provisions');
+      const arrowIcon = collapsibleHeaderProvisions.querySelector('.arrow-icon');
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+        arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
+      } else {
+        content.style.display = 'block';
+        arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
       }
     });
 
@@ -1816,7 +1848,6 @@
       content.style.display = 'block';
       arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
     });
-
 
 
     // TOOLTIP CODE
