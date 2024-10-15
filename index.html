@@ -646,6 +646,7 @@
     // Undefined variable to store the selected filter
     let selectedFilter;
     let selectedRowKey;
+    let selectedTitle;
 
     // Load the data
     Promise.all([
@@ -807,8 +808,16 @@
             selectedRowKey = selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1);
           }
 
-          // Feed the selectedRowKey to the title bar at the top of the page
-          document.querySelector('.dynamictitle').textContent = `${selectedRowKey}-Related Laws`;
+          // If selectedRowKey is 'LTC', change selectedTitle to 'Long-Term Care'
+          if (selectedRowKey === 'LTC') {
+            selectedTitle = 'Long-Term Care';
+          } else {
+            // Create a capitalized version of the selected filter
+            selectedTitle = selectedRowKey;
+          }
+
+          // Feed the selectedTitle to the title bar at the top of the page
+          document.querySelector('.dynamictitle').textContent = `${selectedTitle} Insurance-Related Laws`;
 
           // Clear previous filters for checkboxes
           const checkboxes = document.querySelectorAll('input[type="checkbox"]');
