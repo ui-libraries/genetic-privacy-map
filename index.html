@@ -356,66 +356,7 @@
           </div>
         </div>
 
-
-
-
-
-
-        <!-- STATE LAW COMPARISON START -->
-        <div class="collapsible-comparison">
-          <div class="collapsible-header-comparison">
-            <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span> <!-- Right-facing arrow icon -->Compare State Laws</h4>
-          </div>
-          <div class="collapsible-content-comparison">
-            <p>To compare the legal coverage between two states, select the two states you want to compare from the dropdown menus. Click the "Compare" button and a table will display showing the key legal differences.</p>
-            <!-- Dropdown menus for selecting states -->
-            <div class="dropdown-container">
-              <select id="firstStateDropdown">
-                <!-- Populate with US states -->
-              </select>
-              <select id="secondStateDropdown">
-                <!-- Populate with US states -->
-              </select>
-            </div>
-            <!-- Trigger/Open The Modal -->
-            <button id="compareButton">Compare</button>
-          </div>
-        </div>
-
-        <!-- The Modal -->
-        <div id="myModal" class="modal">
-          <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>State Comparison</h2>
-            <table id="stateCompTable">
-              <thead>
-                <tr>
-                  <th id="typeHead">Type</th>
-                  <th id="firstStateHead">None selected</th>
-                  <th id="secondStateHead">None selected</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td id="Life">Life</td>
-                  <td id="firstStateLife"></td>
-                  <td id="secondStateLife"></td>
-                </tr>
-                <tr>
-                  <td id="Disability">Disability</td>
-                  <td id="firstStateDisability"></td>
-                  <td id="secondStateDisability"></td>
-                </tr>
-                <tr>
-                  <td id="LTC">LTC</td>
-                  <td id="firstStateLTC"></td>
-                  <td id="secondStateLTC"></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <!-- STATE LAW COMPARISON END -->
+        <!-- Filter Map by Regulation Type -->
         <div class="collapsible-regulation">
           <div class="collapsible-header-regulation">
             <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span> <!-- Right-facing arrow icon -->Filter Map by Regulation Type</h4>
@@ -475,6 +416,63 @@
             </div>
           </div>
         </div>
+        <!-- Filter Map by Regulation Type END -->
+
+        <!-- STATE LAW COMPARISON START -->
+        <div class="collapsible-comparison">
+          <div class="collapsible-header-comparison">
+            <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span> <!-- Right-facing arrow icon -->Compare State Laws</h4>
+          </div>
+          <div class="collapsible-content-comparison">
+            <p>To compare the legal coverage between two states, select the two states you want to compare from the dropdown menus. Click the "Compare" button and a table will display showing the key legal differences.</p>
+            <!-- Dropdown menus for selecting states -->
+            <div class="dropdown-container">
+              <select id="firstStateDropdown">
+                <!-- Populate with US states -->
+              </select>
+              <select id="secondStateDropdown">
+                <!-- Populate with US states -->
+              </select>
+            </div>
+            <!-- Trigger/Open The Modal -->
+            <button id="compareButton">Compare</button>
+          </div>
+        </div>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>State Comparison</h2>
+            <table id="stateCompTable">
+              <thead>
+                <tr>
+                  <th id="typeHead">Type</th>
+                  <th id="firstStateHead">None selected</th>
+                  <th id="secondStateHead">None selected</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="Life">Life</td>
+                  <td id="firstStateLife"></td>
+                  <td id="secondStateLife"></td>
+                </tr>
+                <tr>
+                  <td id="Disability">Disability</td>
+                  <td id="firstStateDisability"></td>
+                  <td id="secondStateDisability"></td>
+                </tr>
+                <tr>
+                  <td id="LTC">LTC</td>
+                  <td id="firstStateLTC"></td>
+                  <td id="secondStateLTC"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- STATE LAW COMPARISON END -->
 
         <div class="collapsible-laws">
           <div class="collapsible-header-laws">
