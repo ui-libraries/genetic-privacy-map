@@ -329,6 +329,14 @@
       font-weight: bold;
     }
 
+    /* Bottom right text */
+    .bottom-right {
+      position: absolute;
+      bottom: 10px; /* Distance from the bottom */
+      right: 10px; /* Distance from the right */
+      font-style: italic; /* To maintain the italic style */
+    }
+
   </style>
 </head>
 
@@ -484,7 +492,6 @@
         </div>
 
       </div>
-      <p><i>Data current as of October 2024</i></p>
     </div>
 
     <div id="legend" style="position: absolute; left: 20px; bottom: 20px; background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
@@ -553,6 +560,7 @@
     <div id="titlebar">
       <h1 class="dynamictitle">US State Laws Regulating Genetic Discrimination in Insurance</h1>
     </div>
+    <p class="bottom-right"><i>Data current as of October 2024</i></p>
   </div>
 
   <div class="tooltip" id="tooltip"></div>
