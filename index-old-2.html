@@ -31,7 +31,7 @@
       font-weight: 300;
     }
 
-    #mapcontainer {
+    #map {
       height: 100vh;
       width: calc(100vw - 350px);
       /* Adjusted width */
@@ -39,12 +39,6 @@
       right: 0;
       top: 0;
       overflow: hidden;
-    }
-
-    #map {
-      width: inherit; 
-      height: 100vh; /* Set initial height */
-      overflow: hidden; /* Prevent overflow if needed */
     }
 
     .sidebar-container {
@@ -323,7 +317,7 @@
       text-align: center;
       padding-top: 0px;
       border-radius: 5px;
-      /*box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);*/
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     h1 {
@@ -334,12 +328,6 @@
       font-size: 24px;
       font-weight: bold;
     }
-
-    .centered-text {
-        max-width: 636px; /* Sets the maximum width */
-        margin: 0 auto; /* Centers the paragraph itself under the h1 */
-        text-align: left; /* Left-aligns the text within the paragraph */
-    }    
 
     /* Bottom right text */
     .bottom-right {
@@ -567,13 +555,10 @@
     </div>
   </div>
 
-  <div id="mapcontainer">
+  <div id="map">
     <!--A container in the middle of the page to hold the map title-->
     <div id="titlebar">
       <h1 class="dynamictitle">US State Laws Regulating Genetic Discrimination in Insurance</h1>
-      <p class="centered-text">The United States Genetic Information Nondiscrimination Act (GINA) prevents health insurers and employers from engaging in genetic discrimination. However, the federal law does not cover life, long-term care, and disability insurers. These insurances are regulated at the state level. There is a range of different types of laws that states have adopted in this area. This map charts the different categories of laws in place across the states.</p>
-    </div>
-    <div id="map">
     </div>
     <p class="bottom-right"><i>Data current as of October 2024</i></p>
   </div>
@@ -585,19 +570,6 @@
   <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.js"></script>
 
   <script>
-
-    // Adjust the map height on load
-    window.onload = function() {
-      const titlebarHeight = document.getElementById('titlebar').offsetHeight;
-      document.getElementById('map').style.height = `calc(100vh - ${titlebarHeight}px)`;
-    };
-
-    // Adjust the map height on window resize
-    window.onresize = function() {
-      const titlebarHeight = document.getElementById('titlebar').offsetHeight;
-      document.getElementById('map').style.height = `calc(100vh - ${titlebarHeight}px)`;
-    };    
-
     // Hide the filter-legend by default
     document.getElementById('filter-legend').style.display = 'none';
 
@@ -650,9 +622,6 @@
       });
     });
 
-    // Get the height of the titlebar div
-    const titlebarHeight = document.getElementById('titlebar').offsetHeight;
-
     // Define the width and height for the SVG
     const width = window.innerWidth * 0.75;
     const height = window.innerHeight;
@@ -664,10 +633,14 @@
       .attr("height", "100%")
       .attr("viewBox", `0 0 ${width} ${height}`); // Optional: Use viewBox to control scaling
 
+    // Get the height of the titlebar div
+    const titlebarHeight = document.getElementById('titlebar').offsetHeight;
+
     // Define the projection
     const projection = d3.geoAlbersUsa()
-      .translate([width / 2, (height / 2)])
+      .translate([width / 2, (height / 2) - titlebarHeight / 2])
       .scale(1000)
+      .center([-98.583333, 39.8283]); // Set the center to the geographic center of the lower 48 states
 
     // Define the path
     const path = d3.geoPath(projection);
@@ -2020,7 +1993,6 @@
         .on("mouseout", hideTooltip);
     }
 */        
-
   </script>
 </body>
 
