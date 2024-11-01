@@ -23,7 +23,6 @@
         .section {
             cursor: pointer;
             transition: all 0.3s ease;
-            opacity: 0;
         }
         .section:hover {
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
@@ -38,12 +37,9 @@
         .card-text {
             overflow: hidden;
             max-height: 0;
-            opacity: 0;
-            transition: max-height 0.5s ease, opacity 0.5s ease;
         }
         .section.expanded .card-text {
             max-height: 1000px; /* Adjust as needed */
-            opacity: 1;
         }
         .expand-icon {
             position: absolute;
@@ -71,10 +67,6 @@
             padding: 1rem;
             transition: all 0.5s ease;
             cursor: move;
-        }
-        #static-comparison {
-            opacity: 0;
-            transition: opacity 1s ease;
         }
         .comparison-card {
             background-color: #fff;
@@ -111,12 +103,8 @@
         }
         #page-title{
             background-color: #007bff;
-            opacity: 1;
             color: white;
             font-size: 24px;
-        }
-        #arrow-bounce{
-            margin-top: 10px;;
         }
         #titlebar {
             text-align: center;
@@ -142,72 +130,13 @@
     </style>
 </head>
 <body>
-    <div id="intro-info" class="container py-5">
-        <h5 class="text-center mb-5">There are many different decisions that an insurer makes about an individual. For example, they can decide whether to insure them (called underwriting), decide whether to renew an existing policy, or decide how much to charge an individual for their insurance (premiums).</h5>
-        <div id="journey">
-            <div class="section card mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">Marketing insurance to potential customers</h2>
-                    <p class="card-text">Insurers market their products to attract potential customers. Genetic information could potentially be used to tailor marketing approaches.</p>
-                    <i class="fas fa-chevron-down expand-icon"></i>
-                </div>
-            </div>
-            <div class="section card mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">Deciding whether to insure a person and how much to charge</h2>
-                    <p class="card-text">This is known as underwriting. Insurers assess the risk of insuring an individual and determine the premium. Laws may restrict the use of genetic information here.</p>
-                    <i class="fas fa-chevron-down expand-icon"></i>
-                </div>
-            </div>
-            <div class="section card mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">Interacting with existing customers</h2>
-                    <p class="card-text">Insurers may offer wellness programs or other interactions with existing customers. Genetic information could be used to tailor such interactions.</p>
-                    <i class="fas fa-chevron-down expand-icon"></i>
-                </div>
-            </div>
-            <div class="section card mb-3">
-                <div class="card-body">
-                    <h2 class="card-title">Deciding whether to renew a policy</h2>
-                    <p class="card-text">Insurers decide whether to continue insuring an individual. Genetic information could influence these decisions, depending on regulations.</p>
-                    <i class="fas fa-chevron-down expand-icon"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="page-title-container" class="container justify-content-center align-items-center">
-       <span id="page-title" class="text-center card row">no federal oversight.</span>
-       <div id="arrow-bounce">
-            <img width="30" src="blackArrowFinal.gif">
-        </div>
-    </div>
-
-    <div id="scattered-cards">
-        <!-- Scattered cards will be dynamically added here -->
-    </div>
-<p></p>
-<p></p>
     <div id="static-comparison">
         <div id="accordion-comparison" class="container mt-5">
             <div class="accordion" id="stateAccordion">
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                    <div class="row accordion-row">
-                        <div class="col-md-5">
-                            <div class="comparison-card">
-                                <div class="state-name">Florida</div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 position-relative">
-                            <!--Will need to manually set as the descriptions get finalized -->
-                            <div class="comparison-line" style="top: calc(10% + 0.5rem)"></div>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="comparison-card">
-                                <div class="state-name">Tennessee</div>
-                            </div>
-                        </div>
+                            Florida and Tennessee
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#stateAccordion">
@@ -366,162 +295,5 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/Draggable.min.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const scatteredCardsContainer = document.getElementById('scattered-cards');
-            const staticComparison = document.getElementById('static-comparison');
-            const statePolicies = [
-                { state: "Florida", policy: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent turpis lectus, semper quis ante vel, sagittis vulputate arcu. Vivamus porta pharetra rutrum. Mauris tempus sollicitudin massa. Aenean fringilla ipsum justo, a pellentesque nibh maximus eu." },
-                { state: "Tennessee", policy: "Cras ac commodo libero. Suspendisse aliquet, metus non ullamcorper aliquet, ligula diam laoreet turpis, sit amet elementum turpis lorem id eros. Phasellus ullamcorper, odio non dignissim tincidunt, ligula turpis feugiat odio, et aliquet elit libero vitae dui." },
-                { state: "California", policy: "Donec dictum, arcu eu consequat posuere, mi ex tristique ligula, ut semper massa metus in est. Aliquam nec sagittis ex. Etiam ullamcorper nibh commodo vehicula lobortis. Integer vel faucibus nunc. " },
-                { state: "New York", policy: "Quisque a turpis sodales, consectetur odio eget, aliquam augue. Cras vel consectetur neque. Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec. " },
-                { state: "Texas", policy: "Mauris sit amet turpis sagittis, posuere felis sed, luctus nisl. Suspendisse eu felis pretium, consectetur ex in, malesuada est." },
-                { state: "Massachusetts", policy: "Phasellus ullamcorper, odio non dignissim tincidunt, ligula turpis feugiat odio, et aliquet elit libero vitae dui." },
-                { state: "Michigan", policy: "Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec." },
-                { state: "Oregon", policy: "Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec." },
-                { state: "Washington", policy: "Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec." },
-                { state: "Colorado", policy: "Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec." }
-            ];
-
-            function createScatteredCards() {
-                const viewportHeight = window.innerHeight;
-                const cardHeight = 100; // Approximate height of a card
-
-                statePolicies.forEach((policy, index) => {
-                    const card = document.createElement('div');
-                    card.className = 'scattered-card';
-                    card.innerHTML = `
-                        <div class="state-name">${policy.state}</div>
-                        <div class="policy-text">${policy.policy}</div>
-                    `;
-                    
-                    const rotation = Math.random() * 40 - 20;
-                    const horizontalPosition = 10 + Math.random() * 80;
-                    const verticalPosition = index * (viewportHeight / statePolicies.length) + 500;
-                    console.log(verticalPosition)
-                    
-                    card.style.transform = `rotate(${rotation}deg)`;
-                    card.style.position = 'absolute';
-                    card.style.left = `${horizontalPosition}%`;
-                    card.style.top = `${verticalPosition}px`;
-                    
-                    scatteredCardsContainer.appendChild(card);
-                    
-                    // Make each card draggable
-                    Draggable.create(card, {
-                        type: "x,y",
-                        bounds: scatteredCardsContainer,
-                        edgeResistance: 0.65,
-                        throwProps: true
-                    });
-                });
-            }
-
-            function initializeAnimation() {
-                gsap.registerPlugin(ScrollTrigger);
-                
-                const cards = gsap.utils.toArray('.scattered-card');
-                
-                cards.forEach((card, index) => {
-                    gsap.to(card, {
-                        opacity: 0,
-                        scale: 0.8,
-                        y: -50,
-                        ease: "power2.out",
-                        scrollTrigger: {
-                            trigger: "#scattered-cards",
-                            start: "top 1%",
-                            end: "bottom 2%",
-                            scrub: true,
-                            onUpdate: (self) => {
-                                // Calculate opacity based on scroll progress
-                                //console.log(self.progress)
-                                const progress = self.progress;
-                                const opacity = 1 - (progress + .4);
-                                card.style.opacity = opacity;
-                            }
-                        }
-                    });
-                });
-
-                gsap.fromTo(staticComparison, 
-                    { opacity: 0, y: 50 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        ease: "power2.out",
-                        duration: 2000,
-                        scrollTrigger: {
-                            trigger: "#scattered-cards",
-                            start: "center center",
-                            end: "bottom center",
-                            scrub: true
-                        }
-                    }
-                );
-            }
-
-            const sections = document.querySelectorAll('.section');
-
-            sections.forEach((section, index) => {
-                gsap.fromTo(section, 
-                    { 
-                        opacity: 0, 
-                        x: index % 2 === 0 ? -100 : 100
-                    },
-                    { 
-                        opacity: 1, 
-                        x: 0, 
-                        duration: 1, 
-                        ease: "power2.out",
-                        delay: index * 0.2
-                    }
-                );
-
-                const content = section.querySelector('.card-text');
-                const expandIcon = section.querySelector('.expand-icon');
-
-                section.addEventListener('click', () => {
-                    section.classList.toggle('expanded');
-                    if (section.classList.contains('expanded')) {
-                        gsap.to(content, {
-                            maxHeight: 1000,
-                            opacity: 1,
-                            duration: 0.5,
-                            ease: "power2.out"
-                        });
-                    } else {
-                        gsap.to(content, {
-                            maxHeight: 0,
-                            opacity: 0,
-                            duration: 0.5,
-                            ease: "power2.in"
-                        });
-                    }
-                    gsap.to(expandIcon, {
-                        rotation: section.classList.contains('expanded') ? 180 : 0,
-                        duration: 0.3
-                    });
-                });
-
-                section.addEventListener('mouseenter', () => {
-                    gsap.to(section, { scale: 1.02, duration: 0.3 });
-                    gsap.to(expandIcon, { y: -5, duration: 0.3 });
-                });
-
-                section.addEventListener('mouseleave', () => {
-                    gsap.to(section, { scale: 1, duration: 0.3 });
-                    gsap.to(expandIcon, { y: 0, duration: 0.3 });
-                });
-            });
-
-
-            createScatteredCards();
-            initializeAnimation();
-        });
-    </script>
 </body>
 </html>
