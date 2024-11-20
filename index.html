@@ -17,6 +17,10 @@ body {
     color: #333;
     line-height: 1.6;
     padding-top: 60px; /* Offset for fixed header */
+    display: flex;
+    flex-direction: column; /* Stack the content vertically */
+    align-items: center; /* Center the content horizontally */
+    min-height: 100vh; /* Ensure the body takes up the full viewport height */
 }
 
 header {
@@ -52,18 +56,25 @@ p {
 }
 
 main {
-    margin-top: 120px;
-    padding: 20px;
     display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: wrap;
+    justify-content: center; /* Center the entire content horizontally */
+    gap: 40px; /* Space between the two sections */
+    max-width: 1200px; /* Limit the maximum width of the content */
+    width: 100%;
+    padding: 20px;
+    margin-top: 120px; /* Offset for the fixed header */
+}
+
+.main-content {
+    display: flex;
+    gap: 40px; /* Space between overview and links */
+    width: 100%; /* Make sure it takes the full available space */
+    max-width: 1200px; /* Limit the maximum width */
 }
 
 .overview {
-    flex: 1 1 50%; /* This will make the overview take up 50% of the space */
+    flex: 1 1 50%; /* Overview takes up 50% of the space */
     font-size: 1.2rem;
-    margin: 0;
     padding: 20px;
     background: #fff;
     border-radius: 8px;
@@ -72,9 +83,9 @@ main {
 
 .links {
     display: flex;
-    flex-direction: column; /* Stacks the cards vertically */
+    flex-direction: column;
     gap: 20px;
-    flex: 1 1 45%; /* Takes up 45% of the space next to the overview */
+    flex: 1 1 45%; /* Links take up the other 50% */
 }
 
 .link-container {
@@ -126,6 +137,7 @@ footer {
     color: white;
     font-size: 0.9rem;
     margin-top: 40px;
+    width: 100%;
 }
 
     </style>
@@ -137,35 +149,36 @@ footer {
     </header>
 
     <main>
-        <section class="overview">
-            <p class="subheading">Overview</p>
-            <br>
-            <p>
-                THERE are five noted mountains in East Asia. The peak near the Yellow Sea is called Taisan, Great Mountain; the peak to the west, Wha-san, Flowery Mountain; the peak to the south, Hyong-san, Mountain of the Scales; the peak to the north, Hang-san, Eternal Mountain; while the peak in the centre is called Soong-san, Exalted Mountain. The Mountain of the Scales, the loftiest of the five peaks, lies to the south of the Tong-jong River, and on the other three sides is circled by the Sang-gang, so that it stands high, uplifted as if receiving adoration from the surrounding summits. There are in all seventy-two peaks that shoot up and point their speartops to the sky. Some are sheer cut and precipitous and block the clouds in their course, startling the world with the wonder of their formation. Stores of good luck and fortune abide under their shadows.
-            <br><br>
-                The highest peaks among the seventy-two are called Spirit of the South, Red Canopy, Pillars of Heaven, Rock Treasure-house and Lotus Peak, five in all. They are sky-tipped and majestic in appearance, with clouds on their faces and mists around their feet, and are charged with divine influences. When the day is other than clear they are shrouded completely from human view.
-            <br><br>
-                In ancient days, when Ha-oo restrained the deluge that came upon the earth, he placed a memorial stone on one of these mountain tops, on which was recorded his many wonderful deeds. The stone was divinely inscribed in cloud characters, and, while many ages have passed, these characters are clear cut as ever.
-            </p>
-        </section>
+        <div class="main-content">
+            <section class="overview">
+                <p class="subheading">Overview</p>
+                <p>
+                    THERE are five noted mountains in East Asia. The peak near the Yellow Sea is called Taisan, Great Mountain; the peak to the west, Wha-san, Flowery Mountain; the peak to the south, Hyong-san, Mountain of the Scales; the peak to the north, Hang-san, Eternal Mountain; while the peak in the centre is called Soong-san, Exalted Mountain. The Mountain of the Scales, the loftiest of the five peaks, lies to the south of the Tong-jong River, and on the other three sides is circled by the Sang-gang, so that it stands high, uplifted as if receiving adoration from the surrounding summits. There are in all seventy-two peaks that shoot up and point their speartops to the sky. Some are sheer cut and precipitous and block the clouds in their course, startling the world with the wonder of their formation. Stores of good luck and fortune abide under their shadows.
+                    <br><br>
+                    The highest peaks among the seventy-two are called Spirit of the South, Red Canopy, Pillars of Heaven, Rock Treasure-house and Lotus Peak, five in all. They are sky-tipped and majestic in appearance, with clouds on their faces and mists around their feet, and are charged with divine influences. When the day is other than clear they are shrouded completely from human view.
+                    <br><br>
+                    In ancient days, when Ha-oo restrained the deluge that came upon the earth, he placed a memorial stone on one of these mountain tops, on which was recorded his many wonderful deeds. The stone was divinely inscribed in cloud characters, and, while many ages have passed, these characters are clear cut as ever.
+                </p>
+            </section>
 
-        <section class="links">
-            <div class="link-container">
-                <a href="insurance.html" class="link-card">
-                    <h3>Insurance Law</h3>
-                    <img src="img/insurance.jpg" alt="Insurance Law" />
-                    <p>Learn how genetic privacy impacts insurance practices and policies.</p>
-                </a>
-            </div>
-            
-            <div class="link-container">
-                <a href="insurance.html" class="link-card">
-                    <h3>Criminal Law</h3>
-                    <img src="img/insurance.jpg" alt="Criminal Law" />
-                    <p>Understand how genetic data is used in criminal investigations and trials.</p>
-                </a>
-            </div>
-        </section>
+            <section class="links">
+                <div class="link-container">
+                    <a href="insurance.html" class="link-card">
+                        <h3>Insurance Law</h3>
+                        <img src="img/insurance.jpg" alt="Insurance Law" />
+                        <p>Learn how genetic privacy impacts insurance practices and policies.</p>
+                    </a>
+                </div>
+
+                <div class="link-container">
+                    <a href="criminal-law.html" class="link-card">
+                        <h3>Criminal Law</h3>
+                        <img src="img/insurance.jpg" alt="Criminal Law" />
+                        <p>Understand how genetic data is used in criminal investigations and trials.</p>
+                    </a>
+                </div>
+            </section>
+        </div>
     </main>
 
     <footer>
@@ -173,7 +186,6 @@ footer {
     </footer>
 
     <script>
-        // Example JavaScript for additional functionality (optional)
         document.addEventListener('DOMContentLoaded', () => {
             console.log('Splash page loaded successfully');
         });
