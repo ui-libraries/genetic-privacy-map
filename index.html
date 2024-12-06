@@ -16,18 +16,18 @@ body {
     background-color: #f7f7f7;
     color: #333;
     line-height: 1.6;
-    padding-top: 60px; /* Offset for fixed header */
     display: flex;
     flex-direction: column; /* Stack the content vertically */
     align-items: center; /* Center the content horizontally */
     min-height: 100vh; /* Ensure the body takes up the full viewport height */
+    position: relative; /* Add relative positioning to allow the 'top' adjustment */
 }
 
 header {
     background-color: #007BFF;
     color: white;
     text-align: center;
-    padding: 40px 20px;
+    padding: 0px 20px;
     position: fixed;
     width: 100%;
     top: 0;
@@ -62,7 +62,7 @@ main {
     max-width: 1200px; /* Limit the maximum width of the content */
     width: 100%;
     padding: 20px;
-    margin-top: 120px; /* Offset for the fixed header */
+    margin-top: 0px; /* Offset for the fixed header */
 }
 
 .main-content {
@@ -83,14 +83,24 @@ main {
 
 .links {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap; /* Allow wrapping */
     gap: 20px;
-    flex: 1 1 45%; /* Links take up the other 50% */
+    flex: 1 1 45%; /* Links take up the other 50% of the width */
+    justify-content: space-between;
 }
 
 .link-container {
     display: flex;
     justify-content: center;
+    flex: 1 1 calc(50% - 20px); /* Each link-container takes 50% of the available width, minus the gap */
+    max-width: calc(50% - 20px); /* Ensure it doesn't exceed 50% of the width */
+}
+
+@media (max-width: 768px) {
+    .link-container {
+        flex: 1 1 100%; /* On smaller screens, each link takes up the full width */
+        max-width: 100%;
+    }
 }
 
 .link-card {
@@ -117,12 +127,12 @@ main {
 
 .link-card h3 {
     margin: 0px 0 10px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #007BFF;
 }
 
 .link-card p {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #555;
 }
 
@@ -150,6 +160,7 @@ footer {
 
     <main>
         <div class="main-content">
+            <!-- Overview section (no change here) -->
             <section class="overview">
                 <p class="subheading">Overview</p>
                 <p>
@@ -158,8 +169,10 @@ footer {
                     This website focuses on two important aspects of genetic privacy: the use of genetic information by life, long-term care, and disability insurers and the use by law enforcement.
                 </p>
             </section>
-
+    
+            <!-- Updated links section with 2 columns -->
             <section class="links">
+                <!-- Existing links on the left -->
                 <div class="link-container">
                     <a href="insurance.html" class="link-card">
                         <h3>Regulation of Insurance</h3>
@@ -167,7 +180,7 @@ footer {
                         <p>Learn how states regulate life, long-term care, and disability insurer use of genetic information</p>
                     </a>
                 </div>
-
+    
                 <div class="link-container">
                     <a href="criminal-law.html" class="link-card">
                         <h3>Regulation of Law Enforcement</h3>
@@ -175,18 +188,49 @@ footer {
                         <p>See how states regulate law enforcement access to and use of genetic information</p>
                     </a>
                 </div>
+    
+                <!-- New links on the right -->
+                <div class="link-container">
+                    <a href="insurance-protective.html" class="link-card">
+                        <h3>Regulation of Insurance<br>Protective Features</h3>
+                        <img src="img/insurance.jpg" alt="Insurance Protective Features" />
+                        <p>A deeper comparison of protective features in insurance regulation between selected states</p>
+                    </a>
+                </div>
+    
+                <div class="link-container">
+                    <a href="criminal-law-protective.html" class="link-card">
+                        <h3>Regulation of Law Enforcement<br>Protective Features</h3>
+                        <img src="img/insurance.jpg" alt="Law Enforcement Protective Features" />
+                        <p>A deeper comparison of protective features in law enforcement between selected states</p>
+                    </a>
+                </div>
             </section>
         </div>
-    </main>
+    </main>        
 
     <footer>
-        <p><a href="https://uiowa.edu/" style="color:white;">University of Iowa</a> | <a href="https://law.uiowa.edu/" style="color:white;">College of Law</a></p>
+        <p><a href="https://uiowa.edu/" style="color:white;">University of Iowa</a> | <a href="https://law.uiowa.edu/" style="color:white;">College of Law</a>
+            <br>This website is intended to provide general information about current state legislative trends. It is not meant to confer legal advice.
+        </p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             console.log('Splash page loaded successfully');
         });
+
+        function adjustBodyTop() {
+            // Get the height of the header
+            const headerHeight = document.querySelector('header').offsetHeight;
+            
+            // Set the top property of the body to the height of the header
+            document.body.style.top = headerHeight + 'px';
+        };
+
+        // Adjust the top position when the page loads and when the window is resized
+        window.addEventListener('load', adjustBodyTop);
+        window.addEventListener('resize', adjustBodyTop);    
     </script>
 </body>
 </html>
