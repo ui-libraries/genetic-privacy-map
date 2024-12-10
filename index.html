@@ -1,157 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Genetic Privacy in US Insurance and Criminal Law</title>
     <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    font-family: "Work Sans", sans-serif;
-    background-color: #f7f7f7;
-    color: #333;
-    line-height: 1.6;
-    display: flex;
-    flex-direction: column; /* Stack the content vertically */
-    align-items: center; /* Center the content horizontally */
-    min-height: 100vh; /* Ensure the body takes up the full viewport height */
-    position: relative; /* Add relative positioning to allow the 'top' adjustment */
-}
+        body {
+            font-family: "Work Sans", sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 0;
+            /* Default padding-top will be set via JS */
+        }
 
-header {
-    background-color: #007BFF;
-    color: white;
-    text-align: center;
-    padding: 0px 20px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
+        header {
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            padding: 0px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
 
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-    font-family: "Forum", serif;
-}
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-family: "Forum", serif;
+        }
 
-h3 {
-    font-family: "Forum", serif;
-}
+        h3 {
+            font-family: "Forum", serif;
+        }
 
-p {
-    text-align: left;
-}
+        p {
+            text-align: left;
+        }
 
-.subheading {
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-align: center;
-}
+        .subheading {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-align: center;
+        }
 
-main {
-    display: flex;
-    justify-content: center; /* Center the entire content horizontally */
-    gap: 40px; /* Space between the two sections */
-    max-width: 1200px; /* Limit the maximum width of the content */
-    width: 100%;
-    padding: 20px;
-    margin-top: 0px; /* Offset for the fixed header */
-}
+        main {
+            display: flex;
+            justify-content: center;
+            /* Center the entire content horizontally */
+            gap: 40px;
+            /* Space between the two sections */
+            max-width: 1200px;
+            /* Limit the maximum width of the content */
+            width: 100%;
+            padding: 20px;
+            margin-top: 0px;
+            /* Offset for the fixed header */
+        }
 
-.main-content {
-    display: flex;
-    gap: 40px; /* Space between overview and links */
-    width: 100%; /* Make sure it takes the full available space */
-    max-width: 1200px; /* Limit the maximum width */
-}
+        .main-content {
+            display: flex;
+            gap: 40px;
+            /* Space between overview and links */
+            width: 100%;
+            /* Make sure it takes the full available space */
+            max-width: 1200px;
+            /* Limit the maximum width */
+        }
 
-.overview {
-    flex: 1 1 50%; /* Overview takes up 50% of the space */
-    font-size: 1.2rem;
-    padding: 20px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
+        .overview {
+            flex: 1 1 50%;
+            /* Overview takes up 50% of the space */
+            font-size: 1.2rem;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
 
-.links {
-    display: flex;
-    flex-wrap: wrap; /* Allow wrapping */
-    gap: 20px;
-    flex: 1 1 45%; /* Links take up the other 50% of the width */
-    justify-content: space-between;
-}
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            /* Allow wrapping */
+            gap: 20px;
+            flex: 1 1 45%;
+            /* Links take up the other 50% of the width */
+            justify-content: space-between;
+        }
 
-.link-container {
-    display: flex;
-    justify-content: center;
-    flex: 1 1 calc(50% - 20px); /* Each link-container takes 50% of the available width, minus the gap */
-    max-width: calc(50% - 20px); /* Ensure it doesn't exceed 50% of the width */
-}
+        .link-container {
+            display: flex;
+            justify-content: center;
+            flex: 1 1 calc(50% - 20px);
+            /* Each link-container takes 50% of the available width, minus the gap */
+            max-width: calc(50% - 20px);
+            /* Ensure it doesn't exceed 50% of the width */
+        }
 
-@media (max-width: 768px) {
-    .link-container {
-        flex: 1 1 100%; /* On smaller screens, each link takes up the full width */
-        max-width: 100%;
-    }
-}
+        @media (max-width: 768px) {
+            .link-container {
+                flex: 1 1 100%;
+                /* On smaller screens, each link takes up the full width */
+                max-width: 100%;
+            }
+        }
 
-.link-card {
-    display: block;
-    text-decoration: none;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    padding: 20px;
-}
+        .link-card {
+            display: block;
+            text-decoration: none;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            padding: 20px;
+        }
 
-.link-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+        .link-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-.link-card h3 {
-    margin: 0px 0 10px;
-    font-size: 1.2rem;
-    color: #007BFF;
-}
+        .link-card h3 {
+            margin: 0px 0 10px;
+            font-size: 1.2rem;
+            color: #007BFF;
+        }
 
-.link-card p {
-    font-size: 0.9rem;
-    color: #555;
-}
+        .link-card p {
+            font-size: 0.9rem;
+            color: #555;
+        }
 
-.link-card:hover {
-    transform: translateY(-5px);
-}
+        .link-card:hover {
+            transform: translateY(-5px);
+        }
 
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #333;
-    color: white;
-    font-size: 0.9rem;
-    margin-top: 40px;
-    width: 100%;
-}
-
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            font-size: 0.9rem;
+            margin-top: 40px;
+            width: 100%;
+        }
     </style>
 </head>
+
 <body>
     <header>
         <h1>Genetic Privacy in US Insurance and Criminal Law</h1>
@@ -164,14 +180,23 @@ footer {
             <section class="overview">
                 <p class="subheading">Overview</p>
                 <p>
-                    Between 2021-2023 alone, sixteen states introduced twenty-six bills to protect privacy in direct-to-consumer (DTC) genetic testing. Eleven states, from California to South Dakota, have enacted these bills, often with near-unanimous bipartisan support. Many of the bills carry a broad, sweeping title full of promise—the Genetic Information Privacy Act. The public should not be fooled. While the bills offer sensible and important protections, they miss the mark at fully addressing genetic privacy concerns held by the public and many in the medical and research fields. Bipartisan legislative interest in genetic privacy nonetheless presents great opportunity and promise to enact more robust legislation.
+                    Between 2021-2023 alone, sixteen states introduced twenty-six bills to protect privacy in
+                    direct-to-consumer (DTC) genetic testing. Eleven states, from California to South Dakota, have
+                    enacted these bills, often with near-unanimous bipartisan support. Many of the bills carry a broad,
+                    sweeping title full of promise—the Genetic Information Privacy Act. The public should not be fooled.
+                    While the bills offer sensible and important protections, they miss the mark at fully addressing
+                    genetic privacy concerns held by the public and many in the medical and research fields. Bipartisan
+                    legislative interest in genetic privacy nonetheless presents great opportunity and promise to enact
+                    more robust legislation.
                     <br><br>
-                    This website focuses on two important aspects of genetic privacy: the use of genetic information by life, long-term care, and disability insurers and the use by law enforcement.
+                    This website focuses on two important aspects of genetic privacy: the use of genetic information by
+                    life, long-term care, and disability insurers and the use by law enforcement.
                     <br><br>
-                    To explore additional resources, please click <a href="resources.html" style="color:#007BFF;">here</a>.
+                    To explore additional resources, please click <a href="resources.html"
+                        style="color:#007BFF;">here</a>.
                 </p>
             </section>
-    
+
             <!-- Updated links section with 2 columns -->
             <section class="links">
                 <!-- Existing links on the left -->
@@ -179,10 +204,11 @@ footer {
                     <a href="insurance.html" class="link-card">
                         <h3>Regulation of Insurance</h3>
                         <img src="img/insurance.jpg" alt="Insurance Law" />
-                        <p>Learn how states regulate life, long-term care, and disability insurer use of genetic information</p>
+                        <p>Learn how states regulate life, long-term care, and disability insurer use of genetic
+                            information</p>
                     </a>
                 </div>
-    
+
                 <div class="link-container">
                     <a href="criminal-law.html" class="link-card">
                         <h3>Regulation of Law Enforcement</h3>
@@ -190,16 +216,17 @@ footer {
                         <p>See how states regulate law enforcement access to and use of genetic information</p>
                     </a>
                 </div>
-    
+
                 <!-- New links on the right -->
                 <div class="link-container">
                     <a href="protective-features-insurance.html" class="link-card">
                         <h3>Regulation of Insurance<br>Protective Features</h3>
                         <img src="img/insurance.jpg" alt="Insurance Protective Features" />
-                        <p>A deeper comparison of protective features in insurance regulation between selected states</p>
+                        <p>A deeper comparison of protective features in insurance regulation between selected states
+                        </p>
                     </a>
                 </div>
-    
+
                 <div class="link-container">
                     <a href="protective-features-law.html" class="link-card">
                         <h3>Regulation of Law Enforcement<br>Protective Features</h3>
@@ -209,30 +236,35 @@ footer {
                 </div>
             </section>
         </div>
-    </main>        
+    </main>
 
     <footer>
-        <p><a href="https://uiowa.edu/" style="color:white;">University of Iowa</a> | <a href="https://law.uiowa.edu/" style="color:white;">College of Law</a>
-            <br>This website is intended to provide general information about current state legislative trends. It is not meant to confer legal advice.
+        <p><a href="https://uiowa.edu/" style="color:white;">University of Iowa</a> | <a href="https://law.uiowa.edu/"
+                style="color:white;">College of Law</a>
+            <br>This website is intended to provide general information about current state legislative trends. It is
+            not meant to confer legal advice.
         </p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             console.log('Splash page loaded successfully');
+            adjustBodyTop();  // Ensure body padding is adjusted when DOM is ready
         });
 
         function adjustBodyTop() {
             // Get the height of the header
             const headerHeight = document.querySelector('header').offsetHeight;
-            
-            // Set the top property of the body to the height of the header
-            document.body.style.top = headerHeight + 'px';
+
+            // Set the padding-top of the body to the height of the header
+            document.body.style.paddingTop = headerHeight + 'px';
         };
 
-        // Adjust the top position when the page loads and when the window is resized
+        // Adjust the padding-top when the page loads and when the window is resized
         window.addEventListener('load', adjustBodyTop);
-        window.addEventListener('resize', adjustBodyTop);    
+        window.addEventListener('resize', adjustBodyTop);
+
     </script>
 </body>
+
 </html>
