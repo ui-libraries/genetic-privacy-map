@@ -29,6 +29,7 @@
     label {
       font-family: "Work Sans", sans-serif;
       font-weight: 300;
+      font-size: 14px;
     }
 
     #mapcontainer {
@@ -1251,12 +1252,12 @@
           d3.select(this).classed("highlighted", false);
         });
 
-      // Hide tooltip when clicking outside
-      d3.select("body").on("click", function() {
-        hideTooltip();
-      });
+        // Hide tooltip when clicking outside
+        d3.select("body").on("click", function() {
+          hideTooltip();
+        });
 
-    }
+    };
 
     let subcons = [];
 
