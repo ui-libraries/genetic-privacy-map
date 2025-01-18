@@ -1225,9 +1225,15 @@
             if (code.ltc) entries.push("LTC");
             let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
 
-            // Create the table row with a hyperlink if code.link is present
-            return `<tr><td><a href="${code.link || '#'}" target="_blank">${code.code || 'N/A'}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`
+
+            // Conditionally create the row with or without the hyperlink
+            const codeContent = code.link && code.link !== "" 
+              ? `<a href="${code.link}" target="_blank">${code.code || 'N/A'}</a>` 
+              : code.code || 'N/A';
+    
+              return `<tr><td>${codeContent}</td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
           }).join('') : '<tr><td title="N/A">N/A</td><td title="N/A">N/A</td></tr>';
+
 
           // Add the table headers
           const tableHeaders = `<thead><tr><th>Laws</th><th>Type</th></tr></thead>`;
