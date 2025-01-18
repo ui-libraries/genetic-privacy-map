@@ -43,9 +43,11 @@
     }
 
     #map {
-      width: inherit; 
-      height: 100vh; /* Set initial height */
-      overflow: hidden; /* Prevent overflow if needed */
+      width: inherit;
+      height: 100vh;
+      /* Set initial height */
+      overflow: hidden;
+      /* Prevent overflow if needed */
     }
 
     .sidebar-container {
@@ -134,12 +136,14 @@
       margin-bottom: 10px;
     }
 
-    #tooltip, #hovertooltip {
+    #tooltip,
+    #hovertooltip {
       display: none;
       /* Initially hidden */
     }
 
-    .tooltip, .hovertooltip {
+    .tooltip,
+    .hovertooltip {
       position: absolute;
       text-align: left;
       padding: 10px;
@@ -156,14 +160,16 @@
       /* Ensure the tooltip captures mouse events */
     }
 
-    .tooltip.visible, .hovertooltip.visible {
+    .tooltip.visible,
+    .hovertooltip.visible {
       opacity: 1;
       /* Fully visible */
       display: block;
       /* Use block to show the tooltip */
     }
 
-    .tooltip.hidden, .hovertooltip.hidden {
+    .tooltip.hidden,
+    .hovertooltip.hidden {
       opacity: 0;
       /* Hide the tooltip */
       pointer-events: none;
@@ -207,8 +213,8 @@
       border: 1px solid black;
       padding: 8px;
       text-align: left;
-      font-family: "Work Sans", sans-serif; 
-      font-weight: 300; 
+      font-family: "Work Sans", sans-serif;
+      font-weight: 300;
       font-size: 13px;
     }
 
@@ -337,19 +343,24 @@
     }
 
     .centered-text {
-        max-width: 636px; /* Sets the maximum width */
-        margin: 0 auto; /* Centers the paragraph itself under the h1 */
-        text-align: left; /* Left-aligns the text within the paragraph */
-    }    
+      max-width: 636px;
+      /* Sets the maximum width */
+      margin: 0 auto;
+      /* Centers the paragraph itself under the h1 */
+      text-align: left;
+      /* Left-aligns the text within the paragraph */
+    }
 
     /* Bottom right text */
     .bottom-right {
       position: absolute;
-      bottom: 10px; /* Distance from the bottom */
-      right: 10px; /* Distance from the right */
-      font-style: italic; /* To maintain the italic style */
+      bottom: 10px;
+      /* Distance from the bottom */
+      right: 10px;
+      /* Distance from the right */
+      font-style: italic;
+      /* To maintain the italic style */
     }
-
   </style>
 </head>
 
@@ -367,10 +378,12 @@
             <p>To filter the map, select your desired combination of genetic privacy regulations. You will notice the map change based on your combination of radio button and checkbox inputs. The scrollable list of linked regulations will also change according to your selections. Press the reset button to return to the general coverage map.</p>
           </div>
         </div>
-<!--
+        <!--
         <div class="collapsible-provisions">
           <div class="collapsible-header-provisions">
-            <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span>--> <!-- Right-facing arrow icon --><!--Compare Protective Features</h4>
+            <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span>-->
+        <!-- Right-facing arrow icon -->
+        <!--Compare Protective Features</h4>
           </div>
           <div class="collapsible-content-provisions">
             <p>There are many different decisions that an insurer makes about an individual. They can make decisions about whether to insure them (underwriting), renew an existing policy, or how much to charge for coverage (premiums). <a href="protective-features-insurance.html" target="_blank">Please click here to compare protective features between a few states.</a></p>
@@ -385,75 +398,27 @@
           <div class="collapsible-content-regulation">
             <div class="layer-control">
               <div>
-                <input type="radio" id="exanteLayerToggle" name="layer" value="exante">
-                <label for="exanteLayerToggle">Ex-Ante Supervision of FGG</label>
-                <div id="exanteLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">                                                
-                  <input type="checkbox" id="exanteOption1" name="exanteOptions" value="1">
-                  <label for="exanteOption1">Yes</label><br>
-                  <input type="checkbox" id="exanteOption0" name="exanteOptions" value="0">
-                  <label for="exanteOption0">No</label>
-                </div>
+                <input type="checkbox" id="exante" name="exante" value="exante">
+                <label for="exante">Ex-Ante Supervision of FGG</label>
+                <br>
+                <input type="checkbox" id="individual" name="individual" value="individual">
+                <label for="individual">Control Over Own Genetic Data</label>
+                <br>
+                <input type="checkbox" id="thirdparty" name="thirdparty" value="thirdparty">
+                <label for="thirdparty">Non-Suspect Third Party Protections</label>
+                <br>
+                <input type="checkbox" id="fgg" name="fgg" value="fgg">
+                <label for="fgg">Ensures FGG to Prove Culpability</label>
+                <br>
+                <input type="checkbox" id="consequences" name="consequences" value="consequences">
+                <label for="consequences">Consequences for Violations</label>
+                <br>
+                <input type="checkbox" id="reporting" name="reporting" value="reporting">
+                <label for="reporting">Annual Public Reporting and Review</label>
+                <br>
+                <input type="checkbox" id="regulation" name="regulation" value="regulation">
+                <label for="regulation">Direct Regulation of Law Enforcement</label>
               </div>
-              <div>
-                <input type="radio" id="individualLayerToggle" name="layer" value="individual">
-                <label for="individualLayerToggle">Control Over Own Genetic Data</label>
-                <div id="individualLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">                                                
-                  <input type="checkbox" id="individualOption1" name="individualOptions" value="1">
-                  <label for="individualOption1">Yes</label><br>
-                  <input type="checkbox" id="individualOption0" name="individualOptions" value="0">
-                  <label for="individualOption0">No</label>
-                </div>
-              </div>
-              <div>
-                <input type="radio" id="thirdpartyLayerToggle" name="layer" value="thirdparty">
-                <label for="thirdpartyLayerToggle">Non-Suspect Third Party Protections</label>
-                <div id="thirdpartyLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">                                                
-                  <input type="checkbox" id="thirdpartyOption1" name="thirdpartyOptions" value="1">
-                  <label for="thirdpartyOption1">Yes</label><br>
-                  <input type="checkbox" id="thirdpartyOption0" name="thirdpartyOptions" value="0">
-                  <label for="thirdpartyOption0">No</label>
-                </div>
-              </div>
-              <div>
-                <input type="radio" id="fggLayerToggle" name="layer" value="fgg">
-                <label for="fggLayerToggle">Ensures FGG to Prove Culpability</label>
-                <div id="fggLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">                                                
-                  <input type="checkbox" id="fggOption1" name="fggOptions" value="1">
-                  <label for="fggOption1">Yes</label><br>
-                  <input type="checkbox" id="fggOption0" name="fggOptions" value="0">
-                  <label for="fggOption0">No</label>
-                </div>
-              </div>   
-              <div>
-                <input type="radio" id="consequencesLayerToggle" name="layer" value="consequences">
-                <label for="consequencesLayerToggle">Consequences for Violations</label>
-                <div id="consequencesLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">                                                
-                  <input type="checkbox" id="consequencesOption1" name="consequencesOptions" value="1">
-                  <label for="consequencesOption1">Yes</label><br>
-                  <input type="checkbox" id="consequencesOption0" name="consequencesOptions" value="0">
-                  <label for="consequencesOption0">No</label>
-                </div>
-              </div>  
-              <div>
-                <input type="radio" id="reportingLayerToggle" name="layer" value="reporting">
-                <label for="reportingLayerToggle">Annual Public Reporting and Review</label>
-                <div id="reportingLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">                                                
-                  <input type="checkbox" id="reportingOption1" name="reportingOptions" value="1">
-                  <label for="reportingOption1">Yes</label><br>
-                  <input type="checkbox" id="reportingOption0" name="reportingOptions" value="0">
-                  <label for="reportingOption0">No</label>
-                </div>
-              </div>
-              <div>
-                <input type="radio" id="regulationLayerToggle" name="layer" value="regulation">
-                <label for="regulationLayerToggle">Direct Regulation of Law Enforcement</label>
-                <div id="regulationLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">                                                
-                  <input type="checkbox" id="regulationOption1" name="regulationOptions" value="1">
-                  <label for="regulationOption1">Yes</label><br>
-                  <input type="checkbox" id="regulationOption0" name="regulationOptions" value="0">
-                  <label for="regulationOption0">No</label>
-                </div>
-              </div>                                                                                  
               <!--<button id="filterButton">Filter</button>-->
               <button id="resetButton">Reset</button>
             </div>
@@ -530,7 +495,7 @@
                   <td id="regulation">Law Enforcement Regulation</td>
                   <td id="firstStateRegulation"></td>
                   <td id="secondStateRegulation"></td>
-                </tr>  
+                </tr>
               </tbody>
             </table>
           </div>
@@ -552,25 +517,25 @@
     <div id="legend" style="position: absolute; left: 20px; bottom: 20px; background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
       <h4 style="margin-top: 0; margin-bottom: 5px;">Existence of Legal Coverage</h4>
       <div>
-        <!-- Display "rgb(173, 216, 230)" for the case of coverage-->     
+        <!-- Display "rgb(173, 216, 230)" for the case of coverage-->
         <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173, 216, 230); margin-right: 5px;"></span> Present
         </div>
-        <!-- Display "gray" for the case of no coverage-->    
+        <!-- Display "gray" for the case of no coverage-->
         <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251,247,245); margin-right: 5px;"></span> Absent
         </div>
       </div>
-    </div>       
+    </div>
   </div>
 
   <div id="mapcontainer">
     <!--A container in the middle of the page to hold the map title-->
     <div id="titlebar">
       <h1 class="dynamictitle">US State Laws Regulating Genetic Discrimination in Law Enforcement</h1>
-<!--    
+      <!--    
       <p class="centered-text">The United States Genetic Information Nondiscrimination Act (GINA) prevents health insurers and employers from engaging in genetic discrimination. However, the federal law does not cover life, long-term care, and disability insurers. These insurances are regulated at the state level. There is a range of different types of laws that states have adopted in this area. This map charts the different categories of laws in place across the states.</p>
--->      
+-->
     </div>
     <div id="map">
     </div>
@@ -584,7 +549,6 @@
   <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.js"></script>
 
   <script>
-
     // Adjust the map height on load
     window.onload = function() {
       const titlebarHeight = document.getElementById('titlebar').offsetHeight;
@@ -595,42 +559,42 @@
     window.onresize = function() {
       const titlebarHeight = document.getElementById('titlebar').offsetHeight;
       document.getElementById('map').style.height = `calc(100vh - ${titlebarHeight}px)`;
-    };    
-/*
-    // Hide the filter-legend by default
-    document.getElementById('filter-legend').style.display = 'none';
-*/
-    // Hide all checkbox groups by default
-    document.querySelectorAll('.checkbox-group').forEach(group => {
-      group.style.display = 'none';
-    });
+    };
+    /*
+        // Hide the filter-legend by default
+        document.getElementById('filter-legend').style.display = 'none';
 
-    // Show the corresponding checkbox group when a radio button is clicked
-    document.querySelectorAll('input[name="layer"]').forEach(radio => {
-      radio.addEventListener('change', () => {
+        // Hide all checkbox groups by default
         document.querySelectorAll('.checkbox-group').forEach(group => {
           group.style.display = 'none';
         });
 
-        const selectedLayer = radio.value;
-        const checkboxGroup = document.getElementById(selectedLayer + 'LayerOptions');
-        if (checkboxGroup) {
-          checkboxGroup.style.display = 'block';
-        }
-      });
-    });
+        // Show the corresponding checkbox group when a radio button is clicked
+        document.querySelectorAll('input[name="layer"]').forEach(radio => {
+          radio.addEventListener('change', () => {
+            document.querySelectorAll('.checkbox-group').forEach(group => {
+              group.style.display = 'none';
+            });
 
-    // Ensure radio buttons are unchecked on page reload
-    document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('exanteLayerToggle').checked = false;
-      document.getElementById('individual').checked = false;
-      document.getElementById('thirdpartyLayerToggle').checked = false;
-      document.getElementById('fggLayerToggle').checked = false;
-      document.getElementById('consequencesLayerToggle').checked = false;
-      document.getElementById('reportingLayerToggle').checked = false;
-      document.getElementById('regulationLayerToggle').checked = false;
-    });
+            const selectedLayer = radio.value;
+            const checkboxGroup = document.getElementById(selectedLayer + 'LayerOptions');
+            if (checkboxGroup) {
+              checkboxGroup.style.display = 'block';
+            }
+          });
+        });
 
+        // Ensure radio buttons are unchecked on page reload
+        document.addEventListener('DOMContentLoaded', () => {
+          document.getElementById('exanteLayerToggle').checked = false;
+          document.getElementById('individual').checked = false;
+          document.getElementById('thirdpartyLayerToggle').checked = false;
+          document.getElementById('fggLayerToggle').checked = false;
+          document.getElementById('consequencesLayerToggle').checked = false;
+          document.getElementById('reportingLayerToggle').checked = false;
+          document.getElementById('regulationLayerToggle').checked = false;
+        });
+    */
     // Ensure that all checkbox inputs are unchecked on page reload
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
@@ -643,16 +607,16 @@
       // Reload the page
       location.reload();
     });
-
-    // Whenever a radio button is clicked, uncheck all checkboxes
-    document.querySelectorAll('input[name="layer"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-          checkbox.checked = false;
+    /*
+        // Whenever a radio button is clicked, uncheck all checkboxes
+        document.querySelectorAll('input[name="layer"]').forEach(radio => {
+          radio.addEventListener('change', () => {
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+              checkbox.checked = false;
+            });
+          });
         });
-      });
-    });
-
+    */
     // Get the height of the titlebar div
     const titlebarHeight = document.getElementById('titlebar').offsetHeight;
 
@@ -696,7 +660,7 @@
 
     // Define the function to make the map
     function makeMap([dnaLaw, states]) {
-      
+
       // Store the data in a global variable
       stateGroups = {
         coverageGroup: svg.append("g").attr("id", "coverageLayer"),
@@ -715,30 +679,45 @@
 
       // Get the bounds of the map
       const bounds = path.bounds(topojson.feature(states, states.objects.states));
-      
+
       // Calculate the initial scale
       const initialScale = Math.min(width / (bounds[1][0] - bounds[0][0]), height / (bounds[1][1] - bounds[0][1])) * 0.9;
       // Call the zoom behavior on the SVG
       svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, height / 2).scale(initialScale).translate(-width / 2, -height / 2));
-      
-      // Listen for a click on a radio button
-      document.querySelectorAll('input[name="layer"]').forEach(radio => {
-        radio.addEventListener('click', function() {
+
+      // Listen for a click on a checkbox
+      document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
           // Get the selected filter
-          selectedFilter = radio.value;
+          selectedFilter = Array.from(document.querySelectorAll('input[type="checkbox"]'))
+            .filter(checkbox => checkbox.checked)
+            .map(checkbox => checkbox.value);
           // Update the map
-          updateMap(selectedFilter);
+          applyFilters(states, dnaLaw, selectedFilter);
         });
       });
-      
+      /*      
+            // Listen for a click on a radio button
+            document.querySelectorAll('input[name="layer"]').forEach(radio => {
+              radio.addEventListener('click', function() {
+                // Get the selected filter
+                selectedFilter = radio.value;
+                // Update the map
+                updateMap(selectedFilter);
+              });
+            });
+      */
       stateGroups.coverageGroup.style("visibility", "visible");
       stateGroups.filterGroup.style("visibility", "hidden");
 
       // Need to group the data by state to map onto the states layer
       const groupedData = groupAndCountEntriesForStates(dnaLaw);
-      
+
       // Draw initial map
-      drawCoverageLayer(stateGroups.coverageGroup, states, groupedData);      
+      drawCoverageLayer(stateGroups.coverageGroup, states, groupedData);
+
+      // Populate the sidebar with all state details
+      //populateStateDetails(groupedData);
 
     };
 
@@ -767,166 +746,166 @@
         .attr("class", "state")
         .attr("d", path) // Use the same path generator
         .attr("fill", d => {
-            // Check if the state is not in the list of notStates
-            if (!notStates.includes(d.properties.name)) {
-                // Need to define the data
-                const stateData = data.find(state => state.name === d.properties.name);
+          // Check if the state is not in the list of notStates
+          if (!notStates.includes(d.properties.name)) {
+            // Need to define the data
+            const stateData = data.find(state => state.name === d.properties.name);
 
-                // If stateData.codes[0].code is not empty, return the color
-                if (stateData.codes[0].code) {
-                    return colorScale("Yes");
-                } else {
-                    return colorScale("No");
-                }
+            // If stateData.codes[0].code is not empty, return the color
+            if (stateData.codes[0].code) {
+              return colorScale("Yes");
             } else {
-                return "rgb(217, 217, 217)";
+              return colorScale("No");
             }
+          } else {
+            return "rgb(217, 217, 217)";
+          }
         }) // Fill color based on the data
         .attr("stroke", "gray")
-        .attr("stroke-width", 0.5)       
+        .attr("stroke-width", 0.5)
         .on("mouseover", function(event, d) {
           d3.select(this).classed("highlighted", true).raise();
           // Show a tooltip with the state name and "click for more info" underneath the state name
           const x = event.pageX;
-          const y = event.pageY;     
+          const y = event.pageY;
           showHoverTooltip(`<div style="font-size: 16px; font-weight: bold;">${d.properties.name}</div><div style="font-size: 12px;">Click for more info</div>`, x, y);
           // Move the hovertooltip as the mouse moves
           d3.select(this).on("mousemove", function(event) {
             const x = event.pageX;
             const y = event.pageY;
             d3.select("#hovertooltip")
-            .style("left", `${x + 10}px`)
-            .style("top", `${y + 10}px`);
-          });                 
+              .style("left", `${x + 10}px`)
+              .style("top", `${y + 10}px`);
+          });
         })
         .on("click", function(event, d) {
-            // Define stateName as d.properties.name if it is not in the list of notStates
-            const stateName = !notStates.includes(d.properties.name) ? d.properties.name : null;
-            // Define stateData as data.find(state => state.name === d.properties.name) if stateName is not null
-            const stateData = stateName ? data.find(state => state.name === d.properties.name) : null;
+          // Define stateName as d.properties.name if it is not in the list of notStates
+          const stateName = !notStates.includes(d.properties.name) ? d.properties.name : null;
+          // Define stateData as data.find(state => state.name === d.properties.name) if stateName is not null
+          const stateData = stateName ? data.find(state => state.name === d.properties.name) : null;
 
-            // Create the code list with hyperlinks
-            const codeList = stateData ? stateData.codes.map(code => {
-                let entries = [];
+          // Create the code list with hyperlinks
+          const codeList = stateData ? stateData.codes.map(code => {
+            let entries = [];
 
-                if (code.exante === '1') entries.push("Ex-Ante Supervision");
-                if (code.individual === '1') entries.push("Individual Control");
-                if (code.thirdparty === '1') entries.push("Third Party Protections");
-                if (code.fgg === '1') entries.push("FGG Ensured");
-                if (code.consequences === '1') entries.push("Violation Consequences");
-                if (code.reporting === '1') entries.push("Reporting/Review");
-                if (code.regulation === '1') entries.push("Law Enforcement Regulation");
+            if (code.exante === '1') entries.push("Ex-Ante Supervision");
+            if (code.individual === '1') entries.push("Individual Control");
+            if (code.thirdparty === '1') entries.push("Third Party Protections");
+            if (code.fgg === '1') entries.push("FGG Ensured");
+            if (code.consequences === '1') entries.push("Violation Consequences");
+            if (code.reporting === '1') entries.push("Reporting/Review");
+            if (code.regulation === '1') entries.push("Law Enforcement Regulation");
 
-                let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
-                
-                // Conditionally create the row with or without the hyperlink
-                const codeContent = code.link && code.link !== "" 
-                    ? `<a href="${code.link}" target="_blank">${code.code || 'N/A'}</a>` 
-                    : code.code || 'N/A';
-                
-                return `<tr><td>${codeContent}</td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
-            }).join('') : '<tr><td title="N/A">N/A</td><td title="N/A">N/A</td></tr>';
+            let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
 
-            // Add the table headers
-            const tableHeaders = `<thead><tr><th>Laws</th><th>Type</th></tr></thead>`;
+            // Conditionally create the row with or without the hyperlink
+            const codeContent = code.link && code.link !== "" ?
+              `<a href="${code.link}" target="_blank">${code.code || 'N/A'}</a>` :
+              code.code || 'N/A';
 
-            // Create tooltip content with close button
-            const tooltipContent = `<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${tableHeaders}<tbody>${codeList}</tbody></table><button class="close" id="tooltip-close">&times;</button>`;
+            return `<tr><td>${codeContent}</td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
+          }).join('') : '<tr><td title="N/A">N/A</td><td title="N/A">N/A</td></tr>';
 
-            const x = event.pageX;
-            const y = event.pageY;
+          // Add the table headers
+          const tableHeaders = `<thead><tr><th>Laws</th><th>Type</th></tr></thead>`;
 
-            // Show the tooltip with content
-            showTooltip(tooltipContent, x, y);
+          // Create tooltip content with close button
+          const tooltipContent = `<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${tableHeaders}<tbody>${codeList}</tbody></table><button class="close" id="tooltip-close">&times;</button>`;
 
-            // Hide the hovertooltip
-            hideHoverTooltip();
+          const x = event.pageX;
+          const y = event.pageY;
 
-            // Prevent click event from bubbling up to the body
-            event.stopPropagation();            
+          // Show the tooltip with content
+          showTooltip(tooltipContent, x, y);
+
+          // Hide the hovertooltip
+          hideHoverTooltip();
+
+          // Prevent click event from bubbling up to the body
+          event.stopPropagation();
         })
         .on("mouseout", function() {
           hideHoverTooltip();
           d3.select(this).classed("highlighted", false);
         });
-        // Hide tooltip when clicking outside
-        d3.select("body").on("click", function() {
-          hideTooltip();
-        });
+      // Hide tooltip when clicking outside
+      d3.select("body").on("click", function() {
+        hideTooltip();
+      });
     };
-    
+
     function groupAndCountEntriesForStates(data) {
-        
-        const stateDataMap = {};
 
-        data.forEach(row => {
-            const state = row.State;
+      const stateDataMap = {};
 
-            // Create an object for the state if it doesn't exist
-            if (!stateDataMap[state]) {
-                stateDataMap[state] = { 
-                    name: state,
-                    exante: false,
-                    individual: false,
-                    thirdparty: false,
-                    fgg: false,
-                    consequences: false,
-                    reporting: false,
-                    regulation: false,
-                    codes: []
-                };
-            }
+      data.forEach(row => {
+        const state = row.State;
 
-            if (row.exante === '1') {
-                stateDataMap[state].exante = true;
-            }
-            if (row.individual === '1') {
-                stateDataMap[state].individual = true;
-            }
-            if (row.thirdparty === '1') {
-                stateDataMap[state].thirdparty = true;
-            }
-            if (row.fgg === '1') {
-                stateDataMap[state].fgg = true;
-            }
-            if (row.consequences === '1') {
-                stateDataMap[state].consequences = true;
-            }
-            if (row.reporting === '1') {
-                stateDataMap[state].reporting = true;
-            }
-            if (row.regulation === '1') {
-                stateDataMap[state].regulation = true;
-            }
+        // Create an object for the state if it doesn't exist
+        if (!stateDataMap[state]) {
+          stateDataMap[state] = {
+            name: state,
+            exante: false,
+            individual: false,
+            thirdparty: false,
+            fgg: false,
+            consequences: false,
+            reporting: false,
+            regulation: false,
+            codes: []
+          };
+        }
 
-            // Push data to the codes array
-            stateDataMap[state].codes.push({
-                code: row.Code,
-                link: row.Link,
-                citation: row.Citation,
-                exante: row.exante,
-                individual: row.individual,
-                thirdparty: row.thirdparty,
-                fgg: row.fgg,
-                consequences: row.consequences,
-                reporting: row.reporting,
-                regulation: row.regulation
-            });
+        if (row.exante === '1') {
+          stateDataMap[state].exante = true;
+        }
+        if (row.individual === '1') {
+          stateDataMap[state].individual = true;
+        }
+        if (row.thirdparty === '1') {
+          stateDataMap[state].thirdparty = true;
+        }
+        if (row.fgg === '1') {
+          stateDataMap[state].fgg = true;
+        }
+        if (row.consequences === '1') {
+          stateDataMap[state].consequences = true;
+        }
+        if (row.reporting === '1') {
+          stateDataMap[state].reporting = true;
+        }
+        if (row.regulation === '1') {
+          stateDataMap[state].regulation = true;
+        }
+
+        // Push data to the codes array
+        stateDataMap[state].codes.push({
+          code: row.Code,
+          link: row.Link,
+          citation: row.Citation,
+          exante: row.exante,
+          individual: row.individual,
+          thirdparty: row.thirdparty,
+          fgg: row.fgg,
+          consequences: row.consequences,
+          reporting: row.reporting,
+          regulation: row.regulation
         });
+      });
 
-        const result = Object.values(stateDataMap).map(state => ({
-            name: state.name,
-            exante: state.exante,
-            individual: state.individual,
-            thirdparty: state.thirdparty,
-            fgg: state.fgg,
-            consequences: state.consequences,
-            reporting: state.reporting,
-            regulation: state.regulation,
-            codes: state.codes
-        }));
+      const result = Object.values(stateDataMap).map(state => ({
+        name: state.name,
+        exante: state.exante,
+        individual: state.individual,
+        thirdparty: state.thirdparty,
+        fgg: state.fgg,
+        consequences: state.consequences,
+        reporting: state.reporting,
+        regulation: state.regulation,
+        codes: state.codes
+      }));
 
-        return result;
+      return result;
 
     };
 
@@ -974,7 +953,7 @@
         event.stopPropagation(); // Prevent click event from bubbling up to other elements
       };
     };
-    
+
     // Function to show the tooltip
     function showTooltip(content, x, y) {
       const tooltip = document.querySelector('#tooltip');
@@ -1042,7 +1021,204 @@
       hoverTooltip.style.display = 'none'; // Hide the hover tooltip
       hoverTooltip.classList.remove('visible');
       hoverTooltip.classList.add('hidden');
-    };    
+    };
+
+    function populateStateDetails(stateData, filters, subfilters) {
+      const stateDetailsContainer = document.getElementById('stateDetails');
+      stateDetailsContainer.innerHTML = '';
+
+      stateData.forEach(state => {
+        
+        const stateElement = document.createElement('div');
+        stateElement.style.marginBottom = '10px';
+/*
+        let filteredCodes = state.codes;
+
+        // Check if any checkboxes are checked
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+        // if 'input[type="checkbox"]' is not checked, then show all codes
+        if (!anyChecked) {
+          filteredCodes = filteredCodes;
+        } else {
+          // Check checkboxes and return the keys that are true
+          const selectedBox = Object.keys(subfilters).filter(key => subfilters[key]);
+          // Filter the codes based on the selectedBox values
+          filteredCodes = filteredCodes.filter(code => {
+            // Return the codes where code[selectedFilter] includes one of the values in selectedBox
+            return selectedBox.some(value => code[selectedFilter].includes(value));
+          });
+        }
+
+        // define empty variables
+        let stateName;
+        let codeList;
+        let codeTable;
+
+        console.log(state.codes.length);
+
+        if (state.codes.length > 0) {
+          stateName = document.createElement('div');
+          stateName.innerHTML = `<strong>${state.name}</strong>`;
+          stateElement.appendChild(stateName);
+          // If a radio button is selected
+          if (filters) {
+            codeList = filteredCodes.map(code => {
+              let entries = [];
+              if (code[selectedFilter].includes("1")) entries.push('<li>Requires informed consent</li>');
+              if (code[selectedFilter].includes("2")) entries.push('<li>Prohibits use of genetic info</li>');
+              if (code[selectedFilter].includes("3")) entries.push('<li>Allowed if actuarially justified</li>');
+              if (code[selectedFilter].includes("4")) entries.push('<li>Bars use of a specific trait</li>');
+              if (code[selectedFilter].includes("5")) entries.push('<li>Other</li>');
+              // Combine entries into a single string
+              let entriesText = entries.length > 0 ? entries.join('<br>') : '<li>N/A</li>';
+              return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}"><ul>${entriesText}</ul></td></tr>`;
+            }).join('');
+          } else {
+            codeList = filteredCodes.map(code => {
+              let entries = [];
+              if (code.life) entries.push("Life");
+              if (code.disability) entries.push("Disability");
+              if (code.ltc) entries.push("LTC");
+              let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
+              return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
+            }).join('');
+          }
+          codeTable = document.createElement('table');
+          codeTable.innerHTML = codeList;
+          stateElement.appendChild(codeTable);
+          stateDetailsContainer.appendChild(stateElement);
+        } else {
+          stateName = '';
+          codeList = '';
+          codeTable = '';
+        }
+*/ 
+      });
+     
+    };
+
+    function applyFilters(states, dnaLaw, filters) {
+
+      // Run groupAndCountEntriesForStates on the dnaLaw data
+      const groupedData = groupAndCountEntriesForStates(dnaLaw);
+
+      // Filter the groupedData based on the selected filters
+      const filteredStateData = groupedData.filter(d => {
+        // Iterate through each filter key and check if the condition is met for each filter
+        return Object.keys(filters).every(key => {
+          // Check if the filter for the current key is true and whether d[filters[key]] is also true
+          if (filters[key]) {
+            // If the filter is true, check if the corresponding value in d is true
+            return d[filters[key]] === true;
+          }
+          // If the filter is false, always return true (since we don't care about this filter)
+          return true;
+        });
+      });
+
+      stateGroups.coverageGroup.style("visibility", "hidden");
+      stateGroups.filterGroup.style("visibility", "visible");
+
+      // Draw the filtered layer on the map
+      drawCoverageLayerFiltered(stateGroups.filterGroup, states, filteredStateData, groupedData, filters);
+
+      // Populate state details in the sidebar      
+      //populateStateDetails(filteredStateData, filters);
+
+    };
+
+    function drawCoverageLayerFiltered(layerGroup, states, filtered, all, filters) {
+
+      layerGroup.selectAll("path")
+        .data(topojson.feature(states, states.objects.states).features)
+        .join("path")
+        .attr("d", path)
+        .attr("fill", d => {
+          const stateData = filtered.find(state => state.name === d.properties.name);
+          if (stateData) {
+            return "rgb(173,216,230)";
+          } else {
+            return "rgb(251,247,245)";
+          }
+        })
+        .attr("stroke", "gray")
+        .attr("stroke-width", 0.5)
+        .on("mouseover", function(event, d) {
+          d3.select(this).classed("highlighted", true).raise();
+          // Show a tooltip with the state name and "click for more info" underneath the state name
+          const x = event.pageX;
+          const y = event.pageY;
+          showHoverTooltip(`<div style="font-size: 16px; font-weight: bold;">${d.properties.name}</div><div style="font-size: 12px;">Click for more info</div>`, x, y);
+          // Move the hovertooltip as the mouse moves
+          d3.select(this).on("mousemove", function(event) {
+            const x = event.pageX;
+            const y = event.pageY;
+            d3.select("#hovertooltip")
+              .style("left", `${x + 10}px`)
+              .style("top", `${y + 10}px`);
+          });
+        })
+        .on("click", function(event, d) {
+          // Define state name
+          const stateName = d.properties.name;
+          // Define state data
+          const stateData = all.find(state => state.name === stateName);
+          // Define checkboxes
+          const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+          // Define checkded checkboxes
+          const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+          // If no checkboxes are checked, show all codes
+          if (!anyChecked) {
+            stateData.codes = stateData.codes;
+          } else {
+            // Filter the codes based on the selected filter values
+            stateData.codes = stateData.codes.filter(code => {
+              // Return any codes where any code[filter] in filters is "1"
+              return filters.some(filter => code[filter] === "1");
+            });
+          }
+          // Create the code list with descriptions
+          const codeList = stateData.codes.map(code => {
+            let entries = [];
+            if (code.exante === '1') entries.push("Ex-Ante Supervision");
+            if (code.individual === '1') entries.push("Individual Control");
+            if (code.thirdparty === '1') entries.push("Third Party Protections");
+            if (code.fgg === '1') entries.push("FGG Ensured");
+            if (code.consequences === '1') entries.push("Violation Consequences");
+            if (code.reporting === '1') entries.push("Reporting/Review");
+            if (code.regulation === '1') entries.push("Law Enforcement Regulation");
+            let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
+            return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
+          }).join('');
+
+          const newCodeList = codeList || '<tr><td>N/A</td><td>N/A</td></tr>'; 
+          
+          // Create tooltip content with close button
+          const tooltipContent = `<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table><thead><tr><th>Laws</th><th>Type</th></tr></thead><tbody>${newCodeList}</tbody></table><button class="close" id="tooltip-close">&times;</button>`;
+
+          const x = event.pageX;
+          const y = event.pageY;
+
+          // Show the tooltip with content
+          showTooltip(tooltipContent, x, y);
+
+          // Hide the hovertooltip
+          hideHoverTooltip();
+
+          // Prevent click event from bubbling up to the body
+          event.stopPropagation();
+        })
+        .on("mouseout", function() {
+          hideHoverTooltip();
+          d3.select(this).classed("highlighted", false);
+        });
+      
+    }
+
+
+
 
     // Collapsible content instructions
     // Get the collapsible section, header, and button
@@ -1069,20 +1245,20 @@
         arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
       }
     });
-/*
-    // Toggle the visibility of the collapsible content when the header is clicked
-    collapsibleHeaderProvisions.addEventListener('click', function() {
-      const content = collapsibleSectionProvisions.querySelector('.collapsible-content-provisions');
-      const arrowIcon = collapsibleHeaderProvisions.querySelector('.arrow-icon');
-      if (content.style.display === 'block') {
-        content.style.display = 'none';
-        arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
-      } else {
-        content.style.display = 'block';
-        arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
-      }
-    });
-*/
+    /*
+        // Toggle the visibility of the collapsible content when the header is clicked
+        collapsibleHeaderProvisions.addEventListener('click', function() {
+          const content = collapsibleSectionProvisions.querySelector('.collapsible-content-provisions');
+          const arrowIcon = collapsibleHeaderProvisions.querySelector('.arrow-icon');
+          if (content.style.display === 'block') {
+            content.style.display = 'none';
+            arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
+          } else {
+            content.style.display = 'block';
+            arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
+          }
+        });
+    */
     // Toggle the visibility of the collapsible content when the header is clicked
     collapsibleHeaderComparison.addEventListener('click', function() {
       const content = collapsibleSectionComparison.querySelector('.collapsible-content-comparison');
@@ -1128,8 +1304,6 @@
       content.style.display = 'block';
       arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
     });
-
-
   </script>
 </body>
 
