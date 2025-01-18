@@ -717,7 +717,7 @@
       drawCoverageLayer(stateGroups.coverageGroup, states, groupedData);
 
       // Populate the sidebar with all state details
-      //populateStateDetails(groupedData);
+      populateStateDetails(groupedData);
 
     };
 
@@ -1023,7 +1023,7 @@
       hoverTooltip.classList.add('hidden');
     };
 
-    function populateStateDetails(stateData, filters, subfilters) {
+    function populateStateDetails(stateData, filters) {
       const stateDetailsContainer = document.getElementById('stateDetails');
       stateDetailsContainer.innerHTML = '';
 
@@ -1031,7 +1031,7 @@
         
         const stateElement = document.createElement('div');
         stateElement.style.marginBottom = '10px';
-/*
+
         let filteredCodes = state.codes;
 
         // Check if any checkboxes are checked
@@ -1042,59 +1042,50 @@
         if (!anyChecked) {
           filteredCodes = filteredCodes;
         } else {
-          // Check checkboxes and return the keys that are true
-          const selectedBox = Object.keys(subfilters).filter(key => subfilters[key]);
-          // Filter the codes based on the selectedBox values
-          filteredCodes = filteredCodes.filter(code => {
-            // Return the codes where code[selectedFilter] includes one of the values in selectedBox
-            return selectedBox.some(value => code[selectedFilter].includes(value));
+          // Filter the codes based on the selected filter values
+          filteredCodes = state.codes = state.codes.filter(code => {
+            // Return any codes where any code[filter] in filters is "1"
+            return filters.some(filter => code[filter] === "1");
           });
         }
 
-        // define empty variables
+        // Define empty variables
         let stateName;
         let codeList;
         let codeTable;
 
-        console.log(state.codes.length);
-
-        if (state.codes.length > 0) {
-          stateName = document.createElement('div');
-          stateName.innerHTML = `<strong>${state.name}</strong>`;
-          stateElement.appendChild(stateName);
-          // If a radio button is selected
-          if (filters) {
+        // For each code in state.codes
+        state.codes.forEach(code => {
+          // If the code is not empty,
+          if (code.code) {
+            console.log(state.name, "true");
+            stateName = document.createElement('div');
+            stateName.innerHTML = `<strong>${state.name}</strong>`;
+            stateElement.appendChild(stateName);
             codeList = filteredCodes.map(code => {
               let entries = [];
-              if (code[selectedFilter].includes("1")) entries.push('<li>Requires informed consent</li>');
-              if (code[selectedFilter].includes("2")) entries.push('<li>Prohibits use of genetic info</li>');
-              if (code[selectedFilter].includes("3")) entries.push('<li>Allowed if actuarially justified</li>');
-              if (code[selectedFilter].includes("4")) entries.push('<li>Bars use of a specific trait</li>');
-              if (code[selectedFilter].includes("5")) entries.push('<li>Other</li>');
-              // Combine entries into a single string
-              let entriesText = entries.length > 0 ? entries.join('<br>') : '<li>N/A</li>';
-              return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}"><ul>${entriesText}</ul></td></tr>`;
-            }).join('');
-          } else {
-            codeList = filteredCodes.map(code => {
-              let entries = [];
-              if (code.life) entries.push("Life");
-              if (code.disability) entries.push("Disability");
-              if (code.ltc) entries.push("LTC");
+              if (code.exante === '1') entries.push("Ex-Ante Supervision");
+              if (code.individual === '1') entries.push("Individual Control");
+              if (code.thirdparty === '1') entries.push("Third Party Protections");
+              if (code.fgg === '1') entries.push("FGG Ensured");
+              if (code.consequences === '1') entries.push("Violation Consequences");
+              if (code.reporting === '1') entries.push("Reporting/Review");
+              if (code.regulation === '1') entries.push("Law Enforcement Regulation");
               let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
               return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
             }).join('');
+            codeTable = document.createElement('table');
+            codeTable.innerHTML = codeList;
+            stateElement.appendChild(codeTable);
+            stateDetailsContainer.appendChild(stateElement);   
+          } else {
+            stateName = '';
+            codeList = '';
+            codeTable = '';
           }
-          codeTable = document.createElement('table');
-          codeTable.innerHTML = codeList;
-          stateElement.appendChild(codeTable);
-          stateDetailsContainer.appendChild(stateElement);
-        } else {
-          stateName = '';
-          codeList = '';
-          codeTable = '';
-        }
-*/ 
+
+        });
+
       });
      
     };
@@ -1125,7 +1116,7 @@
       drawCoverageLayerFiltered(stateGroups.filterGroup, states, filteredStateData, groupedData, filters);
 
       // Populate state details in the sidebar      
-      //populateStateDetails(filteredStateData, filters);
+      populateStateDetails(filteredStateData, filters);
 
     };
 
