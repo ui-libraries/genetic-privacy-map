@@ -378,18 +378,6 @@
             <p>To filter the map, select your desired combination of genetic privacy regulations. You will notice the map change based on your combination of radio button and checkbox inputs. The scrollable list of linked regulations will also change according to your selections. Press the reset button to return to the general coverage map.</p>
           </div>
         </div>
-        <!--
-        <div class="collapsible-provisions">
-          <div class="collapsible-header-provisions">
-            <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span>-->
-        <!-- Right-facing arrow icon -->
-        <!--Compare Protective Features</h4>
-          </div>
-          <div class="collapsible-content-provisions">
-            <p>There are many different decisions that an insurer makes about an individual. They can make decisions about whether to insure them (underwriting), renew an existing policy, or how much to charge for coverage (premiums). <a href="protective-features-insurance.html" target="_blank">Please click here to compare protective features between a few states.</a></p>
-          </div>
-        </div>
--->
         <!-- Filter Map by Regulation Type -->
         <div class="collapsible-regulation">
           <div class="collapsible-header-regulation">
@@ -560,41 +548,7 @@
       const titlebarHeight = document.getElementById('titlebar').offsetHeight;
       document.getElementById('map').style.height = `calc(100vh - ${titlebarHeight}px)`;
     };
-    /*
-        // Hide the filter-legend by default
-        document.getElementById('filter-legend').style.display = 'none';
 
-        // Hide all checkbox groups by default
-        document.querySelectorAll('.checkbox-group').forEach(group => {
-          group.style.display = 'none';
-        });
-
-        // Show the corresponding checkbox group when a radio button is clicked
-        document.querySelectorAll('input[name="layer"]').forEach(radio => {
-          radio.addEventListener('change', () => {
-            document.querySelectorAll('.checkbox-group').forEach(group => {
-              group.style.display = 'none';
-            });
-
-            const selectedLayer = radio.value;
-            const checkboxGroup = document.getElementById(selectedLayer + 'LayerOptions');
-            if (checkboxGroup) {
-              checkboxGroup.style.display = 'block';
-            }
-          });
-        });
-
-        // Ensure radio buttons are unchecked on page reload
-        document.addEventListener('DOMContentLoaded', () => {
-          document.getElementById('exanteLayerToggle').checked = false;
-          document.getElementById('individual').checked = false;
-          document.getElementById('thirdpartyLayerToggle').checked = false;
-          document.getElementById('fggLayerToggle').checked = false;
-          document.getElementById('consequencesLayerToggle').checked = false;
-          document.getElementById('reportingLayerToggle').checked = false;
-          document.getElementById('regulationLayerToggle').checked = false;
-        });
-    */
     // Ensure that all checkbox inputs are unchecked on page reload
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
@@ -607,16 +561,7 @@
       // Reload the page
       location.reload();
     });
-    /*
-        // Whenever a radio button is clicked, uncheck all checkboxes
-        document.querySelectorAll('input[name="layer"]').forEach(radio => {
-          radio.addEventListener('change', () => {
-            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-              checkbox.checked = false;
-            });
-          });
-        });
-    */
+
     // Get the height of the titlebar div
     const titlebarHeight = document.getElementById('titlebar').offsetHeight;
 
@@ -696,17 +641,7 @@
           applyFilters(states, dnaLaw, selectedFilter);
         });
       });
-      /*      
-            // Listen for a click on a radio button
-            document.querySelectorAll('input[name="layer"]').forEach(radio => {
-              radio.addEventListener('click', function() {
-                // Get the selected filter
-                selectedFilter = radio.value;
-                // Update the map
-                updateMap(selectedFilter);
-              });
-            });
-      */
+
       stateGroups.coverageGroup.style("visibility", "visible");
       stateGroups.filterGroup.style("visibility", "hidden");
 
@@ -718,6 +653,177 @@
 
       // Populate the sidebar with all state details
       populateStateDetails(groupedData);
+
+      // STATE LAW COMPARISON START
+      // List of US states
+      const compStates = [
+        "None selected", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut",
+        "Delaware", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
+        "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan",
+        "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+        "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
+        "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota",
+        "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia",
+        "Wisconsin", "Wyoming"
+      ];
+
+      // Populate the dropdown menus
+      const firstStateDropdown = document.getElementById('firstStateDropdown');
+      const secondStateDropdown = document.getElementById('secondStateDropdown');
+
+      compStates.forEach(state => {
+        const option1 = document.createElement('option');
+        option1.value = state;
+        option1.textContent = state;
+        firstStateDropdown.appendChild(option1);
+
+        const option2 = document.createElement('option');
+        option2.value = state;
+        option2.textContent = state;
+        secondStateDropdown.appendChild(option2);
+      });
+
+      // Get the modal
+      const modal = document.getElementById("myModal");
+
+      // Get the button that opens the modal
+      const btn = document.getElementById("compareButton");
+
+      // Get the <span> element that closes the modal
+      const span = document.getElementsByClassName("close")[0];
+
+      // When the user clicks on <span> (x), close the modal
+      span.onclick = function() {
+        modal.style.display = "none";
+      }
+
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+
+      // Update the table headers when a state is selected
+      firstStateDropdown.onchange = function() {
+        document.getElementById('firstStateHead').textContent = firstStateDropdown.value;
+      }
+
+      secondStateDropdown.onchange = function() {
+        // Prevent the user from selecting the same state in both dropdowns
+        if (firstStateDropdown.value === secondStateDropdown.value) {
+          alert('Please select two different states to compare.');
+          secondStateDropdown.value = 'None selected';
+        }
+        document.getElementById('secondStateHead').textContent = secondStateDropdown.value;
+      }
+
+      // When the user clicks the button, open the modal
+      btn.onclick = function() {
+
+        // Open the modal
+        modal.style.display = "block";
+
+        // Get the selected states
+        const firstState = firstStateDropdown.value;
+        const secondState = secondStateDropdown.value;
+
+        // Get the data for the selected states
+        const firstStateData = groupedData.find(state => state.name === firstState);
+        const secondStateData = groupedData.find(state => state.name === secondState);
+
+        // Update the table headers
+        document.getElementById('firstStateHead').textContent = firstState;
+        document.getElementById('secondStateHead').textContent = secondState;
+
+        // For code in firstStateData.codes,  
+        firstStateData.codes.forEach(code => {
+          // if code.exante === '1'
+          if (code.exante === '1') {
+            // Use innerHTML to set HTML content (a clickable link)
+            document.getElementById('firstStateExante').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            // Use innerHTML or textContent for plain text if not a link
+            document.getElementById('firstStateExante').textContent = 'N/A';
+          }
+          // if code.individual === '1'
+          if (code.individual === '1') {
+            document.getElementById('firstStateIndividual').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('firstStateIndividual').textContent = 'N/A';
+          }
+          // if code.thirdparty === '1'
+          if (code.thirdparty === '1') {
+            document.getElementById('firstStateThirdparty').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('firstStateThirdparty').textContent = 'N/A';
+          }
+          // if code.fgg === '1'
+          if (code.fgg === '1') {
+            document.getElementById('firstStateFgg').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('firstStateFgg').textContent = 'N/A';
+          }
+          // if code.consequences === '1'
+          if (code.consequences === '1') {
+            document.getElementById('firstStateConsequences').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('firstStateConsequences').textContent = 'N/A';
+          }
+          // if code.reporting === '1'
+          if (code.reporting === '1') {
+            document.getElementById('firstStateReporting').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('firstStateReporting').textContent = 'N/A';
+          }
+          // if code.regulation === '1'
+          if (code.regulation === '1') {
+            document.getElementById('firstStateRegulation').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('firstStateRegulation').textContent = 'N/A';
+          }
+        });
+
+        // For code in secondStateData.codes,
+        secondStateData.codes.forEach(code => {
+          if (code.exante === '1') {
+            document.getElementById('secondStateExante').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('secondStateExante').textContent = 'N/A';
+          }
+          if (code.individual === '1') {
+            document.getElementById('secondStateIndividual').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('secondStateIndividual').textContent = 'N/A';
+          }
+          if (code.thirdparty === '1') {
+            document.getElementById('secondStateThirdparty').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('secondStateThirdparty').textContent = 'N/A';
+          }
+          if (code.fgg === '1') {
+            document.getElementById('secondStateFgg').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('secondStateFgg').textContent = 'N/A';
+          }
+          if (code.consequences === '1') {
+            document.getElementById('secondStateConsequences').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('secondStateConsequences').textContent = 'N/A';
+          }
+          if (code.reporting === '1') {
+            document.getElementById('secondStateReporting').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('secondStateReporting').textContent = 'N/A';
+          }
+          if (code.regulation === '1') {
+            document.getElementById('secondStateRegulation').innerHTML = `<a href="${code.link}" target="_blank">${code.code}</a>`;
+          } else {
+            document.getElementById('secondStateRegulation').textContent = 'N/A';
+          }
+        });
+
+      }
 
     };
 
@@ -1025,12 +1131,17 @@
 
     function populateStateDetails(stateData, filters) {
       const stateDetailsContainer = document.getElementById('stateDetails');
-      stateDetailsContainer.innerHTML = '';
+      stateDetailsContainer.innerHTML = ''; // Clear existing content
 
       stateData.forEach(state => {
-        
+        // Create stateElement only once per state
         const stateElement = document.createElement('div');
         stateElement.style.marginBottom = '10px';
+
+        // Add state name only once
+        const stateName = document.createElement('div');
+        stateName.innerHTML = `<strong>${state.name}</strong>`;
+        stateElement.appendChild(stateName);
 
         let filteredCodes = state.codes;
 
@@ -1038,56 +1149,48 @@
         const checkboxes = document.querySelectorAll('input[type="checkbox"]');
         const anyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
 
-        // if 'input[type="checkbox"]' is not checked, then show all codes
+        // If no checkboxes are checked, show all codes
         if (!anyChecked) {
           filteredCodes = filteredCodes;
         } else {
           // Filter the codes based on the selected filter values
-          filteredCodes = state.codes = state.codes.filter(code => {
-            // Return any codes where any code[filter] in filters is "1"
+          filteredCodes = state.codes.filter(code => {
             return filters.some(filter => code[filter] === "1");
           });
         }
 
-        // Define empty variables
-        let stateName;
-        let codeList;
-        let codeTable;
+        // Initialize a flag to track whether any valid code is found
+        let hasValidCode = false;
 
-        // For each code in state.codes
-        state.codes.forEach(code => {
-          // If the code is not empty,
+        // Create the table of codes for the state
+        let codeList = filteredCodes.map(code => {
           if (code.code) {
-            console.log(state.name, "true");
-            stateName = document.createElement('div');
-            stateName.innerHTML = `<strong>${state.name}</strong>`;
-            stateElement.appendChild(stateName);
-            codeList = filteredCodes.map(code => {
-              let entries = [];
-              if (code.exante === '1') entries.push("Ex-Ante Supervision");
-              if (code.individual === '1') entries.push("Individual Control");
-              if (code.thirdparty === '1') entries.push("Third Party Protections");
-              if (code.fgg === '1') entries.push("FGG Ensured");
-              if (code.consequences === '1') entries.push("Violation Consequences");
-              if (code.reporting === '1') entries.push("Reporting/Review");
-              if (code.regulation === '1') entries.push("Law Enforcement Regulation");
-              let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
-              return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
-            }).join('');
-            codeTable = document.createElement('table');
-            codeTable.innerHTML = codeList;
-            stateElement.appendChild(codeTable);
-            stateDetailsContainer.appendChild(stateElement);   
-          } else {
-            stateName = '';
-            codeList = '';
-            codeTable = '';
+            hasValidCode = true; // Mark that we have a valid code
+            let entries = [];
+            if (code.exante === '1') entries.push("Ex-Ante Supervision");
+            if (code.individual === '1') entries.push("Individual Control");
+            if (code.thirdparty === '1') entries.push("Third Party Protections");
+            if (code.fgg === '1') entries.push("FGG Ensured");
+            if (code.consequences === '1') entries.push("Violation Consequences");
+            if (code.reporting === '1') entries.push("Reporting/Review");
+            if (code.regulation === '1') entries.push("Law Enforcement Regulation");
+            let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
+            return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
           }
+          return ''; // If code is empty, return an empty string
+        }).join('');
 
-        });
+        // Only create and append the table if we have a valid code
+        if (hasValidCode) {
+          // Create the table element and append the code list
+          const codeTable = document.createElement('table');
+          codeTable.innerHTML = codeList;
+          stateElement.appendChild(codeTable);
 
+          // Append the state element to the container
+          stateDetailsContainer.appendChild(stateElement);
+        }
       });
-     
     };
 
     function applyFilters(states, dnaLaw, filters) {
@@ -1109,14 +1212,24 @@
         });
       });
 
-      stateGroups.coverageGroup.style("visibility", "hidden");
-      stateGroups.filterGroup.style("visibility", "visible");
-
-      // Draw the filtered layer on the map
-      drawCoverageLayerFiltered(stateGroups.filterGroup, states, filteredStateData, groupedData, filters);
-
-      // Populate state details in the sidebar      
-      populateStateDetails(filteredStateData, filters);
+      // If no filters are selected, show the coverage layer
+      if (Object.keys(filters).length === 0) {
+        // Show the coverage layer
+        stateGroups.coverageGroup.style("visibility", "visible");
+        stateGroups.filterGroup.style("visibility", "hidden");
+        // Draw the coverage layer on the map
+        drawCoverageLayer(stateGroups.coverageGroup, states, groupedData);
+        // Populate state details in the sidebar
+        populateStateDetails(groupedData);
+      } else {
+        // If filters are selected, show the filtered layer
+        stateGroups.coverageGroup.style("visibility", "hidden");
+        stateGroups.filterGroup.style("visibility", "visible");
+        // Draw the filtered layer on the map
+        drawCoverageLayerFiltered(stateGroups.filterGroup, states, filteredStateData, groupedData, filters);
+        // Populate state details in the sidebar
+        populateStateDetails(filteredStateData, filters);
+      }
 
     };
 
@@ -1184,8 +1297,8 @@
             return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
           }).join('');
 
-          const newCodeList = codeList || '<tr><td>N/A</td><td>N/A</td></tr>'; 
-          
+          const newCodeList = codeList || '<tr><td>N/A</td><td>N/A</td></tr>';
+
           // Create tooltip content with close button
           const tooltipContent = `<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table><thead><tr><th>Laws</th><th>Type</th></tr></thead><tbody>${newCodeList}</tbody></table><button class="close" id="tooltip-close">&times;</button>`;
 
@@ -1205,8 +1318,8 @@
           hideHoverTooltip();
           d3.select(this).classed("highlighted", false);
         });
-      
-    }
+
+    };
 
 
 
@@ -1236,20 +1349,7 @@
         arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
       }
     });
-    /*
-        // Toggle the visibility of the collapsible content when the header is clicked
-        collapsibleHeaderProvisions.addEventListener('click', function() {
-          const content = collapsibleSectionProvisions.querySelector('.collapsible-content-provisions');
-          const arrowIcon = collapsibleHeaderProvisions.querySelector('.arrow-icon');
-          if (content.style.display === 'block') {
-            content.style.display = 'none';
-            arrowIcon.innerHTML = '&#9658;'; // Right-facing arrow
-          } else {
-            content.style.display = 'block';
-            arrowIcon.innerHTML = '&#9660;'; // Down-facing arrow
-          }
-        });
-    */
+
     // Toggle the visibility of the collapsible content when the header is clicked
     collapsibleHeaderComparison.addEventListener('click', function() {
       const content = collapsibleSectionComparison.querySelector('.collapsible-content-comparison');
