@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Forum&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
   <style>
     /* Hide scrollbar initially */
     .sidebar::-webkit-scrollbar {
@@ -23,11 +24,11 @@
     html {
       height: 100%;
       margin: 0;
-      font-family: "Forum", serif;
+      font-family: "Libre Baskerville", serif;
     }
 
     label {
-      font-family: "Work Sans", sans-serif;
+      font-family: "Source Sans Pro", sans-serif;
       font-weight: 300;
       font-size: 14px;
     }
@@ -40,6 +41,7 @@
       right: 0;
       top: 0;
       overflow: hidden;
+      background-color: #f4f4f9;
     }
 
     #map {
@@ -58,6 +60,7 @@
       top: 0;
       background: white;
       box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+      z-index: 100;
     }
 
     .sidebar {
@@ -65,16 +68,16 @@
       /* Grow to fill available space */
       overflow-y: auto;
       /* Enable vertical scrolling */
-      margin-bottom: 190px;
+      margin-bottom: 150px;
       /* make margin-bottom the same as the height of the legend */
     }
 
     .sidebar-header {
       padding: 15px 0 15px 15px;
-      background: #007BFF;
+      background: #003366;
       color: white;
       text-align: left;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
     }
 
@@ -86,7 +89,7 @@
     p {
       padding: 0 15px;
       font-size: 14px;
-      font-family: "Work Sans", sans-serif;
+      font-family: "Source Sans Pro", sans-serif;
       font-weight: 300;
     }
 
@@ -144,7 +147,7 @@
       text-align: left;
       padding: 10px;
       font: 12px;
-      font-family: "Forum", serif;
+      font-family: "Libre Baskerville", serif;
       background: lightsteelblue;
       border: 1px solid #ccc;
       border-radius: 4px;
@@ -207,7 +210,7 @@
       border: 1px solid black;
       padding: 8px;
       text-align: left;
-      font-family: "Work Sans", sans-serif; 
+      font-family: "Source Sans Pro", sans-serif; 
       font-weight: 300; 
       font-size: 13px;
     }
@@ -267,6 +270,7 @@
       border: 1px solid #888;
       width: 80%;
       max-width: 500px;
+      border-radius: 5px;
     }
 
     /* Style for the close button */
@@ -336,6 +340,10 @@
       font-weight: bold;
     }
 
+    h4 {
+      font-size: 14px;
+    }
+
     .centered-text {
         max-width: 636px; /* Sets the maximum width */
         margin: 0 auto; /* Centers the paragraph itself under the h1 */
@@ -373,7 +381,7 @@
             <h4 style="padding: 0 15px;"><span class="arrow-icon">&#9658;</span> <!-- Right-facing arrow icon -->Compare Protective Features</h4>
           </div>
           <div class="collapsible-content-provisions">
-            <p>There are many different decisions that an insurer makes about an individual. They can make decisions about whether to insure them (underwriting), renew an existing policy, or how much to charge for coverage (premiums). <a href="protective-features-insurance.html" target="_blank">Please click here to compare protective features between a few states.</a></p>
+            <p>There are many different decisions that an insurer makes about an individual. They can make decisions about whether to insure them (underwriting), renew an existing policy, or how much to charge for coverage (premiums). <a style="color:#004b9b;" href="protective-features-insurance.html" target="_blank">Please click here to compare protective features between a few states.</a></p>
           </div>
         </div>
 
@@ -387,7 +395,7 @@
               <div>
                 <input type="radio" id="lifeLayerToggle" name="layer" value="life">
                 <label for="lifeLayerToggle">Life Insurance</label>
-                <div id="lifeLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+                <div id="lifeLayerOptions" class="checkbox-group" style="display: none; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
                   <input type="checkbox" id="lifeOption2" name="lifeOptions" value="2">
                   <label for="lifeOption2">Prohibits use of genetic info</label><br>  
                   <input type="checkbox" id="lifeOption4" name="lifeOptions" value="4">
@@ -403,7 +411,7 @@
               <div>
                 <input type="radio" id="disabilityLayerToggle" name="layer" value="disability">
                 <label for="disabilityLayerToggle">Disability Insurance</label>
-                <div id="disabilityLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;"> 
+                <div id="disabilityLayerOptions" class="checkbox-group" style="display: none; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;"> 
                   <input type="checkbox" id="disabilityOption2" name="disabilityOptions" value="2">
                   <label for="disabilityOption2">Prohibits use of genetic info</label><br>
                   <input type="checkbox" id="disabilityOption4" name="disabilityOptions" value="4">
@@ -419,7 +427,7 @@
               <div>
                 <input type="radio" id="ltcLayerToggle" name="layer" value="ltc">
                 <label for="ltcLayerToggle">Long-Term Care Insurance</label>
-                <div id="ltcLayerOptions" class="checkbox-group" style="display: none; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+                <div id="ltcLayerOptions" class="checkbox-group" style="display: none; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
                   <input type="checkbox" id="ltcOption2" name="ltcOptions" value="2">
                   <label for="ltcOption2">Prohibits use of genetic info</label><br>  
                   <input type="checkbox" id="ltcOption4" name="ltcOptions" value="4">
@@ -511,22 +519,22 @@
       <h4 style="margin-top: 0; margin-bottom: 0;">Total Categories Covered</h4>
       <div>
         <!-- Display "patterns/lines-d-02.png" for the case of "Life" coverage-->
-        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+        <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173, 216, 230); background-image: url('patterns/lines-d-02.png'); background-size: 20px 20px; background-repeat: repeat; margin-right: 5px;"></span> Life Covered
         </div>
 
         <!-- Display "patterns/lines-d-05.png" for the case of "Disability" coverage-->
-        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+        <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173, 216, 230); background-image: url('patterns/lines-d-05.png'); background-size: 20px 20px; background-repeat: repeat; margin-right: 5px;"></span> Disability Covered
         </div>
 
         <!-- Display "patterns/lines-v-02.png" for the case of "LTC" coverage-->
-        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+        <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(173, 216, 230); background-image: url('patterns/lines-v-02.png'); background-size: 30px 30px; background-repeat: repeat; margin-right: 5px;"></span> LTC Covered
         </div>
 
         <!-- Display "gray" for the case of "No Genetic Privacy Laws"-->
-        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+        <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251,247,245); margin-right: 5px;"></span> No Genetic Privacy Laws
         </div>
         <!--       
@@ -546,22 +554,22 @@
     <div id="filter-legend" style="position: absolute; left: 20px; bottom: 20px; background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
       <h4 style="margin-top: 0; margin-bottom: 0;">Strength of Coverage</h4>
       <div>
-        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+        <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: #03045e; margin-right: 5px;"></span> Prohibits use of genetic info
         </div>
-        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+        <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: #0077b6; margin-right: 5px;"></span> Bars use of a specific trait
         </div>
-        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+        <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: #00bfd8; margin-right: 5px;"></span> Allowed if actuarially justified
         </div>
-        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+        <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: #90e0ef; margin-right: 5px;"></span> Requires informed consent
         </div>
-        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+        <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: #caf0f8; margin-right: 5px;"></span> Other
         </div>
-        <div style="display: flex; align-items: center; font-family: Work Sans, sans-serif; font-weight: 300; font-size: 13px;">
+        <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251,247,245); margin-right: 5px;"></span> Absent
         </div>
       </div>
@@ -1203,7 +1211,7 @@
           // Show a tooltip with the state name and "click for more info" underneath the state name
           const x = event.pageX;
           const y = event.pageY;
-          showHoverTooltip(`<div style="font-size: 16px; font-weight: bold;">${d.properties.name}</div><div style="font-size: 12px;">Click for more info</div>`, x, y);
+          showHoverTooltip(`<div style="font-size: 14px; font-weight: bold;">${d.properties.name}</div><div style="font-size: 12px;">Click for more info</div>`, x, y);
           // Move the hovertooltip as the mouse moves
           d3.select(this).on("mousemove", function(event) {
             const x = event.pageX;
@@ -1228,7 +1236,7 @@
 
             // Conditionally create the row with or without the hyperlink
             const codeContent = code.link && code.link !== "" 
-              ? `<a href="${code.link}" target="_blank">${code.code || 'N/A'}</a>` 
+              ? `<a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code || 'N/A'}</a>` 
               : code.code || 'N/A';
     
               return `<tr><td>${codeContent}</td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
@@ -1239,7 +1247,7 @@
           const tableHeaders = `<thead><tr><th>Laws</th><th>Type</th></tr></thead>`;
 
           // Create tooltip content with close button
-          const tooltipContent = `<div style="font-size: 16px; font-weight: bold;">${stateName}</div><table>${tableHeaders}<tbody>${codeList}</tbody></table><button class="close" id="tooltip-close">&times;</button>`;
+          const tooltipContent = `<div style="font-size: 14px; font-weight: bold;">${stateName}</div><table>${tableHeaders}<tbody>${codeList}</tbody></table><button class="close" id="tooltip-close">&times;</button>`;
 
           const x = event.pageX;
           const y = event.pageY;
@@ -1334,7 +1342,7 @@
           // Show a tooltip with the state name and "click for more info" underneath the state name
           const x = event.pageX;
           const y = event.pageY;
-          showHoverTooltip(`<div style="font-size: 16px; font-weight: bold;">${d.properties.name}</div><div style="font-size: 12px;">Click for more info</div>`, x, y);
+          showHoverTooltip(`<div style="font-size: 14px; font-weight: bold;">${d.properties.name}</div><div style="font-size: 12px;">Click for more info</div>`, x, y);
           // Move the hovertooltip as the mouse moves
           d3.select(this).on("mousemove", function(event) {
             const x = event.pageX;
@@ -1381,14 +1389,14 @@
             if (code[selectedFilter].includes("5")) entries.push('<div>• Other</div>');
 
             let entriesText = entries.length > 0 ? entries.join('') : 'N/A';
-            return `<tr><td><a href="${code.link || '#'}" target="_blank">${code.code || 'N/A'}</a></td><td>${entriesText}</td></tr>`;
+            return `<tr><td><a style="color:#004b9b;" href="${code.link || '#'}" target="_blank">${code.code || 'N/A'}</a></td><td>${entriesText}</td></tr>`;
           }).join('');
 
           const newCodeList = codeList || '<tr><td>N/A</td><td>N/A</td></tr>';
 
           // Create tooltip content with close button
           const tooltipContent = `
-        <div style="font-size: 16px; font-weight: bold;">${stateName}</div>
+        <div style="font-size: 14px; font-weight: bold;">${stateName}</div>
         <table>
             <thead>
                 <tr><th>Laws</th><th>Coverage</th></tr>
@@ -1507,7 +1515,7 @@
 
         if (state.count != 0) {
           stateName = document.createElement('div');
-          stateName.innerHTML = `<strong>${state.name}</strong>`;
+          stateName.innerHTML = `<strong style="font-size: 14px;">${state.name}</strong>`;
           stateElement.appendChild(stateName);
           // If a radio button is selected
           if (filters) {
@@ -1520,7 +1528,7 @@
               if (code[selectedFilter].includes("5")) entries.push('<li>Other</li>');
               // Combine entries into a single string
               let entriesText = entries.length > 0 ? entries.join('<br>') : '<li>N/A</li>';
-              return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}"><ul>${entriesText}</ul></td></tr>`;
+              return `<tr><td><a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}"><ul>${entriesText}</ul></td></tr>`;
             }).join('');
           } else {
             codeList = filteredCodes.map(code => {
@@ -1529,7 +1537,7 @@
               if (code.disability) entries.push("Disability");
               if (code.ltc) entries.push("LTC");
               let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
-              return `<tr><td><a href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
+              return `<tr><td><a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
             }).join('');
           }
           codeTable = document.createElement('table');
