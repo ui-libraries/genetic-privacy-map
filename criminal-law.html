@@ -507,6 +507,17 @@
               </thead>
               <tbody>
                 <tr>
+                  <td id="platforms">Regulates Consumer Genetics Platforms</td>
+                  <td id="firstStatePlatforms"></td>
+                  <td id="secondStatePlatforms"></td>
+                </tr>
+                <tr>
+                  <td id="companies">Regulates Law Enforcement Directly</td>
+                  <td id="firstStateLaw"></td>
+                  <td id="secondStateLaw"></td>
+                </tr>
+<!--             
+                <tr>
                   <td id="exante">Ex-Ante Supervision</td>
                   <td id="firstStateExante"></td>
                   <td id="secondStateExante"></td>
@@ -536,6 +547,7 @@
                   <td id="firstStateReporting"></td>
                   <td id="secondStateReporting"></td>
                 </tr>
+-->   
               </tbody>
             </table>
           </div>
@@ -1081,9 +1093,231 @@
         document.getElementById('secondStateHead').textContent = secondStateDropdown.value;
       }
 // NEED TO EDIT THIS TO MAKE SIMILAR TO INSURANCE MAP
+      // Create an empty array to store the firstStatePlatforms data
+      const firstStatePlatforms = [];
+      // Create an empty array to store the secondStatePlatforms data
+      const secondStatePlatforms = [];
+      // Create an empty array to store the firstStateLaw data
+      const firstStateLaw = [];
+      // Create an empty array to store the secondStateLaw data
+      const secondStateLaw = [];
+
       // When the user clicks the button, open the modal
       btn.onclick = function() {
 
+        // Open the modal
+        modal.style.display = "block";
+
+        // clear the arrays
+        firstStatePlatforms.length = 0;
+        secondStatePlatforms.length = 0;
+        firstStateLaw.length = 0;
+        secondStateLaw.length = 0;
+
+        // Get the selected states
+        const firstState = firstStateDropdown.value;
+        const secondState = secondStateDropdown.value;
+
+        // Get the data for the selected states
+        const firstStatePlatformData = groupedPlatformData.find(state => state.name === firstState);
+        const secondStatePlatformData = groupedPlatformData.find(state => state.name === secondState);
+        const firstStateLawData = groupedLawEnforcementData.find(state => state.name === firstState);
+        const secondStateLawData = groupedLawEnforcementData.find(state => state.name === secondState);
+
+        // Update the table headers
+        document.getElementById('firstStateHead').textContent = firstState;
+        document.getElementById('secondStateHead').textContent = secondState;
+
+        // If firstStatePlatformData is not empty
+        if (firstStatePlatformData) {
+          // For each code in firstStatePlatformData.codes
+          firstStatePlatformData.codes.forEach(code => {
+            // If code.exante === '1'
+            if (code.exante === '1') {
+              firstStatePlatforms.push("Ex-Ante Supervision");
+            }
+            // If code.individual === '1'
+            if (code.individual === '1') {
+              firstStatePlatforms.push("Individual Control");
+            }
+            // If code.thirdparty === '1'
+            if (code.thirdparty === '1') {
+              firstStatePlatforms.push("Third Party Protections");
+            }
+            // If code.fgg === '1'
+            if (code.fgg === '1') {
+              firstStatePlatforms.push("FGG Ensured");
+            }
+            // If code.consequences === '1'
+            if (code.consequences === '1') {
+              firstStatePlatforms.push("Violation Consequences");
+            }
+            // If code.reporting === '1'
+            if (code.reporting === '1') {
+              firstStatePlatforms.push("Reporting/Review");
+            }
+            // If none of the above are true
+            if (code.exante === '0' && code.individual === '0' && code.thirdparty === '0' && code.fgg === '0' && code.consequences === '0' && code.reporting === '0') {
+              firstStatePlatforms.push("N/A");
+            }
+          });
+        } else {
+          firstStatePlatforms.push("No laws");
+        }
+        // If secondStatePlatformData is not empty
+        if (secondStatePlatformData) {
+          // For each code in secondStatePlatformData.codes
+          secondStatePlatformData.codes.forEach(code => {
+            // If code.exante === '1'
+            if (code.exante === '1') {
+              secondStatePlatforms.push("Ex-Ante Supervision");
+            }
+            // If code.individual === '1'
+            if (code.individual === '1') {
+              secondStatePlatforms.push("Individual Control");
+            }
+            // If code.thirdparty === '1'
+            if (code.thirdparty === '1') {
+              secondStatePlatforms.push("Third Party Protections");
+            }
+            // If code.fgg === '1'
+            if (code.fgg === '1') {
+              secondStatePlatforms.push("FGG Ensured");
+            }
+            // If code.consequences === '1'
+            if (code.consequences === '1') {
+              secondStatePlatforms.push("Violation Consequences");
+            }
+            // If code.reporting === '1'
+            if (code.reporting === '1') {
+              secondStatePlatforms.push("Reporting/Review");
+            }
+            // If none of the above are true
+            if (code.exante === '0' && code.individual === '0' && code.thirdparty === '0' && code.fgg === '0' && code.consequences === '0' && code.reporting === '0') {
+              secondStatePlatforms.push("N/A");
+            }
+          });
+        } else {
+          secondStatePlatforms.push("No laws");
+        }
+        // If firstStateLawData is not empty
+        if (firstStateLawData) {
+          // For each code in firstStateLawData.codes
+          firstStateLawData.codes.forEach(code => {
+            // If code.exante === '1'
+            if (code.exante === '1') {
+              firstStateLaw.push("Ex-Ante Supervision");
+            }
+            // If code.individual === '1'
+            if (code.individual === '1') {
+              firstStateLaw.push("Individual Control");
+            }
+            // If code.thirdparty === '1'
+            if (code.thirdparty === '1') {
+              firstStateLaw.push("Third Party Protections");
+            }
+            // If code.fgg === '1'
+            if (code.fgg === '1') {
+              firstStateLaw.push("FGG Ensured");
+            }
+            // If code.consequences === '1'
+            if (code.consequences === '1') {
+              firstStateLaw.push("Violation Consequences");
+            }
+            // If code.reporting === '1'
+            if (code.reporting === '1') {
+              firstStateLaw.push("Reporting/Review");
+            }
+            // If none of the above are true
+            if (code.exante === '0' && code.individual === '0' && code.thirdparty === '0' && code.fgg === '0' && code.consequences === '0' && code.reporting === '0') {
+              firstStateLaw.push("N/A");
+            }
+          });
+        } else {
+          firstStateLaw.push("No laws");
+        }
+        // If secondStateLawData is not empty
+        if (secondStateLawData) {
+          // For each code in secondStateLawData.codes
+          secondStateLawData.codes.forEach(code => {
+            // If code.exante === '1'
+            if (code.exante === '1') {
+              secondStateLaw.push("Ex-Ante Supervision");
+            }
+            // If code.individual === '1'
+            if (code.individual === '1') {
+              secondStateLaw.push("Individual Control");
+            }
+            // If code.thirdparty === '1'
+            if (code.thirdparty === '1') {
+              secondStateLaw.push("Third Party Protections");
+            }
+            // If code.fgg === '1'
+            if (code.fgg === '1') {
+              secondStateLaw.push("FGG Ensured");
+            }
+            // If code.consequences === '1'
+            if (code.consequences === '1') {
+              secondStateLaw.push("Violation Consequences");
+            }
+            // If code.reporting === '1'
+            if (code.reporting === '1') {
+              secondStateLaw.push("Reporting/Review");
+            }
+            // If none of the above are true
+            if (code.exante === '0' && code.individual === '0' && code.thirdparty === '0' && code.fgg === '0' && code.consequences === '0' && code.reporting === '0') {
+              secondStateLaw.push("N/A");
+            }
+          });
+        } else {
+          secondStateLaw.push("No laws");
+        }
+
+        // If firstStatePlatforms contains only "N/A", reduce array to a single "N/A"
+        if (firstStatePlatforms.length > 1 && firstStatePlatforms.every(item => item === "N/A")) {
+          firstStatePlatforms.length = 0;
+          firstStatePlatforms.push("N/A");
+        }
+        // If secondStatePlatforms contains only "N/A", reduce array to a single "N/A"
+        if (secondStatePlatforms.length > 1 && secondStatePlatforms.every(item => item === "N/A")) {
+          secondStatePlatforms.length = 0;
+          secondStatePlatforms.push("N/A");
+        }
+        // If firstStateLaw contains only "N/A", reduce array to a single "N/A"
+        if (firstStateLaw.length > 1 && firstStateLaw.every(item => item === "N/A")) {
+          firstStateLaw.length = 0;
+          firstStateLaw.push("N/A");
+        }
+        // If secondStateLaw contains only "N/A", reduce array to a single "N/A"
+        if (secondStateLaw.length > 1 && secondStateLaw.every(item => item === "N/A")) {
+          secondStateLaw.length = 0;
+          secondStateLaw.push("N/A");
+        }
+
+        // If firstStatePlatforms contains "N/A" and other values, remove "N/A"
+        if (firstStatePlatforms.includes("N/A") && firstStatePlatforms.length > 1) {
+          firstStatePlatforms.splice(firstStatePlatforms.indexOf("N/A"), 1);
+        }
+        // If secondStatePlatforms contains "N/A" and other values, remove "N/A"
+        if (secondStatePlatforms.includes("N/A") && secondStatePlatforms.length > 1) {
+          secondStatePlatforms.splice(secondStatePlatforms.indexOf("N/A"), 1);
+        }
+        // If firstStateLaw contains "N/A" and other values, remove "N/A"
+        if (firstStateLaw.includes("N/A") && firstStateLaw.length > 1) {
+          firstStateLaw.splice(firstStateLaw.indexOf("N/A"), 1);
+        }
+        // If secondStateLaw contains "N/A" and other values, remove "N/A"
+        if (secondStateLaw.includes("N/A") && secondStateLaw.length > 1) {
+          secondStateLaw.splice(secondStateLaw.indexOf("N/A"), 1);
+        }
+
+        // Update the table with the values
+        document.getElementById('firstStatePlatforms').innerHTML = firstStatePlatforms.join('<br>');
+        document.getElementById('secondStatePlatforms').innerHTML = secondStatePlatforms.join('<br>');
+        document.getElementById('firstStateLaw').innerHTML = firstStateLaw.join('<br>');
+        document.getElementById('secondStateLaw').innerHTML = secondStateLaw.join('<br>');
+
+/*
         // Clear all the cells in the table
         document.getElementById('firstStateExante').textContent = '';
         document.getElementById('firstStateIndividual').textContent = '';
@@ -1213,6 +1447,7 @@
         updateCellWithList('secondStateFgg', secondStateFggContent);
         updateCellWithList('secondStateConsequences', secondStateConsequencesContent);
         updateCellWithList('secondStateReporting', secondStateReportingContent);
+*/        
       };
 // STATE LAW COMPARISON END
     };
@@ -1365,7 +1600,6 @@
               if (code.fgg === '1') entries.push("FGG Ensured");
               if (code.consequences === '1') entries.push("Violation Consequences");
               if (code.reporting === '1') entries.push("Reporting/Review");
-              if (code.regulation === '1') entries.push("Law Enforcement Regulation");
               // If there is a code, but no descriptions, add 'N/A'
               if (entries.length === 0) entries.push("N/A");
 
@@ -1503,7 +1737,6 @@
             if (code.fgg === '1') entries.push("FGG Ensured");
             if (code.consequences === '1') entries.push("Violation Consequences");
             if (code.reporting === '1') entries.push("Reporting/Review");
-            if (code.regulation === '1') entries.push("Law Enforcement Regulation");
 
             let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
 
@@ -1827,7 +2060,6 @@
             if (code.fgg === '1') entries.push("FGG Ensured");
             if (code.consequences === '1') entries.push("Violation Consequences");
             if (code.reporting === '1') entries.push("Reporting/Review");
-            //if (code.regulation === '1') entries.push("Law Enforcement Regulation");
             let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
             return `<tr><td><a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
           }
