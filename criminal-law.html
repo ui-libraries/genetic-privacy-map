@@ -1085,7 +1085,7 @@
         }
         document.getElementById('secondStateHead').textContent = secondStateDropdown.value;
       }
-
+// NEED TO EDIT THIS TO INCLUDE REGULATION TYPE
       // When the user clicks the button, open the modal
       btn.onclick = function() {
 
@@ -1233,9 +1233,7 @@
         updateCellWithList('secondStateReporting', secondStateReportingContent);
         updateCellWithList('secondStateRegulation', secondStateRegulationContent);
       };
-
-
-
+// STATE LAW COMPARISON END
     };
 
     // Define the function to draw the filtered layer
@@ -1352,7 +1350,6 @@
               .style("top", `${y + 10}px`);
           });
         })
-// UPDATE THIS TO ENSURE THAT THE TOOLTIP DISPLAYS THE CORRECT INFORMATION
         .on("click", function(event, d) {
           // Define stateName as d.properties.name if it is not in the list of notStates
           const stateName = !notStates.includes(d.properties.name) ? d.properties.name : null;
@@ -1427,7 +1424,6 @@
           // Prevent click event from bubbling up to the body
           event.stopPropagation();
         })
-// END OF UPDATE
         .on("mouseout", function() {
           hideHoverTooltip();
           d3.select(this).classed("highlighted", false);
