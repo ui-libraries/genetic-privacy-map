@@ -70,7 +70,7 @@
       /* Grow to fill available space */
       overflow-y: auto;
       /* Enable vertical scrolling */
-      margin-bottom: 204px;
+      margin-bottom: 190px;
       /* make margin-bottom the same as the height of the legend */
     }
 
@@ -444,25 +444,11 @@
               <div>
                 <input type="radio" id="lawEnforcementLayerToggle" name="layer" value="lawEnforcement">
                 <label for="lawEnforcementLayerToggle">Regulation of Law Enforcement</label>
+                <!-- This checkbox is not needed 
                 <div id="lawEnforcementLayerOptions" class="checkbox-group" style="display: none; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
-                  <input type="checkbox" id="exante" name="exante" value="exante">
-                  <label for="exante">Ex-Ante Supervision of FGG</label>
-                  <br>
-                  <input type="checkbox" id="individual" name="individual" value="individual">
-                  <label for="individual">Control Over Own Genetic Data</label>
-                  <br>
-                  <input type="checkbox" id="thirdparty" name="thirdparty" value="thirdparty">
-                  <label for="thirdparty">Non-Suspect Third Party Protections</label>
-                  <br>
-                  <input type="checkbox" id="fgg" name="fgg" value="fgg">
-                  <label for="fgg">Ensures FGG to Prove Culpability</label>
-                  <br>
-                  <input type="checkbox" id="consequences" name="consequences" value="consequences">
-                  <label for="consequences">Consequences for Violations</label>
-                  <br>
-                  <input type="checkbox" id="reporting" name="reporting" value="reporting">
-                  <label for="reporting">Annual Public Reporting and Review</label>
-                </div>
+                  <input type="checkbox" id="regulation" name="regulation" value="regulation">
+                  <label for="regulation">Direct Regulation of Law Enforcement</label>
+                </div> -->
               </div>
               <!--<button id="filterButton">Filter</button>-->
               <button id="resetButton">Reset</button>
@@ -587,26 +573,22 @@
       <div>
         <div style="display: flex; align-items: center; margin-bottom: 0px;">
           <div style="width: 20px; height: 20px; background-color: #D0F4FC; margin-right: 10px;"></div>
-          <span style="font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">0 categories covered</span>
+          <span style="font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">1 category covered</span>
         </div>
         <div style="display: flex; align-items: center; margin-bottom: 0px;">
-          <div style="width: 20px; height: 20px; background-color: #afcce1; margin-right: 10px;"></div>
-          <span style="font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">1</span>
-        </div>
-        <div style="display: flex; align-items: center; margin-bottom: 0px;">
-          <div style="width: 20px; height: 20px; background-color: #8ea4c6; margin-right: 10px;"></div>
+          <div style="width: 20px; height: 20px; background-color: #70D9ED; margin-right: 10px;"></div>
           <span style="font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">2</span>
         </div>
         <div style="display: flex; align-items: center; margin-bottom: 0px;">
-          <div style="width: 20px; height: 20px; background-color: #6d7cab; margin-right: 10px;"></div>
+          <div style="width: 20px; height: 20px; background-color: #08BCDC; margin-right: 10px;"></div>
           <span style="font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">3</span>
         </div>
         <div style="display: flex; align-items: center; margin-bottom: 0px;">
-          <div style="width: 20px; height: 20px; background-color: #4c5490; margin-right: 10px;"></div>
+          <div style="width: 20px; height: 20px; background-color: #085997; margin-right: 10px;"></div>
           <span style="font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">4</span>
         </div>
         <div style="display: flex; align-items: center; margin-bottom: 0px;">
-          <div style="width: 20px; height: 20px; background-color: #2b2c75; margin-right: 10px;"></div>
+          <div style="width: 20px; height: 20px; background-color: #08377F; margin-right: 10px;"></div>
           <span style="font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">5</span>
         </div>
         <div style="display: flex; align-items: center; margin-bottom: 0px;">
@@ -747,14 +729,11 @@
     // Define the array of companies values
     const companiesValues = ['exante', 'individual', 'thirdparty', 'fgg', 'consequences', 'reporting'];
     // Define the array of law enforcement values
-    const lawEnforcementValues = ['exante', 'individual', 'thirdparty', 'fgg', 'consequences', 'reporting'];
-
-    // These are not states
-    const notStates = ['District of Columbia', 'American Samoa', 'Guam', 'Commonwealth of the Northern Mariana Islands', 'Puerto Rico', 'United States Virgin Islands'];
+    const lawEnforcementValues = ['regulation'];
 
     // Load the data
     Promise.all([
-      d3.csv("data/IGG_laws_new.csv"),
+      d3.csv("data/IGG_laws.csv"),
       d3.json("data/states-10m.json")
     ]).then(makeMap).catch(error => console.error('Error loading data:', error));
 
@@ -833,11 +812,6 @@
       // Group the data by state to map the coverage
       const groupedData = groupAndCountEntriesForStates(dnaLaw);
 
-      // Group the platform data by state
-      const groupedPlatformData = groupAndCountPlatformEntriesForStates(dnaLaw);
-      // Group the law enforcement data by state
-      const groupedLawEnforcementData = groupAndCountLawEnforcementEntriesForStates(dnaLaw);
-
       // Draw the initial map
       drawCoverageLayer(stateGroups.coverageGroup, states, groupedData);
 
@@ -852,59 +826,54 @@
         radio.addEventListener('click', function() {
           // Remove the legend
           document.getElementById('legend').style.display = 'none';
-          // Show the coverage strength legend
-          document.getElementById('platform-legend').style.display = 'block';
           // Define an empty array to store the sidebar filters
           let sidebarFilters = [];
           // Clear the filteredData array
           filteredData.length = 0;
-
-          // If the radio button value is 'companies', filter the original codes array based on 'platform' type
+          // If the radio button value is 'companies', for every value in the companiesValues array, if any groupedData[value] is true, return the groupedData object in a new array
           if (radio.value === 'companies') {
+            // Show the platform-legend
+            document.getElementById('platform-legend').style.display = 'block';
+            // Hide the enforcement-legend
+            document.getElementById('enforcement-legend').style.display = 'none';
             // Change the map title
             document.querySelector('.dynamictitle').textContent = 'State Laws Regulating Consumer Genetics Platforms';
-
-            groupedPlatformData.forEach(data => {
-              // Filter the `codes` array each time based on 'platform' type
-              const platformCodes = data.codes.filter(code => code.type === 'platform');
-
-              // If there are any platform codes, add the data object to the filteredData array
-              if (platformCodes.length > 0) {
-                // Create a new object to avoid modifying the original object
-                const filteredDataObject = { ...data, codes: platformCodes };
-
-                // Add the modified data object to filteredData, ensuring no duplicates
-                if (!filteredData.some(item => item === filteredDataObject)) {
-                  filteredData.push(filteredDataObject);
+            // For every value in the companiesValues array...
+            companiesValues.forEach(value => {
+              // For every object in the groupedData array...
+              groupedData.forEach(data => {
+                // If any data[value] is true...
+                if (data[value]) {
+                  // Add each data object to the filteredData array, but do not push duplicates
+                  if (!filteredData.includes(data)) {
+                    filteredData.push(data);
+                  }
                 }
-              }
+              });
             });
-
             sidebarFilters = companiesValues;
-
-          } 
-          // If the radio button value is 'lawEnforcement', filter the original codes array based on 'legal' type
+          } // If the radio button value is 'lawEnforcement', for every value in the lawEnforcementValues array, if any groupedData[value] is true, return the groupedData object in a new array
           else if (radio.value === 'lawEnforcement') {
+            // Show the enforcement-legend
+            document.getElementById('enforcement-legend').style.display = 'block';
+            // Hide the platform-legend
+            document.getElementById('platform-legend').style.display = 'none';
             // Change the map title
-            document.querySelector('.dynamictitle').textContent = 'State Laws Regulating Law Enforcement Directly';  
-
-            groupedLawEnforcementData.forEach(data => {
-              // Filter the `codes` array each time based on 'legal' type
-              const legalCodes = data.codes.filter(code => code.type === 'legal');
-
-              // If there are any legal codes, add the data object to the filteredData array
-              if (legalCodes.length > 0) {
-                // Create a new object to avoid modifying the original object
-                const filteredDataObject = { ...data, codes: legalCodes };
-
-                // Add the modified data object to filteredData, ensuring no duplicates
-                if (!filteredData.some(item => item === filteredDataObject)) {
-                  filteredData.push(filteredDataObject);
+            document.querySelector('.dynamictitle').textContent = 'State Laws Regulating Law Enforcement Directly';
+            // For every value in the lawEnforcementValues array...
+            lawEnforcementValues.forEach(value => {
+              // For every object in the groupedData array...
+              groupedData.forEach(data => {
+                // If any data[value] is true...
+                if (data[value]) {
+                  // Add each data object to the filteredData array, but do not push duplicates
+                  if (!filteredData.includes(data)) {
+                    filteredData.push(data);
+                  }
                 }
-              }
+              });
             });
-
-            sidebarFilters = lawEnforcementValues;                       
+            sidebarFilters = lawEnforcementValues;
           }
           // Now feed the filteredData array to a drawFilteredLayer function
           drawFilteredLayer(stateGroups.filterGroup, states, filteredData, companiesValues);
@@ -912,7 +881,7 @@
           populateStateDetails(filteredData, sidebarFilters);
         });
       });
-  
+
       // Listen for a click on a checkbox
       document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
         checkbox.addEventListener('click', function() {
@@ -922,105 +891,38 @@
           const checkedCheckboxes = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(checkbox => checkbox.value);
           // Also log the radio button value
           const checkedRadio = document.querySelector('input[name="layer"]:checked').value;
-           
           // If checkedCheckboxes is empty...
           if (checkedCheckboxes.length === 0) {
-            // If the radio button value is 'companies'...
-            if (checkedRadio === 'companies') {
-
-              // Loop through the groupedData array
-              groupedPlatformData.forEach(data => {
-                // Filter the `codes` array each time based on 'platform' type
-                const platformCodes = data.codes.filter(code => code.type === 'platform');
-
-                // If there are any platform codes, add the data object to the filteredData array
-                if (platformCodes.length > 0) {
-                  // Create a new object to avoid modifying the original object
-                  const filteredDataObject = { ...data, codes: platformCodes };
-
-                  // Add the modified data object to filteredData, ensuring no duplicates
-                  if (!filteredData.some(item => item === filteredDataObject)) {
-                    filteredData.push(filteredDataObject);
-                  }
-                }
-              });            
-            
-            }
-            // If the radio button value is 'lawEnforcement'...
-            else if (checkedRadio === 'lawEnforcement') {
-              
-              // Loop through the groupedLawEnforcementData array
-              groupedLawEnforcementData.forEach(data => {
-                // Filter the `codes` array each time based on 'legal' type
-                const legalCodes = data.codes.filter(code => code.type === 'legal');
-
-                // If there are any legal codes, add the data object to the filteredData array
-                if (legalCodes.length > 0) {
-                  // Create a new object to avoid modifying the original object
-                  const filteredDataObject = { ...data, codes: legalCodes };
-
-                  // Add the modified data object to filteredData, ensuring no duplicates
-                  if (!filteredData.some(item => item === filteredDataObject)) {
-                    filteredData.push(filteredDataObject);
+            // For every value in the companiesValues array...
+            companiesValues.forEach(value => {
+              // For every object in the groupedData array...
+              groupedData.forEach(data => {
+                // If any data[value] is true...
+                if (data[value]) {
+                  // Add each data object to the filteredData array, but do not push duplicates
+                  if (!filteredData.includes(data)) {
+                    filteredData.push(data);
                   }
                 }
               });
-
-            }
-            
+            });
           } else if (checkedRadio === 'companies') {
-            // Filter the groupedData array based on the checked checkboxes
-            const filteredStateData = groupedPlatformData.filter(d => {
+            const filteredStateData = groupedData.filter(d => {
               return checkedCheckboxes.every(checkbox => {
                 return d[checkbox];
               });
             });
-            // Loop through the filteredStateData array
+            // Push each object in filteredStateData to the filteredData array   
             filteredStateData.forEach(data => {
-              // Filter the `codes` array each time based on 'platform' type
-              const platformCodes = data.codes.filter(code => code.type === 'platform');
-
-              // If there are any platform codes, add the data object to the filteredData array
-              if (platformCodes.length > 0) {
-                // Create a new object to avoid modifying the original object
-                const filteredDataObject = { ...data, codes: platformCodes };
-
-                // Add the modified data object to filteredData, ensuring no duplicates
-                if (!filteredData.some(item => item === filteredDataObject)) {
-                  filteredData.push(filteredDataObject);
-                }
-              }
-            });
-          } else if (checkedRadio === 'lawEnforcement') {
-            // Filter the groupedData array based on the checked checkboxes
-            const filteredStateData = groupedLawEnforcementData.filter(d => {
-              return checkedCheckboxes.every(checkbox => {
-                return d[checkbox];
-              });
-            });
-            // Loop through the filteredStateData array
-            filteredStateData.forEach(data => {
-              // Filter the `codes` array each time based on 'legal' type
-              const legalCodes = data.codes.filter(code => code.type === 'legal');
-
-              // If there are any legal codes, add the data object to the filteredData array
-              if (legalCodes.length > 0) {
-                // Create a new object to avoid modifying the original object
-                const filteredDataObject = { ...data, codes: legalCodes };
-
-                // Add the modified data object to filteredData, ensuring no duplicates
-                if (!filteredData.some(item => item === filteredDataObject)) {
-                  filteredData.push(filteredDataObject);
-                }
-              }
+              filteredData.push(data);
             });
           };
           // Now feed the filteredData array to a drawFilteredLayer function
           drawFilteredLayer(stateGroups.filterGroup, states, filteredData, checkedCheckboxes);
           // Call the populateStateDetails function to update the sidebar
-          populateStateDetails(filteredData, checkedCheckboxes);      
+          populateStateDetails(filteredData, checkedCheckboxes);
         });
-      });     
+      });
 
       // STATE LAW COMPARISON START
       // List of US states
@@ -1286,45 +1188,25 @@
               // If checkedRadio is 'companies'...
               if (checkedRadio === 'companies') {
                 // Using the total count, apply the appropriate color
-                if (count === 0) {
+                if (count === 1) {
                   color = "#D0F4FC";
-                } else if (count === 1) {
-                  color = "#afcce1";
                 } else if (count === 2) {
-                  color = "#8ea4c6";
+                  color = "#70D9ED";
                 } else if (count === 3) {
-                  color = "#6d7cab";
+                  color = "#08BCDC";
                 } else if (count === 4) {
-                  color = "#4c5490";
+                  color = "#085997";
                 } else if (count === 5) {
-                  color = "#2b2c75";
+                  color = "#08377F";
                 } else if (count === 6) {
                   color = "#08045C";
                 } else {
                   // If count is greater than 6, return a default color
                   color = "rgb(251,247,245)"; // or any other fallback color
                 }
-              // If checkedRadio is 'lawEnforcement'  
               } else if (checkedRadio === 'lawEnforcement') {
-                // Using the total count, apply the appropriate color
-                if (count === 0) {
-                  color = "#D0F4FC";
-                } else if (count === 1) {
-                  color = "#afcce1";
-                } else if (count === 2) {
-                  color = "#8ea4c6";
-                } else if (count === 3) {
-                  color = "#6d7cab";
-                } else if (count === 4) {
-                  color = "#4c5490";
-                } else if (count === 5) {
-                  color = "#2b2c75";
-                } else if (count === 6) {
-                  color = "#08045C";
-                } else {
-                  // If count is greater than 6, return a default color
-                  color = "rgb(251,247,245)"; // or any other fallback color
-                }
+                // If checkedRadio is 'lawEnforcement', set color to lightblue
+                color = "lightblue";
               }
               return color;
             } else {
@@ -1352,7 +1234,6 @@
               .style("top", `${y + 10}px`);
           });
         })
-// UPDATE THIS TO ENSURE THAT THE TOOLTIP DISPLAYS THE CORRECT INFORMATION
         .on("click", function(event, d) {
           // Define stateName as d.properties.name if it is not in the list of notStates
           const stateName = !notStates.includes(d.properties.name) ? d.properties.name : null;
@@ -1362,21 +1243,24 @@
 
           let selectedFilters = [];
 
-          // Get all the filter checkboxes
-          selectedFilters = filters.filter(filter => {
-            // Check if the checkbox for each filter is checked
-            return document.querySelector(`input[name="${filter}"]:checked`);
-          });
+          // If the 'lawEnforcement' radio button is checked, set selectedFilters to ['regulation']
+          if (document.querySelector('input[name="layer"]:checked').value === 'lawEnforcement') {
+            selectedFilters = ['regulation'];
+          } else {
+            // Otherwise, get all the filter checkboxes
+            selectedFilters = filters.filter(filter => {
+              // Check if the checkbox for each filter is checked
+              return document.querySelector(`input[name="${filter}"]:checked`);
+            });
+          }
 
           // Create the code list with hyperlinks and filtering logic
           let codeList = stateData ? stateData.codes.map(code => {
-
             // First, check if the code matches the selected filters
             let matchesFilters = selectedFilters.length === 0 || selectedFilters.some(filter => code[filter] === '1');
 
             // If the code matches any of the selected filters, include it in the list
             if (matchesFilters) {
-              
               // Create an array to store all descriptions for this code
               let entries = [];
 
@@ -1388,8 +1272,6 @@
               if (code.consequences === '1') entries.push("Violation Consequences");
               if (code.reporting === '1') entries.push("Reporting/Review");
               if (code.regulation === '1') entries.push("Law Enforcement Regulation");
-              // If there is a code, but no descriptions, add 'N/A'
-              if (entries.length === 0) entries.push("N/A");
 
               // If there are entries, format the row for the code
               if (entries.length > 0) {
@@ -1427,7 +1309,6 @@
           // Prevent click event from bubbling up to the body
           event.stopPropagation();
         })
-// END OF UPDATE
         .on("mouseout", function() {
           hideHoverTooltip();
           d3.select(this).classed("highlighted", false);
@@ -1456,6 +1337,8 @@
         .attr("fill", "lightblue") // Background color
         .attr("opacity", 1); // Optional: make it semi-transparent  
 
+      const notStates = ['District of Columbia', 'American Samoa', 'Guam', 'Commonwealth of the Northern Mariana Islands', 'Puerto Rico', 'United States Virgin Islands'];
+
       // Now, draw the state paths on top of the background
       layerGroup.selectAll("path.state")
         .data(topojson.feature(states, states.objects.states).features)
@@ -1465,30 +1348,22 @@
         .attr("fill", d => {
           // Check if the state is not in the list of notStates
           if (!notStates.includes(d.properties.name)) {
-            // Check if stateData is found
+            // Need to define the data
             const stateData = data.find(state => state.name === d.properties.name);
-
-            // If stateData is found, apply the color logic
-            if (stateData) {
-
-              // Check if there's at least one 'platform' and one 'legal' type in the codes array
-              const hasPlatform = stateData.codes.some(code => code.type === 'platform');
-              const hasLegal = stateData.codes.some(code => code.type === 'legal');
-
-              // If both platform and legal types are present, return 'both'
-              if (hasPlatform && hasLegal) {
-                return colorScale('both');
-              } else if (hasPlatform) {
-                return colorScale('companies');
-              } else if (hasLegal) {
-                return colorScale('lawEnforcement');
-              } else if (stateData.codes[0].code) {
-                return colorScale('other');
-              } else {
-                return colorScale('noCoverage');
-              }
-            } else {
-              // Return a default color if stateData is not found
+            // For any value in the companiesValues array, if stateData[value] is true AND for any value in the lawEnforcementValues array, if stateData[value] is true, return 'both'
+            if (companiesValues.some(value => stateData[value]) && lawEnforcementValues.some(value => stateData[value])) {
+              return colorScale('both');
+            } // For any value in the companiesValues array, if stateData[value] is true, return 'companies'
+            else if (companiesValues.some(value => stateData[value])) {
+              return colorScale('companies');
+            } // For any value in the lawEnforcementValues array, if stateData[value] is true, return 'lawEnforcement'
+            else if (lawEnforcementValues.some(value => stateData[value])) {
+              return colorScale('lawEnforcement');
+            } // If none of the above conditions are met, but there is a code in stateData.codes[0].code, return 'other'
+            else if (stateData.codes[0].code) {
+              return colorScale('other');
+            } // If none of the above conditions are met, return 'noCoverage'
+            else {
               return colorScale('noCoverage');
             }
           }
@@ -1566,159 +1441,6 @@
       });
     }; // End of drawCoverageLayer function
 
-    // Define a function to group legal data by state
-    function groupAndCountLawEnforcementEntriesForStates(data) {
-
-      const stateDataMap = {};
-
-      data.forEach(row => {
-        const state = row.State;
-        const type = row.Type;
-        
-        // If the type is 'legal'...
-        if (type === 'legal') {
-          // Create an object for the state if it doesn't exist
-          if (!stateDataMap[state]) {
-            stateDataMap[state] = {
-              name: state,
-              exante: false,
-              individual: false,
-              thirdparty: false,
-              fgg: false,
-              consequences: false,
-              reporting: false,
-              regulation: false,
-              codes: []
-            };
-          }
-
-          // Ensure state object exists before modifying properties
-          if (row.exante === '1') {
-            stateDataMap[state].exante = true;
-          }
-          if (row.individual === '1') {
-            stateDataMap[state].individual = true;
-          }
-          if (row.thirdparty === '1') {
-            stateDataMap[state].thirdparty = true;
-          }
-          if (row.fgg === '1') {
-            stateDataMap[state].fgg = true;
-          }
-          if (row.consequences === '1') {
-            stateDataMap[state].consequences = true;
-          }
-          if (row.reporting === '1') {
-            stateDataMap[state].reporting = true;
-          }
-
-          // Push data to the codes array
-          stateDataMap[state].codes.push({
-            code: row.Code,
-            link: row.Link,
-            citation: row.Citation,
-            exante: row.exante,
-            individual: row.individual,
-            thirdparty: row.thirdparty,
-            fgg: row.fgg,
-            consequences: row.consequences,
-            reporting: row.reporting,
-            type: type,
-          });
-        }
-      });
-
-      // Format the final result
-      const result = Object.values(stateDataMap).map(state => ({
-        name: state.name,
-        exante: state.exante,
-        individual: state.individual,
-        thirdparty: state.thirdparty,
-        fgg: state.fgg,
-        consequences: state.consequences,
-        reporting: state.reporting,
-        codes: state.codes
-      }));
-
-      return result;
-    }; // End of groupAndCountLawEnforcementEntriesForStates function
-
-    // Define the function to group platform data by state
-    function groupAndCountPlatformEntriesForStates(data) {
-
-      const stateDataMap = {};
-
-      data.forEach(row => {
-        const state = row.State;
-        const type = row.Type;
-
-        // If the type is 'platform'...
-        if (type === 'platform') {
-          // Create an object for the state if it doesn't exist
-          if (!stateDataMap[state]) {
-            stateDataMap[state] = {
-              name: state,
-              exante: false,
-              individual: false,
-              thirdparty: false,
-              fgg: false,
-              consequences: false,
-              reporting: false,
-              codes: []
-            };
-          }
-
-          // Only after ensuring the state object is created, proceed with setting other properties
-          if (row.exante === '1') {
-            stateDataMap[state].exante = true;
-          }
-          if (row.individual === '1') {
-            stateDataMap[state].individual = true;
-          }
-          if (row.thirdparty === '1') {
-            stateDataMap[state].thirdparty = true;
-          }
-          if (row.fgg === '1') {
-            stateDataMap[state].fgg = true;
-          }
-          if (row.consequences === '1') {
-            stateDataMap[state].consequences = true;
-          }
-          if (row.reporting === '1') {
-            stateDataMap[state].reporting = true;
-          }
-
-          // Push data to the codes array
-          stateDataMap[state].codes.push({
-            code: row.Code,
-            link: row.Link,
-            citation: row.Citation,
-            exante: row.exante,
-            individual: row.individual,
-            thirdparty: row.thirdparty,
-            fgg: row.fgg,
-            consequences: row.consequences,
-            reporting: row.reporting,
-            type: type,
-          });
-        }
-      });
-
-      // Format the final result
-      const result = Object.values(stateDataMap).map(state => ({
-        name: state.name,
-        exante: state.exante,
-        individual: state.individual,
-        thirdparty: state.thirdparty,
-        fgg: state.fgg,
-        consequences: state.consequences,
-        reporting: state.reporting,
-        codes: state.codes
-      }));
-
-      return result;
-    }; // End of groupAndCountPlatformEntriesForStates function
-
     // Define the function to group data by state
     function groupAndCountEntriesForStates(data) {
 
@@ -1726,7 +1448,6 @@
 
       data.forEach(row => {
         const state = row.State;
-        const type = row.Type;
 
         // Create an object for the state if it doesn't exist
         if (!stateDataMap[state]) {
@@ -1738,7 +1459,7 @@
             fgg: false,
             consequences: false,
             reporting: false,
-            //regulation: false,
+            regulation: false,
             codes: []
           };
         }
@@ -1761,11 +1482,9 @@
         if (row.reporting === '1') {
           stateDataMap[state].reporting = true;
         }
-        /*
         if (row.regulation === '1') {
           stateDataMap[state].regulation = true;
         }
-        */
 
         // Push data to the codes array
         stateDataMap[state].codes.push({
@@ -1778,8 +1497,7 @@
           fgg: row.fgg,
           consequences: row.consequences,
           reporting: row.reporting,
-          type: type,
-          //regulation: row.regulation
+          regulation: row.regulation
         });
       });
 
@@ -1791,7 +1509,7 @@
         fgg: state.fgg,
         consequences: state.consequences,
         reporting: state.reporting,
-        //regulation: state.regulation,
+        regulation: state.regulation,
         codes: state.codes
       }));
 
@@ -1824,11 +1542,23 @@
         const radioButtons = document.querySelectorAll('input[type="radio"]');
         const anyRadioChecked = Array.from(radioButtons).some(radio => radio.checked);
 
-        // If no checkboxes or radio buttons are checked, or if only radio buttons are checked, but no checkboxes are checked, show all codes
-        if (!anyChecked && !anyRadioChecked || !anyChecked && anyRadioChecked) {
+        // If no checkboxes or radio buttons are checked, show all codes
+        if (!anyChecked && !anyRadioChecked) {
           filteredCodes = filteredCodes;
-        }
-        // else...
+        } // Else...
+        /*      
+        else if (!anyChecked && anyRadioChecked) {
+          if (document.querySelector('input[name="layer"]:checked').value === 'companies') {
+            filteredCodes = state.codes.filter(code => {
+              return companiesValues.some(filter => code[filter] === "1");
+            });
+          } else if (document.querySelector('input[name="layer"]:checked').value === 'lawEnforcement') {
+            filteredCodes = state.codes.filter(code => {
+              return lawEnforcementValues.some(filter => code[filter] === "1");
+            });
+          }
+        } // If checkboxes are checked, show codes based on the selected filter values
+*/
         else {
           // Filter the codes based on the selected filter values
           filteredCodes = state.codes.filter(code => {
@@ -1850,7 +1580,7 @@
             if (code.fgg === '1') entries.push("FGG Ensured");
             if (code.consequences === '1') entries.push("Violation Consequences");
             if (code.reporting === '1') entries.push("Reporting/Review");
-            //if (code.regulation === '1') entries.push("Law Enforcement Regulation");
+            if (code.regulation === '1') entries.push("Law Enforcement Regulation");
             let entriesText = entries.length > 1 ? entries.join(', ') : entries[0] || 'N/A';
             return `<tr><td><a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : 'N/A'}">${entriesText}</td></tr>`;
           }
