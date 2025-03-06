@@ -536,11 +536,6 @@
                   <td id="firstStateReporting"></td>
                   <td id="secondStateReporting"></td>
                 </tr>
-                <tr>
-                  <td id="regulation">Law Enforcement Regulation</td>
-                  <td id="firstStateRegulation"></td>
-                  <td id="secondStateRegulation"></td>
-                </tr>
               </tbody>
             </table>
           </div>
@@ -1085,7 +1080,7 @@
         }
         document.getElementById('secondStateHead').textContent = secondStateDropdown.value;
       }
-// NEED TO EDIT THIS TO INCLUDE REGULATION TYPE
+// NEED TO EDIT THIS TO MAKE SIMILAR TO INSURANCE MAP
       // When the user clicks the button, open the modal
       btn.onclick = function() {
 
@@ -1096,14 +1091,12 @@
         document.getElementById('firstStateFgg').textContent = '';
         document.getElementById('firstStateConsequences').textContent = '';
         document.getElementById('firstStateReporting').textContent = '';
-        document.getElementById('firstStateRegulation').textContent = '';
         document.getElementById('secondStateExante').textContent = '';
         document.getElementById('secondStateIndividual').textContent = '';
         document.getElementById('secondStateThirdparty').textContent = '';
         document.getElementById('secondStateFgg').textContent = '';
         document.getElementById('secondStateConsequences').textContent = '';
         document.getElementById('secondStateReporting').textContent = '';
-        document.getElementById('secondStateRegulation').textContent = '';
 
         // Open the modal
         modal.style.display = "block";
@@ -1127,7 +1120,6 @@
         let fggContent = new Set();
         let consequencesContent = new Set();
         let reportingContent = new Set();
-        let regulationContent = new Set();
 
         // For each code in firstStateData.codes
         firstStateData.codes.forEach(code => {
@@ -1156,10 +1148,6 @@
           if (code.reporting === '1') {
             reportingContent.add(`<a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code}</a>`);
           }
-          // For code.regulation === '1'
-          if (code.regulation === '1') {
-            regulationContent.add(`<a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code}</a>`);
-          }
         });
 
         // Helper function to update cells with bulleted list or N/A if empty
@@ -1180,7 +1168,6 @@
         updateCellWithList('firstStateFgg', fggContent);
         updateCellWithList('firstStateConsequences', consequencesContent);
         updateCellWithList('firstStateReporting', reportingContent);
-        updateCellWithList('firstStateRegulation', regulationContent);
 
         // Initialize the content variables for each category for the second state (Set used to remove duplicates)
         let secondStateExanteContent = new Set();
@@ -1189,7 +1176,6 @@
         let secondStateFggContent = new Set();
         let secondStateConsequencesContent = new Set();
         let secondStateReportingContent = new Set();
-        let secondStateRegulationContent = new Set();
 
         // For each code in secondStateData.codes
         secondStateData.codes.forEach(code => {
@@ -1218,10 +1204,6 @@
           if (code.reporting === '1') {
             secondStateReportingContent.add(`<a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code}</a>`);
           }
-          // For code.regulation === '1'
-          if (code.regulation === '1') {
-            secondStateRegulationContent.add(`<a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code}</a>`);
-          }
         });
 
         // Now update the cells for the second state
@@ -1231,7 +1213,6 @@
         updateCellWithList('secondStateFgg', secondStateFggContent);
         updateCellWithList('secondStateConsequences', secondStateConsequencesContent);
         updateCellWithList('secondStateReporting', secondStateReportingContent);
-        updateCellWithList('secondStateRegulation', secondStateRegulationContent);
       };
 // STATE LAW COMPARISON END
     };
