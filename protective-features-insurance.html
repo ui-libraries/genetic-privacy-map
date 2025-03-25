@@ -1,435 +1,410 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">-->
-  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Source Sans Pro", sans-serif;
-      background-color: #f4f4f9;
-      color: #333;
-      line-height: 1.6;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      position: relative;
-      padding-top: 0;
-      /* No need for fixed padding-top, JS will handle it */
-    }
-
-    header {
-      background-color: #640A08;
-      color: white;
-      text-align: center;
-      padding: 0px 20px;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      z-index: 1000;
-    }
-
-    h1 {
-      font-size: 2.5rem;
-      font-family: "Libre Baskerville", serif;
-      font-weight: 700;
-    }
-
-    p {
-      text-align: left;
-    }
-
-    .subheading {
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #f0a9a3;
-      text-align: center;
-    }
-
-    main {
-      /*display: flex;*/
-      justify-content: center;
-      gap: 40px;
-      max-width: 1200px;
-      width: 100%;
-      padding: 20px;
-      /* No margin-top or padding-top here, we'll handle it dynamically with JS */
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-      table-layout: fixed;
-      /* This forces equal column width */
-    }
-
-    th,
-    td {
-      border: 1px solid black;
-      padding: 10px;
-      text-align: left;
-    }
-
-    th {
-      background-color: #f2f2f2;
-      font-weight: bold;
-    }
-
-    td {
-      line-height: 1.6;
-    }
-  </style>
-</head>
-
-<body>
-  <header>
-    <h1>US State Laws Regulating Genetic Discrimination in Insurance</h1>
-    <p class="subheading">State Comparisons of Protective Features</p>
-  </header>
-  <main>
-    <h3 style="color:#000000; text-align: left;">Overview</h3>
-    <p>For decades there has been a debate in the United States about whether insurance companies should be able to use genetic information in insurance decisions. In 2008, Congress passed the Genetic Information Nondiscrimination Act (GINA). GINA prohibits covered employers and health insurers from discriminating based on genetic information. However, the law does not cover life, long-term care, and disability insurance companies. How these insurances can use genetic information is regulated at the <a href="insurance.html" target="_blank">state level.</a></p>
-    <br>
-    <p>Over the years, many state legislators have introduced bills to regulate how life, long-term care, and disability insurers can use genetic information. Several features of these bills makes them more or less protective against genetic discrimination. Below are five protective features that legislators should consider when regulating in this space.</p>
-    <br>
-    <h3 style="color:#000000; text-align: left;">1. Limit insurer use of genetic information</h3>
-    <p>States laws range in how they regulate life, long-term care, and disability insurer use of genetic information. A few completely bar the use of genetic information by insurers, while others allow the use of genetic information if actuarially justified. An action is actuarially justified if the insurer has a difference in coverage that aligns with the difference in cost the insurer incurs. For example, a life insurer is actuarially justified in charging smokers higher premiums than non-smokers because smokers are more likely to cost life insurers more due to their higher risk mortality rates. State statutes use a variety of terms to describe allowing use with actuarial justification, including stating that insurers cannot undertake ‘unfair discrimination’ or cannot take an action ‘solely based on’ a genetic trait. These terms can be confusing to the lay public because they may misunderstand these terms as providing more protection than they actually do. Some state laws also bar insurers from utilizing specific genetic traits in underwriting, such as sickle-cell anemia or hemoglobin C.</p>
-    <br>
-    <h3 style="color:#000000; text-align: left;">Compare...</h3>
-    <table>
-      <tr>
-        <th>Florida Insurance Code</th>
-        <th>Massachusetts Code</th>
-      </tr>
-      <tr>
-        <td>§627.4301 “Health insurers, life insurers, and long-term care insurers may not require or solicit genetic information, use genetic test results, or consider a person’s decisions or actions relating to genetic testing <b>in any manner</b> for any insurance purpose.” (emphasis added)</td>
-        <td>175 §120E “No insurer… shall practice <b>unfair discrimination</b> against persons because of the results of a genetic test or the provision of genetic information…” (emphasis added)
-          <br>
-          <br>“For purposes of this section unfair discrimination means… practicing discrimination against persons unless such action is… based on sound actuarial principles”
-        </td>
-      </tr>
-    </table>
-    <p>In this case, Florida law completely bars life, long-term care, and disability insurers from using genetic testing ‘in any manner’, but Massachusetts always insurers to use genetic information as long as there is no ‘unfair discrimination.’ Unfair discrimination is defined in a way that requires insurers must make decisions based on sound actuarial principles. The Florida law is more protective against genetic discrimination because it completely prevents insurers from using genetic information, whereas the Massachusetts law would still allow an insurer to use genetic information.</p>
-    <table>
-        <tr>
-          <th>Alabama Insurance Code</th>
-          <th>Tennessee Insurance Code</th>
-        </tr>
-        <tr>
-          <td>§§27-5-13 Any disability insurance company is “prohibited from denying coverage to applicants because the applicant has been diagnosed as having sickle-cell anemia.”</td>
-          <td>§56-7-207 “No insurance company… shall refuse to issue or deliver any policy of life insurance… <b>solely by reason</b> of the fact that the person to be insured possesses sickle cell trait or hemoglobin C trait.” (emphasis added)</td>
-        </tr>
-    </table>
-    <p>Here, Alabama prevents disability insurance companies from using a diagnosis of sickle-cell anemia to deny coverage. In contrast, because the Tennessee law says that the insurance company cannot make a decision ‘solely by reason’ of sickle cell trait or hemoglobin C trait, insurers may be able to use those traits with actuarial justification.</p>
-    <br>
-    <h3 style="color:#000000; text-align: left;">2. Consider the power imbalance between insurers and individuals as it relates to consent provisions.</h3>
-    <p>In many states, a primary protection related to life, long-term care, or disability insurer use of genetic information is a requirement that an insurer receive customer written consent before the insurer can collect genetic information. While consent is an important and laudatory principle, in the context of insurance, consent does not offer the greatest protection. This is due to the power differential between the insurer and the customer. If the customer denies consent because they do not want the insurer to access their genetic information, the insurer can decide not to insure the individual based on this denial of consent because the insurer is not required to provide insurance without viewing the genetic information.</p>
-    <table>
-        <tr>
-          <th>California Civil Code</th>
-          <th>Minnesota Consumer Protection Code</th>
-        </tr>
-        <tr>
-          <td>§56.181 “…a direct-to-consumer genetic testing company shall not disclose a consumer’s genetic data to any entity that is responsible for administering or making decisions regarding health insurance, life insurance, long-term care insurance, disability insurance, or employment…”</td>
-          <td>§325F.995 “…a direct-to-consumer genetic testing company is prohibited from disclosing a consumer's genetic data <b>without the consumer's written consent</b> to: (1) any entity offering health insurance, life insurance, disability insurance, or long-term care insurance; or (2) any employer of the consumer.” (emphasis added)</td>
-        </tr>
-    </table>
-    <p>Compare the California state law that prevents a direct-to-consumer (DTC) genetic testing company from disclosing a customer’s genetic data to an insurer, to the Minnesota statute. In Minnesota, the DTC company can provide the genetic data if there is written consumer consent. There is likely nothing that is preventing the Minnesota insurer from requiring customers to sign such a consent.</p>
-    <table>
-        <tr>
-          <th>Florida Insurance Code</th>
-          <th>Arizona Insurance Code</th>
-        </tr>
-        <tr>
-          <td>§627.4301 “Health insurers, life insurers, and long-term care insurers <b>may not require or solicit genetic information</b>, use genetic test results, or consider a person’s decisions or actions relating to genetic testing in any manner for any insurance purpose.” (emphasis added)</td>
-          <td>§20-448.02 “…a person shall not order or require the performance of a genetic test <b>without first receiving the specific written informed consent of the subject of the test</b>.” (emphasis added)</td>
-        </tr>
-    </table>
-    <p>While there is not widespread evidence that insurance companies are conducting their own genetic testing, some state laws regulate this potential action. The Florida code above prevents life, long-term care, and disability insurers from requiring or soliciting genetic information, which would broadly prevent an insurer from gathering genetic information in many ways. In contrast, the Arizona Insurance Code allows a company to require genetic testing, as long as there is written informed consent.</p>
-    <br>
-    <h3 style="color:#000000; text-align: left;">3. Make sure the definition of genetic test/information is sufficiently comprehensive.</h3>
-    <p>How terms in a statute are defined can greatly impact the scope of legal protections. A notable example in this area is the definition of genetic test and/or genetic information. At the federal level, GINA defines genetic information broadly to include the individual’s genetic test results, their family members’ genetic test results, family medical history, and any participation in genetic services. Many state definitions of genetic test and genetic information are not as comprehensive as GINA’s as they relate to life, disability, and long-term care insurance law. Before passing legislation on genetic testing, state legislatures should assess their current definition of genetic testing and genetic information to avoid unintended consequences.</p>
-    <table>
-        <tr>
-          <th>Federal GINA</th>
-          <th>Massachusetts Insurance Code</th>
-        </tr>
-        <tr>
-          <td>“The term ‘genetic test’ means an analysis of human DNA, RNA, chromosomes, proteins, or metabolites, that detects genotypes, mutations, or chromosomal changes.”</td>
-          <td>§108I “’Genetic test’, a test of human DNA, RNA, mitochondrial DNA, chromosomes or proteins for the purpose of identifying genes, inherited or acquired genetic abnormalities, or the presence or absence of inherited or acquired characteristics in genetic material, <b>which are associated with a predisposition to disease, illness, impairment or other disease processes</b>.” (emphasis added)</td>
-        </tr>
-    </table>
-    <p>Some states define genetic tests as only those that are known to be associated with an <b>increased</b> risk of disease or disorder. In contrast to GINA, which defines genetic test quite broadly, this Massachusetts code narrows the definition to items associated with disease or illness. But by default, this narrow definition could allow insurers to use variants of a gene whose significance is <b>unknown</b>, variants of a gene known to be associated with a <b>decreased</b> risk in developing a disease or disorder, or variants of a gene known to be associated with a trait, rather than a disease or illness.</p>   
-    <table>
-        <tr>
-          <th>Maine Insurance Code</th>
-          <th>Arizona Insurance Code</th>
-        </tr>
-        <tr>
-          <td>§2159-C "’Genetic information’ means the information concerning genes, gene products or inherited characteristics that may be obtained from <b>an individual or family member</b>.” (emphasis added)</td>
-          <td>§20-448.02 “’Genetic test’ means an analysis of an <b>individual's</b> DNA, gene products or chromosomes…” (emphasis added)</td>
-        </tr>
-    </table>
-    <p>Maine’s law notes that information about genetics could come from either an individual or a family member. Unlike in Maine, some states have limited genetic testing to include only the individual’s participation in genetic testing and genetic test results. In Arizona, genetic testing is defined only with reference to an individual’s material. By default, the statute may allow insurance companies to use family medical history, family members’ participation in genetic services, or family members’ genetic test results to infer the individual’s genetic makeup for purposes of creating or renewing an insurance policy.</p>
-    <br>
-    <p>Defining genetic information and testing broadly increases the protections against genetic discrimination and minimizes potential proxies that an insurer can use to discriminate in lieu of and individuals’ genetic test result.</p>
-    <br>
-    <h3 style="color:#000000; text-align: left;">4. Examine whether legislation addresses all possible ways insurers could utilize genetic information.</h3>
-    <p>There are many different decisions that an insurer makes about an individual. For example, they can decide whether to insure them (called underwriting), decide whether to renew an existing policy, or decide how much to charge an individual for their insurance (premiums). Insurers could theoretically use genetic information to help them make decisions at each of these time points. State laws can limit when and how an insurer can use genetic information, but different laws focus on different insurer actions.</p>
-    <table>
-        <tr>
-          <th>Florida Insurance Code</th>
-          <th>Tennessee Insurance Code</th>
-        </tr>
-        <tr>
-          <td>§627.4301 “In the absence of a diagnosis of a condition related to genetic information, health insurers, life insurers, and long-term care insurers authorized to transact insurance in this state may <b>not cancel, limit, or deny coverage, or establish differentials in premium rates</b>, based on such information.”<br>“Health insurers, life insurers, and long-term care insurers may not require or solicit genetic information, use genetic test results, or consider a person’s decisions or actions relating to genetic testing in any manner <b>for any insurance purpose</b>.” (emphasis added)</td>
-          <td>§56-7-2702 “A life insurance provider shall <b>not cancel insurance coverage</b> for an individual or a family member of an individual based solely on the individual's or family member's genetic information.” (emphasis added)</td>
-        </tr>
-    </table>
-    <p>The first part of the Florida law focuses on decisions around insuring or renewing insurance policies (canceling, limiting, or denying coverage) and around how much an insurer can charge (differentials in premium rates). However, the second part of the new law is even broader saying that the insurers cannot use genetic test results for “any insurance purpose”. In Tennessee, the law only talks about canceling existing insurance coverage. So, it is likely that in Tennessee, insurers could still use genetic information when considering an initial application or deciding what premiums to charge.</p>
-    <br>
-    <p>The more insurer actions that are included in a statute, the more protective against genetic discrimination the law will be.</p>
-    <br>
-    <h3 style="color:#000000; text-align: left;">5. Ensure that the statute accounts for an adequate variety of insurance companies.</h3>
-    <p>The Genetic Information Nondiscrimination Act (GINA) is a federal act that prohibits health insurers and employers from determining individuals’ insurability, renewability, premiums, benefits, and conditions on the basis of genetic information. However, because the act only applies to health insurers and employers, it does not prevent life, long-term care, disability, and other insurers from using genetic data to differentiate individuals’ insurance policies. Before passing legislation on genetic testing, state legislatures should consider what type of insurance companies could, and should, be impacted by the new law.</p>
-    <table>
-        <tr>
-          <th>Florida Insurance Code</th>
-          <th>Colorado Insurance Code</th>
-        </tr>
-        <tr>
-          <td>§627.4301 “In the absence of a diagnosis of a condition related to genetic information, <b>health insurers, life insurers, and long-term care insurers</b> authorized to transact insurance in this state may not cancel, limit, or deny coverage, or establish differentials in premium rates, based on such information.” (emphasis added)<br>*Note that because of how health insurance is defined elsewhere in the state code, this includes disability insurers.</td>
-          <td>§ 10-3-1104.7 “Any entity that receives information derived from genetic testing may not seek, use, or keep the information for any nontherapeutic purpose or for any underwriting purpose connected with the provision of <b>group disability insurance or long-term care insurance coverage</b>.” (emphasis added)</td>
-        </tr>
-    </table>
-    <p>Here, under the Florida statute, due to other state law provisions, health insurers include disability insurers. As such, this statute casts a broad net, forbidding a multitude of insurer types from using genetic information to differentiate between insurance policies. Other state statues only reference certain insurer types, but do not mention others. For example, the Colorado statute is narrowed to group disability and long-term care insurance.</p>
-    <br>
-    <p>Historically, banks, mortgage companies, and other insurers outside the health care industry have not used individuals’ genetic information to determine their insurability, premium rates, benefits, and conditions. But these businesses may be interested in using genetic information in the future, especially with new genetic technologies. State statutes that take initiative and account for all potentially interested insurer and industry types can prevent any undesired differentiation on the basis of genetic information in the future.</p>
-  </main>
-  <script>
-    // Function to adjust the margin-top of the main section based on header height
-    function adjustMainPadding() {
-      const header = document.querySelector('header');
-      const main = document.querySelector('main');
-
-      // Get the height of the header
-      const headerHeight = header.offsetHeight;
-
-      // Set the margin-top of the main section dynamically
-      main.style.marginTop = headerHeight + 'px'; // You can use paddingTop if you prefer
-    }
-
-    // Run the function when the page loads
-    window.addEventListener('load', adjustMainPadding);
-
-    // Optionally, run the function on window resize to adjust dynamically
-    window.addEventListener('resize', adjustMainPadding);
-  </script>
-
-  <!--<div id="static-comparison">
-        <div id="accordion-comparison" class="container mt-5">
-            <div class="accordion" id="stateAccordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            <b>Florida and Tennessee</b>
-                        </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#stateAccordion">
-                        <div class="accordion-body">
-
-                            <table>
-                                <tr>
-                                    <th style="border: none;">Florida</th>
-                                    <th style="border: none;">Tennessee</th>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid black;">In the absence of a diagnosis of a condition related to genetic information, health insurers, life insurers, and long-term care insurers authorized to transact insurance in this state may not cancel, limit, or deny coverage, or establish differentials in premium rates, based on such insurance.</td>
-                                    <td style="border: 1px solid black;">A life insurance provider shall not cancel insurance coverage for an individual or a family member of an individual based solely on the individual's or family member's genetic information.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid black;">Health insurers, life insurers, and long-term care insurers may not require or solicit genetic information, use genetic test results, or consider a person's decisions or actions relating to genetic testing in any manner for any insurance purpose.</td>
-                                    <td style="border: 1px solid black;">A life insurance provider shall not request or require an individual to whom the insurer provides life insurance coverage, or an individual who applies for life insurance coverage, to take a genetic test as a precondition of insurability, and shall not require the complete genome sequencing of an individual's DNA.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid black;">This section does not apply to the underwriting or issuance of an accident-only policy, hospital indemnity or fixed indemnity policy, dental policy, or vision policy or any other actions of an insurer directly related to an accident-only policy, hospital indemnity or fixed indemnity policy, dental policy, or vision policy.</td>
-                                    <td style="border: 1px solid black;">A life insurance provider shall not access sensitive medical information, including the genetic data of an individual, without first obtaining the individual's signed, written consent.</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid black;">Nothing in this section shall be construed as preventing a life insurer or long-term care insurer from accessing an individual's medical record as part of an application exam. Nothing in this section prohibits a life insurer or long-term care insurer from considering a medical diagnosis included in an individual's medical record, even if a diagnosis was made based on the results of a genetic test.</td>
-                                    <td style="border: 1px solid black;">This section does not prevent a life insurance provider from requesting or obtaining existing health information for underwriting, including genetic information contained within an individual's medical record.</td>
-                                </tr>
-                            </table>
-                            <br>
-                            <p>In 2020, <b>Florida</b> passed a law regulating genetic information in insurance. We can narrow in to focus on which types of insurer actions the law covers:</p>
-                            <ol type="a">
-                                <li>In the absence of a diagnosis of a condition related to genetic information, health insurers, life insurers, and long-term care insurers authorized to transact insurance in this state <mark>may not cancel, limit, or deny coverage, or establish differentials in premium rates,</mark> based on such information.</li>
-                                <li>Health insurers, life insurers, and long-term care insurers may not require or solicit genetic information, use genetic test results, or consider a person's decisions or actions relating to genetic testing <mark>in any manner for any insurance purpose.</mark></li>                                
-                            </ol>
-                            <p>The first part of the new law focuses on decisions around insuring or renewing insurance policies (canceling, limiting, or denying coverage) and around how much an insurer can charge (differentials in premium rates). However, the second part of the new law is even broader, saying that the insurers cannot use genetic test results for “any insurance purpose.”</p>
-                            <p>In 2023, the <b>Tennessee</b> legislature passed a bill that included this section:</p>
-                            <ol type="a">
-                                <li>A life insurance provider <mark>shall not cancel insurance coverage</mark> for an individual or a family member of an individual based solely on the individual's or family member's genetic information.</li>
-                                <li>A life insurance provider shall not request or require an individual to whom the insurer provides life insurance coverage, or an individual who applies for life insurance coverage, to take a genetic test as a precondition of insurability, and shall not require the complete genome sequencing of an individual's DNA.</li>
-                                <li>A life insurance provider shall not access sensitive medical information, including the genetic data of an individual, without first obtaining the individual's signed, written consent.</li>
-                                <li>This section does not prevent a life insurance provider from requesting or obtaining existing health information for underwriting, including genetic information contained within an individual's medical record.</li>                                    
-                            </ol>
-                            <p>When we look at what insurer actions are covered in this bill, we can see that it is much narrower. In Tennessee, the law only talks about canceling existing insurance coverage. It is likely that, in Tennessee, insurers could still use genetic information when considering an initial application or deciding what premiums to charge. The more insurer actions that are included in a statute, the more protective against genetic discrimination the law will be.</p>-->
-  <!--
-                            <div class="row">
-                                <p>In 2020, Florida passed a law regulating genetic information in insurance. Here is one section of the bill:
-                                    <ol type="a">
-                                    <li>(a)	In the absence of a diagnosis of a condition related to genetic information, health insurers, life insurers, and long-term care insurers authorized to transact insurance in this state may not cancel, limit, or deny coverage, or establish differentials in premium rates, based on such insurance.</li>
-                                    <li>(b)	Health insurers, life insurers, and long-term care insurers may not require or solicit genetic information, use genetic test results, or consider a person's decisions or actions relating to genetic testing in any manner for any insurance purpose.</li>
-                                    <li>(c)	This section does not apply to the underwriting or issuance of an accident-only policy, hospital indemnity or fixed indemnity policy, dental policy, or vision policy or any other actions of an insurer directly related to an accident-only policy, hospital indemnity or fixed indemnity policy, dental policy, or vision policy.</li>
-                                    <li>(d)	Nothing in this section shall be construed as preventing a life insurer or long-term care insurer from accessing an individual's medical record as part of an application exam. Nothing in this section prohibits a life insurer or long-term care insurer from considering a medical diagnosis included in an individual's medical record, even if a diagnosis was made based on the results of a genetic test.</li>
-                                    </ol>
-                                    We can narrow in to focus on which types of insurer actions the law covers.
-                                    <ol>
-                                    <li>(a)	In the absence of a diagnosis of a condition related to genetic information, health insurers, life insurers, and long-term care insurers authorized to transact insurance in this state <mark>may not cancel, limit, or deny coverage, or establish differentials in premium rates,</mark> based on such information.</li>
-                                    <li>(b)	Health insurers, life insurers, and long-term care insurers may not require or solicit genetic information, use genetic test results, or consider a person's decisions or actions relating to genetic testing <mark>in any manner for any insurance purpose.</mark></li>
-                                    </ol>
-                                    The first part of the new law focuses on decisions around insuring or renewing insurance policies (canceling, limiting, or denying coverage) and around how much an insurer can charge (differentials in premium rates). However, the second part of the new law is even broader saying that the insurers cannot use genetic test results for “any insurance purpose”.
-                                    
-                                    Let’s see how this compares to another recently passed bill. In 2023, the Tennessee legislature passed a bill that included this section:
-                                    
-                                    <ol type="a">
-                                    <li>(a) A life insurance provider shall not cancel insurance coverage for an individual or a family member of an individual based solely on the individual's or family member's genetic information.</li>
-                                    <li>(b) A life insurance provider shall not request or require an individual to whom the insurer provides life insurance coverage, or an individual who applies for life insurance coverage, to take a genetic test as a precondition of insurability, and shall not require the complete genome sequencing of an individual's DNA.</li>
-                                    <li>(c) A life insurance provider shall not access sensitive medical information, including the genetic data of an individual, without first obtaining the individual's signed, written consent.</li>
-                                    <li>(d) This section does not prevent a life insurance provider from requesting or obtaining existing health information for underwriting, including genetic information contained within an individual's medical record.</li>
-                                    </ol>
-                                    <p>When we look at what insurer actions are covered in this bill, we can see that it is much narrower.</p>
-                                    
-                                    <p>(a) A life insurance provider shall not <mark>cancel insurance coverage</mark> for an individual or a family member of an individual based solely on the individual's or family member's genetic information.</p>
-                                    
-                                    <p>In Tennessee, the law only talks about canceling existing insurance coverage. So, it is likely that in Tennessee, insurers could still use genetic information when considering an initial application or deciding what premiums to charge.</p>
-                                    
-                                    <p>The more insurer actions that are included in a statute, the more protective against genetic discrimination the law will be.
-                                </p>
-                            </div>
--->
-  <!--                       </div>
-                    </div>
-                </div>
-                <div id="" class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            <b>California and New York</b>
-                        </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#stateAccordion">
-                        <div class="accordion-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="comparison-card">
-                                        <div class="state-name">California</div>
-                                        <div class="policy-text">Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec.</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="comparison-card">
-                                        <div class="state-name">New York</div>
-                                        <div class="policy-text">Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec.Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            <b>Texas and Massachusetts</b>
-                        </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#stateAccordion">
-                        <div class="accordion-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="comparison-card">
-                                        <div class="state-name">Texas</div>
-                                        <div class="policy-text">Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec.</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="comparison-card">
-                                        <div class="state-name">Massachusetts</div>
-                                        <div class="policy-text">Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingFour">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            <b>Michigan and Oregon</b>
-                        </button>
-                    </h2>
-                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#stateAccordion">
-                        <div class="accordion-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="comparison-card">
-                                        <div class="state-name">Michigan</div>
-                                        <div class="policy-text">Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec.</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="comparison-card">
-                                        <div class="state-name">Oregon</div>
-                                        <div class="policy-text">Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingFive">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            <b>Washington and Colorado</b>
-                        </button>
-                    </h2>
-                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#stateAccordion">
-                        <div class="accordion-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="comparison-card">
-                                        <div class="state-name">Washington</div>
-                                        <div class="policy-text">Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec.</div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="comparison-card">
-                                        <div class="state-name">Colorado</div>
-                                        <div class="policy-text">Cras ultricies velit sit amet interdum consequat. In sed metus placerat, rutrum nibh et, vestibulum nisi. Nunc cursus molestie magna, scelerisque cursus metus pulvinar nec.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
--->
-</body>
-
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <!-- Google Fonts for typography -->
+      <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+      <style>
+         * {
+         margin: 0;
+         padding: 0;
+         box-sizing: border-box;
+         }
+         body {
+         font-family: "Source Sans Pro", sans-serif;
+         background-color: #f4f4f9;
+         color: #333;
+         line-height: 1.6;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+         min-height: 100vh;
+         position: relative;
+         padding-top: 0;
+         }
+         header {
+         background-color: #640A08;
+         color: white;
+         text-align: center;
+         padding: 0px 20px;
+         position: fixed;
+         width: 100%;
+         top: 0;
+         left: 0;
+         z-index: 1000;
+         }
+         h1 {
+         font-size: 2.5rem;
+         font-family: "Libre Baskerville", serif;
+         font-weight: 700;
+         }
+         h3 {
+         margin-top: 20px;
+         }
+         p {
+         text-align: left;
+         margin-bottom: 10px;
+         }
+         .subheading {
+         font-size: 1.2rem;
+         font-weight: 600;
+         color: #f0a9a3;
+         text-align: center;
+         }
+         main {
+         justify-content: center;
+         max-width: 1200px;
+         width: 100%;
+         padding: 20px;
+         }
+         table {
+         width: 100%;
+         border-collapse: collapse;
+         margin: 20px 0;
+         table-layout: fixed;
+         }
+         th,
+         td {
+         border: 1px solid black;
+         padding: 10px;
+         text-align: left;
+         vertical-align: top;
+         }
+         th {
+         background-color: #f2f2f2;
+         font-weight: bold;
+         }
+      </style>
+   </head>
+   <body>
+      <header>
+         <h1>US State Laws Regulating Investigative Genetic Genealogy (FIGG)</h1>
+         <p class="subheading">State Comparisons of Protective Features</p>
+      </header>
+      <main>
+         <!-- Overview -->
+         <h3 style="color:#000000;">Overview</h3>
+         <p>
+            Since 2018, lawmakers, law enforcement, defense counsel, and others have debated whether and how law enforcement should be able to tap consumer genetics platforms for investigative purposes. Forensic Investigative Genetic Genealogy (“FIGG”) involves comparing crime scene DNA data to DNA profiles held by consumer genetic platforms to find individuals distantly related to a possible perpetrator. By compiling extensive family trees, investigators hope to identify the individual within the family tree most likely to be the source of the crime scene evidence. FIGG burst into public view with the arrest of the Golden State Killer, and law enforcement throughout the country have since used this method to identify suspects in nearly a thousand cases. As use of FIGG has expanded, so too have the types of cases in which this method has been pursued.
+         </p>
+         <p>
+            While many states do not have relevant laws on the books, some states have begun to engage in efforts to regulate and formalize law enforcement use of FIGG. Most notably, Maryland and Utah have enacted comprehensive regulatory frameworks governing this investigative method. As other legislators consider regulation in this space, they should be mindful of several features that can make legislation more or less protective of genetic privacy, while still authorizing appropriate law enforcement use. Seven protective features are set out below.
+         </p>
+         <h3 style="color:#000000;">1. Regulate law enforcement directly</h3>
+         <p>
+            Several states have enacted legislation intended to protect privacy for users of consumer genetics platforms. Most of these laws direct consumer genetics platforms to provide clear notice of their privacy practices that are written in plain language, obtain express consent from consumers for using and disclosing genetic data, and establish legal policies for non-consensual data disclosure to law enforcement. But a handful of states regulate law enforcement directly, for instance by requiring law enforcement to seek familial matches only through platforms that obtain user consent to law enforcement use. 
+         </p>
+         <h3 style="color:#000000;">Compare . . .</h3>
+         <table>
+            <tr>
+               <th>California Law</th>
+               <th>Utah Law</th>
+            </tr>
+            <tr>
+               <td>
+                  (a) To safeguard the privacy, confidentiality, security, and integrity of a consumer’s genetic data, <strong>a direct-to-consumer genetic testing company shall</strong> do both of the following:<br>
+                  &nbsp;&nbsp;(1)	Provide clear and complete information regarding the company’s policies and procedures for the collection, use, maintenance, and disclosure, as applicable, of genetic data<br>
+                  &nbsp;&nbsp;(2)	Obtain a consumer’s express consent for collection, use, and disclosure of the consumer’s genetic data . . . . <br><br>
+                  Cal. Civ. Code § 56.181 (emphasis added)
+               </td>
+               <td>
+                  (5) When requesting an investigative genetic genealogy service or genetic genealogy database utilization from a genetic genealogy company . . . , <strong>a law enforcement agency shall:</strong> <br>
+                  &nbsp;&nbsp;(a) disclose to the genetic genealogy company that the request is from a law enforcement agency;<br>
+                  &nbsp;&nbsp;(b) only make a request to a genetic genealogy company that:<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;(i) provides notice to the genetic genealogy company's service users and the public that law enforcement may use the genetic genealogy company's services to investigate crimes or to identify unidentified human remains . . . . <br><br>
+                  Utah Code § 53-10-403.7 (emphasis added)
+               </td>
+            </tr>
+         </table>
+         <p>
+            These provisions appear to have the same goal—restricting law enforcement to platforms and users who have given consent—but they may have very different results. After all, in <a href="https://www.nytimes.com/2025/02/25/us/idaho-murders-bryan-kohberger-dna.html" target="_blank">several</a> <a href="https://law.justia.com/cases/minnesota/supreme-court/2024/a22-1679.html" target="_blank">cases</a> already litigated, investigators have sought familial matches in databases that do not permit law enforcement use or without disclosing their law enforcement status so as to seek matches even among users who have declined law enforcement use. Regulating platforms is unlikely to deter zealous law enforcement investigators. Regulating law enforcement directly, however, minimizes the risk of such deceptive behavior by making it unlawful.
+         </p>
+         <h3 style="color:#000000;">2. Include a Role for Judicial Oversight</h3>
+         <p>
+            Whether law enforcement must obtain judicial authorization before engaging in FIGG can reinforce accountability for compliance with statutory privacy protections. Judicial oversight introduces a neutral third-party decisionmaker outside of law enforcement, enhancing trust in the system and promoting good policymaking by balancing investigative needs with individual rights. States have incorporated judicial oversight in different ways.
+         </p>
+         <p>
+            States that regulate law enforcement conduct directly have taken divergent approaches to judicial oversight at the initiation of a FIGG search. Montana requires either user consent or a warrant for some searches, while implying that a warrant is always required for FIGG. Maryland requires judicial authorization of law enforcement’s use of FIGG in every case and specifies the kinds of cases for which authorization is permitted. This authorization is distinct from the general standards for subpoenas or warrants. Finally, Utah does not require any judicial oversight before law enforcement undertakes FIGG.
+         </p>
+         <h3 style="color:#000000;">Compare . . .</h3>
+         <table>
+            <tr>
+               <th>Montana Law</th>
+               <th>Maryland Law</th>
+            </tr>
+            <tr>
+               <td>
+                  (1)	A government entity may not obtain DNA search results from a consumer DNA database:<br>
+                  &nbsp;&nbsp; (a)	without a search warrant issued by a court on a finding of probable cause; or<br>
+                  &nbsp;&nbsp; (b)	unless the consumer whose information is sought previously waived the consumer's right to privacy in the information.<br>
+                  (2)	<strong>A government entity may not obtain</strong> familial DNA search results or search results from partial matching from the DNA identification index or a consumer DNA database <strong>without a search warrant</strong> issued by a court on a finding of probable cause.<br><br>
+                  Mont. Code Ann. § 44-6-104 (emphasis added)<br>
+               </td>
+               <td>
+                  (a)(1) <strong>A forensic genetic genealogy investigation may not be initiated without judicial authorization</strong> and without certifying before the court that the forensic sample and the criminal case satisfy the criteria set forth in this section.<br><br>
+                  Md. Code Ann., Crim. Proc. § 17-102 (emphasis added)
+               </td>
+            </tr>
+         </table>
+         <p>Among states with statutes that regulate consumer genetics platforms (rather than law enforcement directly), the language surrounding legal process and court orders can be confusing. Some states prohibit platforms from disclosing user genetic data without the user’s consent unless served with a court order or warrant. Others merely require some form of “valid legal process” for such disclosures, which leaves room for misunderstanding and could include subpoenas issued without a court’s review or involvement. Even more confusingly, some states require “a valid legal process,” which might include processes internal to the consumer genetics platform itself.</p>
+         <h3 style="color:#000000;">Compare . . .</h3>
+         <table>
+            <tr>
+               <th>Minnesota Law</th>
+               <th>Kentucky Law</th>
+               <th>Arizona Law</th>
+            </tr>
+            <tr>
+               <td>
+                  (a) To safeguard the privacy, confidentiality, security, and integrity of a consumer's genetic data, a direct-to-consumer genetic testing company must: . . .<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;(3) not disclose genetic data to law enforcement or any other governmental agency without a consumer's express written consent, <strong>unless the disclosure is made pursuant to a valid search warrant or court order . . .</strong><br><br>
+                  Minn. Stat. Ann. § 325F.995(2)(a) (emphasis added)
+               </td>
+               <td>
+                  (2) To safeguard the privacy, confidentiality, security, and integrity of a consumer's genetic data, a direct-to-consumer genetic testing company shall: . . .<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;(c) <strong>Require a valid legal process</strong> for disclosing genetic data to law enforcement or any other government agency without a consumer’s express written consent . . .<br><br>
+                  Ky. Rev. Stat. § 311.705 (emphasis added)
+               </td>
+               <td>
+                  A. A direct-to-consumer genetic testing company shall: . . .<br>
+                  3. <strong>Require a valid legal process</strong> for disclosing genetic data to law enforcement or any other government agency without a consumer's express written consent . . .<br> <br><br>
+                  Ariz. Rev. Stat. § 44-8002 (emphasis added)
+               </td>
+            </tr>
+         </table>
+         <p>Finally, though Utah does not provide for judicial oversight of law enforcement’s use of FIGG, it does require judicial involvement if a convicted person seeks to use FIGG to prove their innocence. Maryland requires judicial oversight in both instances, as well as for cases in which a criminal defendant (for yet convicted) seeks to use FIGG in their defense. In other states, defense or postconviction access to FIGG is unaddressed, leaving the power of this method unfairly only for the prosecution in most instances.</p>
+         <h3 style="color:#000000;">Compare . . .</h3>
+         <table>
+            <tr>
+               <th>Maryland Law</th>
+               <th>Utah Law</th>
+            </tr>
+            <tr>
+               <td>
+                  (a) A defendant in a criminal case charged with a crime of violence under § 14-101 of the Criminal Law Article or a defendant convicted of a crime of violence under § 14-101 of the Criminal Law Article and seeking postconviction DNA testing is <strong>entitled to seek judicial authorization for an FIGG by filing an affidavit with a trial court or postconviction court</strong><br><br>
+                    Md. Code Ann., Crim. Proc. § 17-103 (emphasis added)
+               </td>
+               </td>
+               <td>
+                  (2) A law enforcement agency may request an investigative genetic genealogy service or a genetic genealogy database utilization from the bureau or a genetic genealogy company if: . . .<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;(b) <strong>ordered by a court in accordance with a postconviction relief proceeding</strong> under Section 78B-9-301.<br><br>
+                  Utah Code Ann. § 53-10-403.7 (emphasis added)
+               </td>
+            </tr>
+         </table>
+         <!-- 3. Affirm Individual Control Over Investigative Use of Genetic Data -->
+         <h3 style="color:#000000;">3.	Affirm individual control over investigative use of genetic data</h3>
+         <p>
+            Nearly all states that have enacted legislation relevant to consumer genetic privacy recognize the important role of an individual’s control over use of their genetic data. Some states limit law enforcement use to those platforms that obtain affirmative consent from users for law enforcement matching. This kind of explicit consent is crucial for good policymaking because it ensures that users make a knowing and voluntary choice to participate in law enforcement efforts.
+         </p>
+         <h3 style="color:#000000;">Compare . . .</h3>
+         <table>
+            <tr>
+               <th>Maryland Law</th>
+               <th>Utah Law</th>
+            </tr>
+            <tr>
+               <td>
+                  (d) FIGG may only be conducted using a direct-to-consumer or publicly available open-data personal genomics database that:<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;(1) <strong>provides explicit notice to its service users and the public that law enforcement may use</strong> its service sites to investigate crimes or to identify human remains; and<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;(2) <strong>seeks acknowledgement and express consent</strong> from its service users regarding the substance of the notice described in item (1) of this subsection.<br><br>
+                  Md. Code Ann., Crim. Proc. § 17-102 (emphasis added)
+               </td>
+               <td>
+                  (5) When requesting an investigative genetic genealogy service or genetic genealogy database utilization from a genetic genealogy company . . . , a law enforcement agency shall:<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;(a) disclose to the genetic genealogy company that the request is from a law enforcement agency;<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;(b) <strong>only make a request to a genetic genealogy company that:<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(i) provides notice to the genetic genealogy company's service users and the public that law enforcement may use</strong> the genetic genealogy company's services to investigate crimes or to identify unidentified human remains;<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(ii) <strong>allows a user to:<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(A) opt in or out</strong> of having the user's data be accessible in an investigation requested by law enforcement; and<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(B) access the genetic genealogy company's services even if the user opts out of having the user's data be accessible in an investigation requested by law enforcement; and . . . .<br><br>
+                  Utah Code § 53-10-403.7 (emphasis added)
+               </td>
+            </tr>
+         </table>
+         <p>
+          Both Maryland and Utah’s policies expressly limit law enforcement use only to those platforms that seek and obtain consent from users for that type of use. Maryland’s requirement that platforms obtain “express consent” from users may go further than Utah’s requirement that users be able to “opt in or out” of law enforcement use. Utah’s formulation may allow law enforcement use of consumer genetics platforms that opt users into such use by default, while Maryland’s policy requires affirmative, opt in consent. Importantly, however, Utah’s policy specifies that users’ power to opt out of law enforcement searches be genuine. That is, Utah mandates that users must be able to opt out of law enforcement use without having to give up access to the platform as a whole. This is significant, as tying consent to law enforcement use to consent to use the platform at all undermines users’ free and voluntary choices regarding law enforcement use.
+         </p>
+         <p>
+          But most states, while purporting to “safeguard the privacy, confidentiality, security, and integrity of a consumer's genetic data,” permit law enforcement to get around a user’s lack of consent by using some alternate process. These provisions often use confusing, and confusingly similar, terms for a range of possible legal pathways.
+         </p>
+         <!-- 4. Alternate Legal Pathways for Non-Consensual Disclosure -->
+         <h3 style="color:#000000;">4. Alternate Legal Pathways for Non-Consensual Disclosure</h3>
+         <p>
+            Despite claims to safeguard genetic privacy, many states permit law enforcement to bypass a user’s lack of consent by using alternative legal processes. These provisions often use confusing, similar language for a range of legal pathways.
+         </p>
+         <h3 style="color:#000000;">Compare . . .</h3>
+         <table>
+            <tr>
+               <th>Minnesota Law</th>
+               <th>Kentucky Law</th>
+               <th>Arizona Law</th>
+            </tr>
+            <tr>
+               <td>
+                  To safeguard the privacy, confidentiality, security, and integrity of a consumer's genetic data, a direct-to-consumer genetic testing company must not disclose genetic data to law enforcement or any governmental agency without a consumer's express written consent, unless such disclosure is made pursuant to a valid search warrant or court order.<br>
+                  Minn. Stat. Ann. § 325F.995(2)(a) (emphasis added)
+               </td>
+               <td>
+                  The company shall require valid legal process for disclosing genetic data to law enforcement or any governmental agency without a consumer’s express written consent.<br>
+                  Ky. Rev. Stat. § 311.705 (emphasis added)
+               </td>
+               <td>
+                  The company shall require a valid legal process for disclosing genetic data to law enforcement or any governmental agency without a consumer's express written consent.<br>
+                  Ariz. Rev. Stat. § 44-8002 (emphasis added)
+               </td>
+            </tr>
+         </table>
+         <p>
+            While states like Minnesota mandate a court order, others merely require some form of “valid legal process,” which can be open to interpretation. In Arizona, the phrasing suggests that even an internal process might suffice.
+         </p>
+         <p>
+            Additionally, some states abandon individual control altogether for law enforcement use – exempting such use from privacy protections, which may mislead the public about their rights.
+         </p>
+         <h3 style="color:#000000;">Compare . . .</h3>
+         <table>
+            <tr>
+               <th>Kentucky Law</th>
+               <th>Alabama Law</th>
+            </tr>
+            <tr>
+               <td>
+                  Requires valid legal process for disclosing genetic data to law enforcement or any governmental agency without a consumer’s express written consent.<br>
+                  Ky. Rev. Stat. § 311.705 (emphasis added)
+               </td>
+               <td>
+                  Section 8-43-3: Policies and Procedures Governing the Collection, Use, Maintenance, and Disclosure of Genetic Data; Consumer Consent Requirements.<br>
+                  Section 8-43-5: Applicability of Chapter – this chapter does not apply to: (3) Biological samples or genetic data lawfully obtained by law enforcement pursuant to a criminal investigation.<br>
+                  Ala. Code §§ 8-43-3 & 8-43-5 (emphasis added)
+               </td>
+            </tr>
+         </table>
+         <p>
+            Alabama’s wholesale exclusion of law enforcement investigative use means its Genetic Data Privacy Act does not offer meaningful privacy protection in this area.
+         </p>
+         <!-- 5. Protect Third Parties Who Are Not Suspects in the Crime -->
+         <h3 style="color:#000000;">5. Protect Third Parties Who Are Not Suspects in the Crime</h3>
+         <p>
+            In FIGG investigations, gaps in a genealogical family tree may prompt law enforcement to collect DNA from individuals who are not themselves suspects but who may be related to a potential perpetrator. These rules govern how such third-party samples are obtained.
+         </p>
+         <h3 style="color:#000000;">Compare . . .</h3>
+         <table>
+            <tr>
+               <th>Maryland Law</th>
+               <th>Utah Law</th>
+            </tr>
+            <tr>
+               <td>
+                  (f)(1)(i) Informed consent in writing shall be obtained from any third party whose DNA sample is sought for assisting a FIGG search, with the entire consent process documented via video or audio recording.<br>
+                  (ii) If obtaining consent would compromise the investigation—and the third party has not already refused—investigators may seek authorization to covertly collect the sample.<br>
+                  Md. Code Ann., Crim. Proc. § 17-102 (emphasis added)
+               </td>
+               <td>
+                  (3)(a) Before collecting a third-party DNA specimen for FIGG, a law enforcement agency shall:<br>
+                  &nbsp;&nbsp;(i) Consult with the prosecuting agency; and<br>
+                  &nbsp;&nbsp;(ii)(A) Obtain informed, voluntary consent from the individual; or<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;(B) If consent is likely to compromise the investigation, obtain authorization for covert collection from the prosecuting agency.<br>
+                  Utah Code Ann. § 53-10-403.7 (emphasis added)
+               </td>
+            </tr>
+         </table>
+         <!-- 6. Make FIGG Available to Prove Innocence, Not Just Guilt -->
+         <h3 style="color:#000000;">6. Make FIGG Available to Prove Innocence, Not Just Guilt</h3>
+         <p>
+            Fair access to FIGG is essential for criminal defendants. Defense and postconviction counsel often encounter obstacles when trying to obtain crime scene evidence for testing because such evidence is typically controlled by law enforcement—which may be reluctant to cooperate—creating an imbalance that disadvantages defendants.
+         </p>
+         <h3 style="color:#000000;">Compare . . .</h3>
+         <table>
+            <tr>
+               <th>Maryland Law</th>
+               <th>Utah Law</th>
+            </tr>
+            <tr>
+               <td>
+                  A defendant charged with or convicted of a crime of violence under § 14-101, seeking postconviction DNA testing, is entitled to seek judicial authorization for FIGG by filing an affidavit with the appropriate trial or postconviction court.<br>
+                  Md. Code Ann., Crim. Proc. § 17-103 (emphasis added)
+               </td>
+               <td>
+                  A law enforcement agency may request an investigative genetic genealogy service or database utilization if ordered by a court in a postconviction relief proceeding under Section 78B-9-301.<br>
+                  Utah Code Ann. § 53-10-403.7 (emphasis added)
+               </td>
+            </tr>
+         </table>
+         <!-- 7. Impose Genuine Consequences for Violations -->
+         <h3 style="color:#000000;">7. Impose Genuine Consequences for Violations</h3>
+         <p>
+            Enforcing real consequences for breaches of consumer genetic privacy is critical for accountability and deterring misconduct. Some states allow individuals to sue for violations, while others empower state officials to enforce the law. Minor or unenforceable penalties, however, may not sufficiently deter wrongdoing.
+         </p>
+         <h3 style="color:#000000;">Compare . . .</h3>
+         <table>
+            <tr>
+               <th>Maryland Law</th>
+               <th>Kentucky Law</th>
+               <th>Utah Law</th>
+            </tr>
+            <tr>
+               <td>
+                  (k) A person whose genetic genealogy information, FIGG profile, or DNA sample is wrongfully disclosed, collected, or maintained in violation of this title has a private right of action and is entitled to minimum liquidated damages of $5,000.<br>
+                  Md. Code Ann., Crim. Proc. § 17-102 (emphasis added)
+               </td>
+               <td>
+                  The attorney general may bring an action to enforce this chapter.<br>
+                  Ky. Rev. Stat. § 311.705 (emphasis added)
+               </td>
+               <td>
+                  (8)(b)(i) If a court finds that a law enforcement employee or agent knowingly violated a provision, that person shall be barred from participating in FIGG searches for one year.<br>
+                  (ii) This finding does not constitute a judgment for monetary damages or attorney fees.<br>
+                  Utah Code Ann. § 53-10-403.7 (emphasis added)
+               </td>
+            </tr>
+         </table>
+         <p>
+            Among these approaches, authorizing individual lawsuits provides the most robust protection, while temporary bans alone may be less effective at deterring misconduct.
+         </p>
+         <!-- 8. Require Public Reporting and Review -->
+         <h3 style="color:#000000;">8. Require Public Reporting and Review</h3>
+         <p>
+            Public reporting and review are vital for transparency and accountability. Such reporting enables legislators and the public to understand how consumer genetic information is used in FIGG investigations. Yet few statutes require this level of transparency.
+         </p>
+         <h3 style="color:#000000;">Compare . . .</h3>
+         <table>
+            <tr>
+               <th>Maryland Law</th>
+               <th>Utah Law</th>
+            </tr>
+            <tr>
+               <td>
+                  (a) On or before June 1 annually, the Governor's Office of Crime Prevention and Policy shall submit a publicly available report to the Governor and the General Assembly for the preceding calendar year, including:<br>
+                  &nbsp;&nbsp;(1) the number of FIGG requests, broken down by prosecutors, pretrial defendants, and postconviction defendants;<br>
+                  &nbsp;&nbsp;[(2)-(10) various case features]<br>
+                  (b) A panel comprising judges, prosecutors, defense attorneys, public defenders, law enforcement officials, crime laboratory directors, bioethicists, racial justice experts, criminal justice researchers, and civil/ privacy rights organizations shall review the report and make policy recommendations.<br>
+                  Md. Code Ann., Crim. Proc. § 17-105 (West) (emphasis added)
+               </td>
+               <td>
+                  (2)(a) Beginning on January 1, 2024, a law enforcement agency shall annually, on or before April 30, submit a report to the commission for the preceding calendar year, including:<br>
+                  &nbsp;&nbsp;(i) the number of genetic genealogy database utilizations requested; and<br>
+                  &nbsp;&nbsp;(ii) [various case features]<br>
+                  (4) The commission shall take specified actions, and<br>
+                  (c) On or before August 1, publish the report on its website.<br>
+                  Utah Code Ann. § 53-10-403.7 (emphasis added)
+               </td>
+            </tr>
+         </table>
+         <p>
+            Both Maryland and Utah require detailed reporting on FIGG usage. Maryland goes further by mandating an interdisciplinary review panel to inform policy.
+         </p>
+      </main>
+      <script>
+         // Adjust main content's top margin based on header height
+         function adjustMainPadding() {
+           const header = document.querySelector('header')
+           const main = document.querySelector('main')
+           const headerHeight = header.offsetHeight
+           main.style.marginTop = headerHeight + 'px'
+         }
+         window.addEventListener('load', adjustMainPadding)
+         window.addEventListener('resize', adjustMainPadding)
+      </script>
+   </body>
 </html>
