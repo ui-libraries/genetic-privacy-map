@@ -430,29 +430,6 @@
                         <div class="collapsible-content-regulation">
                             <div class="layer-control">
                                 <div>
-                                    <input type="radio" id="companiesLayerToggle" name="layer" value="companies" />
-                                    <label for="companiesLayerToggle">Regulation of Consumer Genetics Platforms</label>
-                                    <div id="companiesLayerOptions" class="checkbox-group" style="display: none; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
-                                        <input type="checkbox" id="exante" name="exante" value="exante" />
-                                        <label for="exante">Ex-Ante Judicial Supervision of FIGG</label>
-                                        <br />
-                                        <input type="checkbox" id="individual" name="individual" value="individual" />
-                                        <label for="individual">Individual Control Over Genetic Data</label>
-                                        <br />
-                                        <input type="checkbox" id="thirdparty" name="thirdparty" value="thirdparty" />
-                                        <label for="thirdparty">Protections for Non-Suspect Third Party</label>
-                                        <br />
-                                        <input type="checkbox" id="fgg" name="fgg" value="fgg" />
-                                        <label for="fgg">FIGG Available to Prove Innocence</label>
-                                        <br />
-                                        <input type="checkbox" id="consequences" name="consequences" value="consequences" />
-                                        <label for="consequences">Consequences for Violations</label>
-                                        <br />
-                                        <input type="checkbox" id="reporting" name="reporting" value="reporting" />
-                                        <label for="reporting">Annual Public Reporting and Review</label>
-                                    </div>
-                                </div>
-                                <div>
                                     <input type="radio" id="lawEnforcementLayerToggle" name="layer" value="lawEnforcement" />
                                     <label for="lawEnforcementLayerToggle">Regulation of Law Enforcement</label>
                                     <div id="lawEnforcementLayerOptions" class="checkbox-group" style="display: none; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
@@ -467,6 +444,29 @@
                                         <br />
                                         <input type="checkbox" id="fgg" name="fgg" value="fgg" />
                                         <label for="fgg">Ensures FGG to Prove Culpability</label>
+                                        <br />
+                                        <input type="checkbox" id="consequences" name="consequences" value="consequences" />
+                                        <label for="consequences">Consequences for Violations</label>
+                                        <br />
+                                        <input type="checkbox" id="reporting" name="reporting" value="reporting" />
+                                        <label for="reporting">Annual Public Reporting and Review</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="radio" id="companiesLayerToggle" name="layer" value="companies" />
+                                    <label for="companiesLayerToggle">Regulation of Consumer Genetics Platforms</label>
+                                    <div id="companiesLayerOptions" class="checkbox-group" style="display: none; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
+                                        <input type="checkbox" id="exante" name="exante" value="exante" />
+                                        <label for="exante">Ex-Ante Judicial Supervision of FIGG</label>
+                                        <br />
+                                        <input type="checkbox" id="individual" name="individual" value="individual" />
+                                        <label for="individual">Individual Control Over Genetic Data</label>
+                                        <br />
+                                        <input type="checkbox" id="thirdparty" name="thirdparty" value="thirdparty" />
+                                        <label for="thirdparty">Protections for Non-Suspect Third Party</label>
+                                        <br />
+                                        <input type="checkbox" id="fgg" name="fgg" value="fgg" />
+                                        <label for="fgg">FIGG Available to Prove Innocence</label>
                                         <br />
                                         <input type="checkbox" id="consequences" name="consequences" value="consequences" />
                                         <label for="consequences">Consequences for Violations</label>
@@ -617,6 +617,21 @@
                         ></span>
                         Regulates Law Enforcement
                     </div>
+                    <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
+                        <span
+                            style="
+                                display: inline-block;
+                                width: 20px;
+                                height: 20px;
+                                background-color: rgb(173, 216, 230);
+                                background-image: url('patterns/lines-d-25.png');
+                                background-size: 20px 20px;
+                                background-repeat: repeat;
+                                margin-right: 5px;
+                            "
+                        ></span>
+                        Regulates Both
+                    </div>
                     <!-- Display "lightblue" for the case of coverage-->
                     <!--<div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
           <span style="display: inline-block; width: 20px; height: 20px; background-color: lightblue; margin-right: 5px;"></span> Present
@@ -686,7 +701,7 @@
 -->
             </div>
             <div id="map"></div>
-            <p class="bottom-right"><i>Data current as of October 2024</i></p>
+            <p class="bottom-right"><i>Content current as of January 2025</i></p>
         </div>
 
         <div class="tooltip" id="tooltip"></div>

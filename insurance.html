@@ -247,6 +247,9 @@
             .collapsible-content-regulation {
                 display: none;
             }
+            .collapsible-content-regulation.show {
+                display: block;
+            }
 
             /* Modal CSS */
             /* Style for the modal background */
@@ -266,14 +269,23 @@
             .modal-content {
                 background-color: #fefefe;
                 margin: 15% auto;
-                padding-top: 0px;
-                padding-left: 20px;
-                padding-bottom: 10px;
-                padding-right: 20px;
+                padding: 20px; /* Uniform padding on all sides */
                 border: 1px solid #888;
                 width: 80%;
                 max-width: 500px;
                 border-radius: 5px;
+            }
+
+            .modal-content h2 {
+                margin: 0 0 15px 0; /* Add bottom margin to separate from table */
+            }
+
+            .modal-content .close {
+                margin: 0 0 10px 0; /* Small margin to separate close button from content */
+            }
+
+            #stateCompTable {
+                margin: 0; /* Ensure table fits snugly within padding */
             }
 
             /* Style for the close button */
@@ -384,21 +396,6 @@
                         </div>
                     </div>
 
-                    <div class="collapsible-provisions">
-                        <div class="collapsible-header-provisions">
-                            <h4 style="padding: 0 15px;">
-                                <span class="arrow-icon">&#9658;</span>
-                                <!-- Right-facing arrow icon -->Compare Protective Features
-                            </h4>
-                        </div>
-                        <div class="collapsible-content-provisions">
-                            <p>
-                                There are many different decisions that an insurer makes about an individual. They can make decisions about whether to insure them (underwriting), renew an existing policy, or how much to charge for coverage
-                                (premiums). <a style="color: #004b9b;" href="protective-features-insurance.html" target="_blank">Please click here to compare protective features between a few states.</a>
-                            </p>
-                        </div>
-                    </div>
-
                     <!-- Filter Map by Regulation Type -->
                     <div class="collapsible-regulation">
                         <div class="collapsible-header-regulation">
@@ -407,7 +404,7 @@
                                 <!-- Right-facing arrow icon -->Filter Map by Regulation Type
                             </h4>
                         </div>
-                        <div class="collapsible-content-regulation">
+                        <div class="collapsible-content-regulation show">
                             <div class="layer-control">
                                 <div>
                                     <input type="radio" id="lifeLayerToggle" name="layer" value="life" />
@@ -462,6 +459,22 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="collapsible-provisions">
+                        <div class="collapsible-header-provisions">
+                            <h4 style="padding: 0 15px;">
+                                <span class="arrow-icon">&#9658;</span>
+                                <!-- Right-facing arrow icon -->Explore Protective Features
+                            </h4>
+                        </div>
+                        <div class="collapsible-content-provisions">
+                            <p>
+                                There are many different decisions that an insurer makes about an individual. They can make decisions about whether to insure them (underwriting), renew an existing policy, or how much to charge for coverage
+                                (premiums). <a style="color: #004b9b;" href="protective-features-insurance.html" target="_blank">Please click here to compare protective features between a few states.</a>
+                            </p>
+                        </div>
+                    </div>
+
                     <!-- Filter Map by Regulation Type END -->
 
                     <!-- STATE LAW COMPARISON START -->
@@ -540,14 +553,14 @@
             <div id="legend" style="position: absolute; left: 20px; bottom: 20px; background-color: white; padding: 10px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
                 <h4 style="margin-top: 0; margin-bottom: 0;">Total Categories Covered</h4>
                 <div>
-                    <!-- Display "patterns/lines-d-02.png" for the case of "Life" coverage-->
+                    <!-- Life -->
                     <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
                         <span
                             style="
                                 display: inline-block;
                                 width: 20px;
                                 height: 20px;
-                                background-color: rgb(173, 216, 230);
+                                background-color: rgb(232,176,172);
                                 background-image: url('patterns/lines-d-02.png');
                                 background-size: 20px 20px;
                                 background-repeat: repeat;
@@ -556,15 +569,14 @@
                         ></span>
                         Life Covered
                     </div>
-
-                    <!-- Display "patterns/lines-d-05.png" for the case of "Disability" coverage-->
+                    <!-- Disability -->
                     <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
                         <span
                             style="
                                 display: inline-block;
                                 width: 20px;
                                 height: 20px;
-                                background-color: rgb(173, 216, 230);
+                                background-color: rgb(232,176,172);
                                 background-image: url('patterns/lines-d-05.png');
                                 background-size: 20px 20px;
                                 background-repeat: repeat;
@@ -573,15 +585,14 @@
                         ></span>
                         Disability Covered
                     </div>
-
-                    <!-- Display "patterns/lines-v-02.png" for the case of "LTC" coverage-->
+                    <!-- LTC -->
                     <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
                         <span
                             style="
                                 display: inline-block;
                                 width: 20px;
                                 height: 20px;
-                                background-color: rgb(173, 216, 230);
+                                background-color: rgb(232,176,172);
                                 background-image: url('patterns/lines-v-02.png');
                                 background-size: 30px 30px;
                                 background-repeat: repeat;
@@ -590,22 +601,75 @@
                         ></span>
                         LTC Covered
                     </div>
-
-                    <!-- Display "gray" for the case of "No Genetic Privacy Laws"-->
+                    <!-- Life + Disability -->
                     <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
-                        <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251, 247, 245); margin-right: 5px;"></span> No Genetic Privacy Laws
+                        <span
+                            style="
+                                display: inline-block;
+                                width: 20px;
+                                height: 20px;
+                                background-color: rgb(232,176,172);
+                                background-image: url('patterns/lines-d-25.png');
+                                background-size: 20px 20px;
+                                background-repeat: repeat;
+                                margin-right: 5px;
+                            "
+                        ></span>
+                        Life + Disability Covered
                     </div>
-                    <!--       
-        <div style="display: flex; align-items: center;">
-          <span style="display: inline-block; width: 20px; height: 20px; background-color: lightblue; margin-right: 5px;"></span> 1 of 3 Categories Covered
-        </div>
-        <div style="display: flex; align-items: center;">
-          <span style="display: inline-block; width: 20px; height: 20px; background-color: blue; margin-right: 5px;"></span> 2 of 3 Categories Covered
-        </div>
-        <div style="display: flex; align-items: center;">
-          <span style="display: inline-block; width: 20px; height: 20px; background-color: darkblue; margin-right: 5px;"></span> Life, Disability, and LTC Covered
-        </div>
--->
+                    <!-- Life + LTC -->
+                    <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
+                        <span
+                            style="
+                                display: inline-block;
+                                width: 20px;
+                                height: 20px;
+                                background-color: rgb(232,176,172);
+                                background-image: url('patterns/lines-dv-22.png');
+                                background-size: 20px 20px;
+                                background-repeat: repeat;
+                                margin-right: 5px;
+                            "
+                        ></span>
+                        Life + LTC Covered
+                    </div>
+                    <!-- Disability + LTC -->
+                    <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
+                        <span
+                            style="
+                                display: inline-block;
+                                width: 20px;
+                                height: 20px;
+                                background-color: rgb(232,176,172);
+                                background-image: url('patterns/lines-dv-25.png');
+                                background-size: 20px 20px;
+                                background-repeat: repeat;
+                                margin-right: 5px;
+                            "
+                        ></span>
+                        Disability + LTC Covered
+                    </div>
+                    <!-- Life + Disability + LTC -->
+                    <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
+                        <span
+                            style="
+                                display: inline-block;
+                                width: 20px;
+                                height: 20px;
+                                background-color: rgb(232,176,172);
+                                background-image: url('patterns/lines-dv-all.png');
+                                background-size: 20px 20px;
+                                background-repeat: repeat;
+                                margin-right: 5px;
+                            "
+                        ></span>
+                        Life + Disability + LTC Covered
+                    </div>
+                    <!-- No Coverage -->
+                    <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
+                        <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251,247,245); margin-right: 5px;"></span>
+                        No Genetic Privacy Laws
+                    </div>
                 </div>
             </div>
 
@@ -613,22 +677,22 @@
                 <h4 style="margin-top: 0; margin-bottom: 0;">Strength of Coverage</h4>
                 <div>
                     <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
-                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #03045e; margin-right: 5px;"></span> Prohibits use of genetic info
+                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #4A0403; margin-right: 5px;"></span> Prohibits use of genetic info
                     </div>
                     <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
-                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #0077b6; margin-right: 5px;"></span> Bars use of a specific trait
+                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #8B1A17; margin-right: 5px;"></span> Bars use of a specific trait
                     </div>
                     <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
-                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #00bfd8; margin-right: 5px;"></span> Allowed if actuarially justified
+                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #C23B37; margin-right: 5px;"></span> Allowed if actuarially justified
                     </div>
                     <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
-                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #90e0ef; margin-right: 5px;"></span> Requires informed consent
+                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #E8B0AC; margin-right: 5px;"></span> Requires informed consent
                     </div>
                     <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
-                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #caf0f8; margin-right: 5px;"></span> Other
+                        <span style="display: inline-block; width: 20px; height: 20px; background-color: #F4D5D3; margin-right: 5px;"></span> Other
                     </div>
                     <div style="display: flex; align-items: center; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
-                        <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251, 247, 245); margin-right: 5px;"></span> Absent
+                        <span style="display: inline-block; width: 20px; height: 20px; background-color: rgb(251,247,245); margin-right: 5px;"></span> Absent
                     </div>
                 </div>
             </div>
@@ -645,7 +709,7 @@
                 </p>
             </div>
             <div id="map"></div>
-            <p class="bottom-right"><i>Data current as of October 2024</i></p>
+            <p class="bottom-right"><i>Content current as of January 2025</i></p>
         </div>
 
         <div class="tooltip" id="tooltip"></div>
@@ -944,7 +1008,7 @@
                             const isStateShadedBlue = dnaPrivacy.some((row) => row.State === stateName && row[selectedRowKey]);
 
                             // Return the color based on whether any row meets the criteria
-                            return isStateShadedBlue ? "rgb(173,216,230)" : "rgb(251,247,245)";
+                            return isStateShadedBlue ? "rgb(232,176,172)" : "rgb(251,247,245)";
                         });
 
                         // Add click event listeners to checkboxes again, if they were reset
@@ -1254,7 +1318,7 @@
                     .join("path")
                     .attr("class", "background")
                     .attr("d", path) // Use the path generator directly for the background
-                    .attr("fill", "rgb(173,216,230)") // Background color
+                    .attr("fill", "rgb(232,176,172)") // Background color
                     .attr("opacity", 1); // Optional: make it semi-transparent
 
                 // Now, draw the state paths on top of the background
@@ -1379,7 +1443,7 @@
 
             function drawCoverageLayerFiltered(layerGroup, states, filtered, all, subfilters) {
                 // Define a coverage strength color scale
-                const coverageColorScale = d3.scaleOrdinal().domain(["2", "4", "3", "1", "5"]).range(["#03045e", "#0077b6", "#00bfd8", "#90e0ef", "#caf0f8"]);
+                const coverageColorScale = d3.scaleOrdinal().domain(["2", "4", "3", "1", "5"]).range(["#4A0403", "#8B1A17", "#C23B37", "#E8B0AC", "#F4D5D3"]);
 
                 const newFilters = {
                     life: document.getElementById("lifeLayerToggle").checked,
