@@ -250,6 +250,9 @@
             .collapsible-content-regulation {
                 display: none;
             }
+            .collapsible-content-regulation.show {
+                display: block;
+            }
 
             /* Modal CSS */
             /* Style for the modal background */
@@ -423,14 +426,14 @@
                     <div class="collapsible-regulation">
                         <div class="collapsible-header-regulation">
                             <h4 style="padding: 0 15px;">
-                                <span class="arrow-icon">&#9658;</span>
-                                <!-- Right-facing arrow icon -->Filter Map by Regulation Type
+                                <span class="arrow-icon">▼</span>
+                                Filter Map by Regulation Type
                             </h4>
                         </div>
-                        <div class="collapsible-content-regulation">
+                        <div class="collapsible-content-regulation show">
                             <div class="layer-control">
                                 <div>
-                                    <input type="radio" id="lawEnforcementLayerToggle" name="layer" value="lawEnforcement" />
+                                    <input type="radio" id="lawEnforcementLayerToggle" name="layer" value="lawEnforcement" checked />
                                     <label for="lawEnforcementLayerToggle">Regulation of Law Enforcement</label>
                                     <div id="lawEnforcementLayerOptions" class="checkbox-group" style="display: none; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
                                         <input type="checkbox" id="exante" name="exante" value="exante" />
@@ -482,6 +485,21 @@
                     </div>
                     <!-- Filter Map by Regulation Type END -->
 
+                    <div class="collapsible-provisions">
+                        <div class="collapsible-header-provisions">
+                            <h4 style="padding: 0 15px;">
+                                <span class="arrow-icon">&#9658;</span>
+                                <!-- Right-facing arrow icon -->Explore Protective Features
+                            </h4>
+                        </div>
+                        <div class="collapsible-content-provisions">
+                            <p>
+                                There are many different decisions that an insurer makes about an individual. They can make decisions about whether to insure them (underwriting), renew an existing policy, or how much to charge for coverage
+                                (premiums). <a style="color: #004b9b;" href="protective-features-law.html" target="_blank">Please click here to compare protective features between a few states.</a>
+                            </p>
+                        </div>
+                    </div>
+
                     <!-- STATE LAW COMPARISON START -->
                     <div class="collapsible-comparison">
                         <div class="collapsible-header-comparison">
@@ -530,7 +548,7 @@
                                         <td id="firstStateLaw"></td>
                                         <td id="secondStateLaw"></td>
                                     </tr>
-                                    <!--             
+                                    <!--
                 <tr>
                   <td id="exante">Ex-Ante Supervision</td>
                   <td id="firstStateExante"></td>
@@ -696,7 +714,7 @@
             <!--A container in the middle of the page to hold the map title-->
             <div id="titlebar">
                 <h1 class="dynamictitle">State Regulation of Genetic Privacy and Law Enforcement</h1>
-                <!--    
+                <!--
       <p class="centered-text">The United States Genetic Information Nondiscrimination Act (GINA) prevents health insurers and employers from engaging in genetic discrimination. However, the federal law does not cover life, long-term care, and disability insurers. These insurances are regulated at the state level. There is a range of different types of laws that states have adopted in this area. This map charts the different categories of laws in place across the states.</p>
 -->
             </div>
@@ -728,6 +746,7 @@
                 document.getElementById("map").style.height = `calc(100vh - ${titlebarHeight}px)`;
             };
 
+
             // Hide the filter legends by default
             document.getElementById("platform-legend").style.display = "none";
             document.getElementById("enforcement-legend").style.display = "none";
@@ -752,19 +771,26 @@
                 });
             });
 
-            // Ensure radio buttons are unchecked on page reload
             document.addEventListener("DOMContentLoaded", () => {
-                document.querySelectorAll('input[type="radio"]').forEach((radio) => {
-                    radio.checked = false;
-                });
-            });
-
-            // Ensure that all checkbox inputs are unchecked on page reload
-            document.addEventListener("DOMContentLoaded", () => {
+                // Uncheck all checkboxes
                 document.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
                     checkbox.checked = false;
-                });
-            });
+                })
+
+                // Hide all checkbox groups
+                document.querySelectorAll(".checkbox-group").forEach((group) => {
+                    group.style.display = "none";
+                })
+
+                // Show the group for the checked radio (if any)
+                const checkedRadio = document.querySelector('input[name="layer"]:checked')
+                if (checkedRadio) {
+                    const checkboxGroup = document.getElementById(checkedRadio.value + "LayerOptions")
+                    if (checkboxGroup) {
+                        checkboxGroup.style.display = "block"
+                    }
+                }
+            })
 
             // Event listener for the "Reset" button
             document.getElementById("resetButton").addEventListener("click", function () {
@@ -2315,6 +2341,19 @@
             });
 
             // Toggle the visibility of the collapsible content when the header is clicked
+            collapsibleHeaderProvisions.addEventListener("click", function () {
+                const content = collapsibleSectionProvisions.querySelector(".collapsible-content-provisions");
+                const arrowIcon = collapsibleHeaderProvisions.querySelector(".arrow-icon");
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                    arrowIcon.innerHTML = "&#9658;"; // Right-facing arrow
+                } else {
+                    content.style.display = "block";
+                    arrowIcon.innerHTML = "&#9660;"; // Down-facing arrow
+                }
+            });
+
+            // Toggle the visibility of the collapsible content when the header is clicked
             collapsibleHeaderComparison.addEventListener("click", function () {
                 const content = collapsibleSectionComparison.querySelector(".collapsible-content-comparison");
                 const arrowIcon = collapsibleHeaderComparison.querySelector(".arrow-icon");
@@ -2331,12 +2370,11 @@
             collapsibleHeaderRegulation.addEventListener("click", function () {
                 const content = collapsibleSectionRegulation.querySelector(".collapsible-content-regulation");
                 const arrowIcon = collapsibleHeaderRegulation.querySelector(".arrow-icon");
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                    arrowIcon.innerHTML = "&#9658;"; // Right-facing arrow
+                content.classList.toggle("show");
+                if (content.classList.contains("show")) {
+                    arrowIcon.innerHTML = "▼"; // Down-facing arrow
                 } else {
-                    content.style.display = "block";
-                    arrowIcon.innerHTML = "&#9660;"; // Down-facing arrow
+                    arrowIcon.innerHTML = "►"; // Right-facing arrow
                 }
             });
 

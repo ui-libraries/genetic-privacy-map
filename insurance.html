@@ -400,8 +400,8 @@
                     <div class="collapsible-regulation">
                         <div class="collapsible-header-regulation">
                             <h4 style="padding: 0 15px;">
-                                <span class="arrow-icon">&#9658;</span>
-                                <!-- Right-facing arrow icon -->Filter Map by Regulation Type
+                                <span class="arrow-icon">▼</span>
+                                Filter Map by Regulation Type
                             </h4>
                         </div>
                         <div class="collapsible-content-regulation show">
@@ -2039,12 +2039,11 @@
             collapsibleHeaderRegulation.addEventListener("click", function () {
                 const content = collapsibleSectionRegulation.querySelector(".collapsible-content-regulation");
                 const arrowIcon = collapsibleHeaderRegulation.querySelector(".arrow-icon");
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                    arrowIcon.innerHTML = "&#9658;"; // Right-facing arrow
+                content.classList.toggle("show");
+                if (content.classList.contains("show")) {
+                    arrowIcon.innerHTML = "▼"; // Down-facing arrow
                 } else {
-                    content.style.display = "block";
-                    arrowIcon.innerHTML = "&#9660;"; // Down-facing arrow
+                    arrowIcon.innerHTML = "►"; // Right-facing arrow
                 }
             });
 
