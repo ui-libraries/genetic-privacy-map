@@ -716,7 +716,7 @@
       <p class="centered-text">The United States government, every state, and the District of Columbia collect, store, and share genetic data for law enforcement use through the Combined DNA Index System (CODIS), which is the subject of legislation in each jurisdiction. However, federal law does not regulate law enforcement use of consumer genetic data, known at forensic investigative genetic genealogy ("FIGG"). There are a variety of laws that states have adopted in this area. This map charts these laws.</p>
             </div>
             <div id="map"></div>
-            <p class="bottom-right"><i>Content current as of January 2025</i></p>
+            <p class="bottom-right"><i>Content current as of June 2025</i></p>
         </div>
 
         <div class="tooltip" id="tooltip"></div>
@@ -1712,11 +1712,11 @@
                                           let entries = [];
 
                                           // Show all descriptions for the matching code, regardless of filters
-                                          if (code.exante === "1") entries.push("Ex-Ante Supervision");
+                                          if (code.exante === "1") entries.push("Ex-Ante Judicial Oversight");
                                           if (code.individual === "1") entries.push("Individual Control");
                                           if (code.thirdparty === "1") entries.push("Third Party Protections");
-                                          if (code.fgg === "1") entries.push("FGG Ensured");
-                                          if (code.consequences === "1") entries.push("Violation Consequences");
+                                          if (code.fgg === "1") entries.push("FIGG for Defendants");
+                                          if (code.consequences === "1") entries.push("Private Suits Authorized");
                                           if (code.reporting === "1") entries.push("Reporting/Review");
                                           // If there is a code, but no descriptions, add 'N/A'
                                           if (entries.length === 0) entries.push("N/A");
@@ -1853,11 +1853,11 @@
                                   .map((code) => {
                                       let entries = [];
 
-                                      if (code.exante === "1") entries.push("Ex-Ante Supervision");
+                                      if (code.exante === "1") entries.push("Ex-Ante Judicial Oversight");
                                       if (code.individual === "1") entries.push("Individual Control");
                                       if (code.thirdparty === "1") entries.push("Third Party Protections");
-                                      if (code.fgg === "1") entries.push("FGG Ensured");
-                                      if (code.consequences === "1") entries.push("Violation Consequences");
+                                      if (code.fgg === "1") entries.push("FIGG for Defendants");
+                                      if (code.consequences === "1") entries.push("Private Suits Authorized");
                                       if (code.reporting === "1") entries.push("Reporting/Review");
 
                                       let entriesText = entries.length > 1 ? entries.join(", ") : entries[0] || "N/A";
@@ -2173,11 +2173,11 @@
                             if (code.code) {
                                 hasValidCode = true; // Mark that we have a valid code
                                 let entries = [];
-                                if (code.exante === "1") entries.push("Ex-Ante Supervision");
+                                if (code.exante === "1") entries.push("Ex-Ante Judicial Oversight");
                                 if (code.individual === "1") entries.push("Individual Control");
                                 if (code.thirdparty === "1") entries.push("Third Party Protections");
-                                if (code.fgg === "1") entries.push("FGG Ensured");
-                                if (code.consequences === "1") entries.push("Violation Consequences");
+                                if (code.fgg === "1") entries.push("FIGG for Defendants");
+                                if (code.consequences === "1") entries.push("Private Suits Authorized");
                                 if (code.reporting === "1") entries.push("Reporting/Review");
                                 let entriesText = entries.length > 1 ? entries.join(", ") : entries[0] || "N/A";
                                 return `<tr><td><a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : "N/A"}">${entriesText}</td></tr>`;
