@@ -1,7 +1,7 @@
 ﻿Code,State,exante,individual,thirdparty,fgg,consequences,reporting,Link,Citation,Type
 Florida Statutes § 119.071(2)(r) ,Florida,0,0,0,0,0,0,https://www.flsenate.gov/Laws/Statutes/2024/119.071,https://www.flsenate.gov/Session/Bill/2023/1327/?Tab=BillText,legal
 Florida Statutes § 943.327,Florida,0,0,0,0,0,1,https://casetext.com/statute/florida-statutes/title-xlvii-criminal-procedure-and-corrections/chapter-943-department-of-law-enforcement/section-943327-forensic-investigative-genetic-genealogy-grant-program,https://www.flsenate.gov/Session/Bill/2024/678/BillText/er/PDF,legal
-Maryland Criminal Procedure Code §§ 17-101 to 17-105,Maryland,1,1,1,1,1,1,https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=17-101&enactments=false,legal
+Maryland Criminal Procedure Code §§ 17-101 to 17-105,Maryland,1,1,1,1,1,1,https://mgaleg.maryland.gov/mgawebsite/Laws/StatuteText?article=gcp&section=17-101&enactments=false,none,legal
 Montana Code § 44-6-104,Montana,1,0,0,0,0,0,https://archive.legmt.gov/bills/mca/title_0440/chapter_0060/part_0010/section_0040/0440-0060-0010-0040.html,https://legiscan.com/MT/text/HB602/id/2384004/Montana-2021-HB602-Enrolled.pdf,legal
 Utah Code § 53-10-403.7,Utah,0,1,1,1,0,1,https://le.utah.gov/xcode/Title53/Chapter10/53-10-S403.7.html?v=C53-10-S403.7_2023050320230503,https://le.utah.gov/~2023/bills/static/SB0156.html,legal
 Alabama Code §§ 8-43-1 to 8-43-6,Alabama,0,0,0,0,0,0,https://dev.alison.legislature.state.al.us/code-of-alabama?section=8-43-1,https://legiscan.com/AL/votes/HB21/2024,platform
@@ -19,4 +19,4 @@ Texas Business & Commerce Code §§ 503A.001 to -503A.008,Texas,0,1,0,0,0,0,http
 Utah Code § 13-60-101 to 13-60-106,Utah,1,1,0,0,0,0,https://casetext.com/statute/utah-code/title-13-commerce-and-trade/chapter-60-genetic-information-privacy-act/part-1-genetic-information-privacy-act/section-13-60-102-definitions,https://le.utah.gov/~2021/bills/static/SB0227.html,platform
 Virginia Code §§ 59.1-593 to 59.1-602,Virginia,0,1,0,0,0,0,https://law.justia.com/codes/virginia/title-59-1/chapter-56/section-59-1-593/,https://lis.virginia.gov/cgi-bin/legp604.exe?231+sum+SB1087,platform
 Wyoming Statutes §§ 35-32-101 to 35-32-105,Wyoming,1,1,0,0,1,0,https://law.justia.com/codes/wyoming/title-35/chapter-32/section-35-32-101/,https://www.wyoleg.gov/Legislation/2022/HB0086,platform
-Wyoming H.B. 58,Wyoming,0,0,0,0,0,0,None,https://www.wyoleg.gov/Legislation/2024/HB0058,platform
+Wyoming H.B. 58,Wyoming,0,0,0,0,0,0,https://www.wyoleg.gov/Legislation/2024/HB0058,https://www.wyoleg.gov/Legislation/2024/HB0058,platform
