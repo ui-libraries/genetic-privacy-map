@@ -29,16 +29,33 @@
             }
 
             header {
-                background-color: #640a08;
-                color: white;
-                text-align: center;
-                padding: 0px 20px;
                 position: fixed;
-                width: 100%;
                 top: 0;
                 left: 0;
+                right: 0;
+                background-color: #003366;
+                color: white;
+                padding: 0px 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 z-index: 1000;
             }
+
+            .home-button {
+                color: white;
+                text-decoration: none;
+                font-weight: 600;
+                padding: 8px 16px;
+                border: 2px solid white;
+                border-radius: 4px;
+                transition: background-color 0.2s ease;
+                }
+
+                .home-button:hover {
+                background-color: white;
+                color: #003366;
+                }
 
             h1 {
                 font-size: 2.5rem;
@@ -117,6 +134,7 @@
     <body>
         <header>
             <h1>Protective Features for Regulating Insurers</h1>
+            <a href="/" style="position: absolute; right: 20px; color: white; text-decoration: underline;">Home</a>
         </header>
         <main>
             <h3 style="color: #000000; text-align: left;">Overview</h3>
@@ -166,7 +184,6 @@
                 </p>
             </details>
             <br />
-            </p>
             <details>
                 <summary><h3 style="color: #000000; text-align: left;">2. Meaningfully limit insurer use of genetic information</h3></summary>
                 <p>
