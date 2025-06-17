@@ -80,6 +80,7 @@
                 border: 1px solid black;
                 padding: 10px;
                 text-align: left;
+                vertical-align: top;
             }
 
             th {
@@ -110,6 +111,29 @@
             details[open] summary::before {
                 transform: rotate(90deg);
             }
+
+            
+            .indent-section {
+            display: inline-block;
+            font-weight: bold;
+            white-space: nowrap;
+            }
+
+            .indent-level-1 {
+            margin-left: 1em;
+            }
+
+            .indent-level-2 {
+            margin-left: 2.5em;
+            }
+
+            .indent-level-3 {
+            margin-left: 4em;
+            }
+
+/* Add more if needed */
+
+            
         </style>
     </head>
 
@@ -170,7 +194,7 @@
                 <p>
                     These provisions appear to have the same goal—restricting law enforcement to platforms and users who have given consent—but they may have very different results. After all, in
                     <a href="https://www.nytimes.com/2025/02/25/us/idaho-murders-bryan-kohberger-dna.html">several</a> <a href="https://law.justia.com/cases/minnesota/supreme-court/2024/a22-1679.html">cases</a> already litigated,
-                    investigators have sought familial matches in databases that do not permit law enforcement use or without disclosing their law enforcement status. Investigators have posed as regular users, uploaded genetic data from crime scene evidence as if it were their own, and thus been able to seek familial matches among all users in the platform’s database—even among users who have opted out of law enforcement use. Statutes regulating platforms, like California’s, are unlikely to be fully successful in curbing this kind of deceptive law enforcement conduct. After all, some investigators have already demonstrated a willingness to violate terms of service or privacy policies to find a lead. Regulating law enforcement directly, however, minimizes the risk of such deceptive behavior by making it unlawful.
+                    investigators have sought familial matches in databases that do not permit law enforcement use or without disclosing their law enforcement status. Investigators have posed as regular users, uploaded genetic data from crime scene evidence as if it were their own, and thus been able to seek familial matches among all users in the platform's database—even among users who have opted out of law enforcement use. Statutes regulating platforms, like California's, are unlikely to be fully successful in curbing this kind of deceptive law enforcement conduct. After all, some investigators have already demonstrated a willingness to violate terms of service or privacy policies to find a lead. Regulating law enforcement directly, however, minimizes the risk of such deceptive behavior by making it unlawful.
                 </p>
             </details>
             <br />
@@ -209,7 +233,7 @@
                     </tr>
                 </table>
                 <p>
-                    Montana requires either user consent or judicial authorization for a direct-match search, while implying that judicial authorization is always required for FIGG. Maryland requires judicial authorization of law enforcement’s use of FIGG in every case and specifies the kinds of cases for which authorization is permitted. This authorization is distinct from the general standards for subpoenas or warrants. Utah, by contrast, does not require any judicial oversight before law enforcement undertakes FIGG.
+                    Montana requires either user consent or judicial authorization for a direct-match search, while implying that judicial authorization is always required for FIGG. Maryland requires judicial authorization of law enforcement's use of FIGG in every case and specifies the kinds of cases for which authorization is permitted. This authorization is distinct from the general standards for subpoenas or warrants. Utah, by contrast, does not require any judicial oversight before law enforcement undertakes FIGG.
                 </p>
                 <br />
                 <p>
@@ -246,7 +270,7 @@
                     </tr>
                 </table>
                 <p>
-                    As these examples make clear, some states—like Minnesota—prohibit platforms from disclosing genetic data without the user’s consent unless served with a court order or warrant. Others—like Kentucky—merely require some form of “valid legal process,” leaving room for misunderstanding. “Legal process” is typically a legal term of art, including summons, subpoenas, or warrants, not all of which always require judicial authorization. The term, however, is not defined in these statutes. Even more confusingly, some states—like Arizona—require “a valid legal process,” which could be interpreted as requiring merely a process that is legal, rather than referring to the narrower term of art. Some platforms that cooperate with law enforcement have instituted internal review procedures for approving casework on the platform. It is unclear whether those procedures would constitute “a valid legal process,” though they would not count as “valid legal process.” 
+                    As these examples make clear, some states—like Minnesota—prohibit platforms from disclosing genetic data without the user's consent unless served with a court order or warrant. Others—like Kentucky—merely require some form of "valid legal process," leaving room for misunderstanding. "Legal process" is typically a legal term of art, including summons, subpoenas, or warrants, not all of which always require judicial authorization. The term, however, is not defined in these statutes. Even more confusingly, some states—like Arizona—require "a valid legal process," which could be interpreted as requiring merely a process that is legal, rather than referring to the narrower term of art. Some platforms that cooperate with law enforcement have instituted internal review procedures for approving casework on the platform. It is unclear whether those procedures would constitute "a valid legal process," though they would not count as "valid legal process." 
                 </p>
                 <br />
                 <p>
@@ -275,7 +299,7 @@
                     </tr>
                 </table>
                  <p>
-                    Though Utah does not provide for judicial oversight of law enforcement’s use of FIGG, it does require judicial involvement if a convicted person seeks to use FIGG to prove their innocence. Maryland requires judicial oversight in both instances, as well as for cases in which a criminal defendant (not yet convicted) seeks to use FIGG in their defense. In other states, defense or postconviction access to FIGG is unaddressed, leaving the power of this method only for the prosecution in most instances. 
+                    Though Utah does not provide for judicial oversight of law enforcement's use of FIGG, it does require judicial involvement if a convicted person seeks to use FIGG to prove their innocence. Maryland requires judicial oversight in both instances, as well as for cases in which a criminal defendant (not yet convicted) seeks to use FIGG in their defense. In other states, defense or postconviction access to FIGG is unaddressed, leaving the power of this method only for the prosecution in most instances. 
                 </p>
             </details>
             <br />
@@ -283,7 +307,7 @@
                 <summary><h3 style="color: #000000; text-align: left;">3. Affirm individual control over investigative use of genetic data</h3> </summary>
                 <br />
                 <p>
-                    Nearly all states with legislation relevant to consumer genetic privacy recognize the important role of an individual’s control over their genetic data. Some states limit law enforcement use to platforms that obtain affirmative consent from users for law enforcement matching. Consent from a single user can have far flung effects, as that user’s genetic data could be used to learn about or identify the user’s genetic relatives, even relatives who have never participated in a consumer genetic platform. Since platforms only obtain consent from their users, and not their genetic relatives, explicit consent can play an important role in ensuring that users make a knowing and voluntary choice to participate in law enforcement efforts.
+                    Nearly all states with legislation relevant to consumer genetic privacy recognize the important role of an individual's control over their genetic data. Some states limit law enforcement use to platforms that obtain affirmative consent from users for law enforcement matching. Consent from a single user can have far flung effects, as that user's genetic data could be used to learn about or identify the user's genetic relatives, even relatives who have never participated in a consumer genetic platform. Since platforms only obtain consent from their users, and not their genetic relatives, explicit consent can play an important role in ensuring that users make a knowing and voluntary choice to participate in law enforcement efforts.
                 </p>
                 <br />
                 <h3 style="color: #000000; text-align: left;">Compare . . .</h3>
@@ -315,11 +339,11 @@
                     </tr>
                 </table>
                 <p>
-                    Both Maryland and Utah expressly limit law enforcement use to platforms that seek and obtain consent from users for that specific use. Maryland’s requirement that platforms obtain “express consent” from users may go further than Utah’s requirement that users be able to “opt in or out” of law enforcement use. Utah’s formulation may allow law enforcement to use consumer genetics platforms that opt users in by default, while Maryland requires affirmative consent. Importantly, however, Utah specifies that users’ power to opt out be genuine. That is, Utah mandates that users must be able to opt out of law enforcement use without giving up access to the platform as a whole. This is significant because requiring consumers to consent to law enforcement use as a condition of joining the platform compromises their ability to make free and voluntary choices.
+                    Both Maryland and Utah expressly limit law enforcement use to platforms that seek and obtain consent from users for that specific use. Maryland's requirement that platforms obtain "express consent" from users may go further than Utah's requirement that users be able to "opt in or out" of law enforcement use. Utah's formulation may allow law enforcement to use consumer genetics platforms that opt users in by default, while Maryland requires affirmative consent. Importantly, however, Utah specifies that users' power to opt out be genuine. That is, Utah mandates that users must be able to opt out of law enforcement use without giving up access to the platform as a whole. This is significant because requiring consumers to consent to law enforcement use as a condition of joining the platform compromises their ability to make free and voluntary choices.
                 </p>
                 <br />
                 <p>
-                    But most states, while intending to “safeguard the privacy, confidentiality, security, and integrity of a consumer’s genetic data,” nonetheless permit law enforcement to get around a user’s nonconsent by using some alternate process. The variety in these statutes is discussed above under the “Judicial Oversight” protective feature, though as noted there, not all of these statutes necessarily require judicial oversight at all.
+                    But most states, while intending to "safeguard the privacy, confidentiality, security, and integrity of a consumer's genetic data," nonetheless permit law enforcement to get around a user's nonconsent by using some alternate process. The variety in these statutes is discussed above under the "Judicial Oversight" protective feature, though as noted there, not all of these statutes necessarily require judicial oversight at all.
                 </p>
                 <br />
                 <p>
@@ -350,7 +374,7 @@
                     </tr>
                 </table>
                 <p>
-                    Kentucky’s law plainly applies to law enforcement use, though it permits investigators to circumvent consumers’ nonconsent by obtaining some form of legal process. In Alabama, meanwhile, wholesale exclusion of law enforcement investigative use from the protections of its law means that the state’s “Genetic Data Privacy Act” leaves consumers unprotected against this use.
+                    Kentucky's law plainly applies to law enforcement use, though it permits investigators to circumvent consumers' nonconsent by obtaining some form of legal process. In Alabama, meanwhile, wholesale exclusion of law enforcement investigative use from the protections of its law means that the state's "Genetic Data Privacy Act" leaves consumers unprotected against this use.
                 </p>
             </details>
             <br />
@@ -399,7 +423,7 @@
                     </tr>
                 </table>
                 <p>
-                    Both Maryland and Utah establish informed consent from non-suspect third parties as the typical route that law enforcement must take for obtaining DNA from these individuals. Both states also provide a process for obtaining these DNA samples covertly, such a from a discarded cup. In Maryland, covert DNA collections must be approved by a judge, and the statute does not permit covert DNA collections where a non-suspect third party was previously asked for consent and refused to give it, or where investigators don’t want to ask for consent because they think it may be refused. In Utah, investigators must consult with prosecutors before approaching any third party for DNA collection. This goes further than Maryland’s law, by requiring investigators to consult with prosecutors for both consented and covert DNA collections alike. Covert collections in Utah, however, do not require judicial oversight and the basis for using covert methods is easier to meet. On the whole, regulating DNA collections from non-suspect third parties, as both Maryland and Utah do, is more protective of the genetic privacy  of these innocent individuals.
+                    Both Maryland and Utah establish informed consent from non-suspect third parties as the typical route that law enforcement must take for obtaining DNA from these individuals. Both states also provide a process for obtaining these DNA samples covertly, such a from a discarded cup. In Maryland, covert DNA collections must be approved by a judge, and the statute does not permit covert DNA collections where a non-suspect third party was previously asked for consent and refused to give it, or where investigators don't want to ask for consent because they think it may be refused. In Utah, investigators must consult with prosecutors before approaching any third party for DNA collection. This goes further than Maryland's law, by requiring investigators to consult with prosecutors for both consented and covert DNA collections alike. Covert collections in Utah, however, do not require judicial oversight and the basis for using covert methods is easier to meet. On the whole, regulating DNA collections from non-suspect third parties, as both Maryland and Utah do, is more protective of the genetic privacy  of these innocent individuals.
                 </p>
             </details>
             <br />
@@ -409,11 +433,11 @@
                 <p>
                     Promoting justice requires that criminal defendants have fair access to FIGG, which typically requires legislation. Defense and postconviction counsel may have trouble accessing crime scene evidence for testing, since
                     that evidence is usually held by law enforcement who may not be eager to cooperate. Moreover, defense and postconviction counsel are generally at a disadvantage in negotiating with platforms for access, particularly as
-                    many platforms limit access in their terms of service to “law enforcement” specifically.
+                    many platforms limit access in their terms of service to "law enforcement" specifically.
                 </p>
                 <br />
                 <p>
-                    Unfortunately, like platform terms of service, most states neglect this issue. These statutes typically require consent or some other legal process before users’ genetic data is shared with “law enforcement or any other government agency.” But this leaves defense-side access on unequal footing, compared with the prosecution.
+                    Unfortunately, like platform terms of service, most states neglect this issue. These statutes typically require consent or some other legal process before users' genetic data is shared with "law enforcement or any other government agency." But this leaves defense-side access on unequal footing, compared with the prosecution.
                 </p>
                 <br />
                 <p>
@@ -442,7 +466,7 @@
                     </tr>
                 </table>
                  <p>
-                    Both Maryland and Utah have enacted statutes that safeguard FIGG for use in making out innocence claims. While Maryland authorizes both defense and postconviction use, Utah appears only to permit defensive use only after conviction. Both states require judicial approval for this use. Maryland’s statute sets out terms for defense and postconviction use that are equivalent to those governing law enforcement.
+                    Both Maryland and Utah have enacted statutes that safeguard FIGG for use in making out innocence claims. While Maryland authorizes both defense and postconviction use, Utah appears only to permit defensive use only after conviction. Both states require judicial approval for this use. Maryland's statute sets out terms for defense and postconviction use that are equivalent to those governing law enforcement.
                 </p>
             </details>
             <br />
@@ -488,7 +512,7 @@
                     </tr>
                 </table>
                 <p>
-                    Some states, like Maryland, authorize individuals to sue if their rights to genetic privacy are violated. A larger group of states, including Kentucky, have instead opted to permit the state attorney general or other public official to sue. Although it may appear wise to channel litigation through a state office to make sure that suits are not frivolous, in practice, the many demands on attorneys general may yield under enforcement or non-enforcement even of clear violations. This is particularly so in cases where the defendant’s alleged misconduct consisted of cooperating with law enforcement. Wyoming, for its part, provides for suits both by injured individuals and by the state attorney general. Utah, meanwhile, appears to contemplate civil suits, but does not specify who may bring them. Utah’s enforcement scheme is further limited by the remedy it offers for wrongdoing: barring the individual who violated the law from participating in FIGG searches for one year. The statute expressly rules out money damages as a remedy. 
+                    Some states, like Maryland, authorize individuals to sue if their rights to genetic privacy are violated. A larger group of states, including Kentucky, have instead opted to permit the state attorney general or other public official to sue. Although it may appear wise to channel litigation through a state office to make sure that suits are not frivolous, in practice, the many demands on attorneys general may yield under enforcement or non-enforcement even of clear violations. This is particularly so in cases where the defendant's alleged misconduct consisted of cooperating with law enforcement. Wyoming, for its part, provides for suits both by injured individuals and by the state attorney general. Utah, meanwhile, appears to contemplate civil suits, but does not specify who may bring them. Utah's enforcement scheme is further limited by the remedy it offers for wrongdoing: barring the individual who violated the law from participating in FIGG searches for one year. The statute expressly rules out money damages as a remedy. 
                 </p>
             </details>
             <br />
@@ -553,6 +577,24 @@
             }
             window.addEventListener("load", adjustMainPadding);
             window.addEventListener("resize", adjustMainPadding);
+
+            window.addEventListener('DOMContentLoaded', () => {
+            const targets = document.querySelectorAll('td, p')
+
+            targets.forEach(el => {
+                el.innerHTML = el.innerHTML.replace(
+                /(^|<br\s*\/?>)(\s*)\(([a-z0-9]{1,3})\)/gi,
+                (match, br, space, val) => {
+                    let level = 1
+                    if (/^[a-z]+$/.test(val)) level = 2
+                    if (/^[ivxlcdm]+$/i.test(val)) level = 3
+                    return `${br}${space}<span class="indent-section indent-level-${level}">(${val})</span>`
+                }
+                )
+            })
+            })
+
+
         </script>
     </body>
 </html>

@@ -433,7 +433,7 @@
                         <div class="collapsible-content-regulation show">
                             <div class="layer-control">
                                 <div>
-                                    <input type="radio" id="lawEnforcementLayerToggle" name="layer" value="lawEnforcement" checked />
+                                    <input type="radio" id="lawEnforcementLayerToggle" name="layer" value="lawEnforcement" />
                                     <label for="lawEnforcementLayerToggle">Regulates Law Enforcement Directly</label>
                                     <div id="lawEnforcementLayerOptions" class="checkbox-group" style="display: none; font-family: Source Sans Pro, sans-serif; font-weight: 300; font-size: 13px;">
                                         <input type="checkbox" id="exante" name="exante" value="exante" />
@@ -791,7 +791,14 @@
 
             // Event listener for the "Reset" button
             document.getElementById("resetButton").addEventListener("click", function () {
-                // Reload the page
+                // Uncheck all radio buttons and hide their checkbox groups
+                document.querySelectorAll('input[name="layer"]').forEach((radio) => {
+                    radio.checked = false;
+                    const group = document.getElementById(radio.value + "LayerOptions");
+                    if (group) group.style.display = "none";
+                });
+                // Optionally, reset the map and sidebar content here as needed
+                // For now, reload the page to fully reset
                 location.reload();
             });
 

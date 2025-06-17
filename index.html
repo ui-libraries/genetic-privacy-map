@@ -99,30 +99,26 @@
             .links {
                 display: flex;
                 flex-wrap: wrap;
-                /* Allow wrapping */
-                gap: 20px;
+                gap: 0;
+                row-gap: 12px;
+                column-gap: 20px;
                 flex: 1 1 45%;
-                /* Links take up the other 50% of the width */
                 justify-content: space-between;
+                align-items: flex-start;
+                align-content: flex-start;
+                padding: 0;
+                background: #f4f4f9;
             }
 
             .link-container {
                 display: flex;
                 justify-content: center;
-                flex: 1 1 calc(50% - 20px);
-                /* Each link-container takes 50% of the available width, minus the gap */
+                flex: 0 0 calc(50% - 20px);
                 max-width: calc(50% - 20px);
-                /* Ensure it doesn't exceed 50% of the width */
-                max-height: calc(50% - 0px);
-                /* Ensure it doesn't exceed 50% of the height */
-            }
-
-            @media (max-width: 768px) {
-                .link-container {
-                    flex: 1 1 100%;
-                    /* On smaller screens, each link takes up the full width */
-                    max-width: 100%;
-                }
+                height: auto;
+                margin: 0;
+                vertical-align: top;
+                background: none;
             }
 
             .link-card {
@@ -138,6 +134,7 @@
                 max-width: 400px;
                 text-align: center;
                 padding: 20px;
+                margin: 0;
             }
 
             .link-card img {
