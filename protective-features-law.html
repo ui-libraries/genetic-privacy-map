@@ -24,8 +24,7 @@
                 align-items: center;
                 min-height: 100vh;
                 position: relative;
-                padding-top: 0;
-                /* No need for fixed padding-top, JS will handle it */
+                padding-top: 60px;
             }
 
             header {
@@ -81,7 +80,7 @@
                 max-width: 1200px;
                 width: 100%;
                 padding: 20px;
-                /* No margin-top or padding-top here, we'll handle it dynamically with JS */
+                
             }
 
             table {
@@ -90,6 +89,9 @@
                 margin: 20px 0;
                 table-layout: fixed;
                 /* This forces equal column width */
+            }
+            table p {
+                margin: 0; /* Remove default <p> margins in tables */
             }
 
             th,
@@ -603,7 +605,16 @@
             <br
             <p class="bottom-right"><i>Content current as of June 2025</i></p>
         </main>
-       
 
     </body>
+    <script>
+        function updateBodyPadding() {
+            const header = document.querySelector('header');
+            const body = document.body;
+            const headerHeight = header.offsetHeight;
+            body.style.paddingTop = `${headerHeight}px`;
+        }
+        window.addEventListener('load', updateBodyPadding);
+        window.addEventListener('resize', updateBodyPadding);
+    </script>
 </html>
