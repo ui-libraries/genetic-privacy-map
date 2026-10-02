@@ -729,6 +729,21 @@
         <script src="https://unpkg.com/topojson@3.0.2/dist/topojson.js"></script>
 
         <script>
+            // Read category cells for display only. The spreadsheet is not changed.
+            // A category is a digit 1–5. Zero means that column has no category.
+            // Commas and spaces are separators, so "1,2, 5" and "1,2 5" are 1, 2, and 5.
+            // Any other text is ignored for shading and labels.
+            function categoryCodes(value) {
+                if (value == null) return [];
+                return String(value)
+                    .split(/[,\s]+/)
+                    .filter((part) => /^[1-5]$/.test(part));
+            }
+
+            function hasCategory(value) {
+                return categoryCodes(value).length > 0;
+            }
+
             // Adjust the map height on load
             window.onload = function () {
                 const titlebarHeight = document.getElementById("titlebar").offsetHeight;
@@ -1010,7 +1025,7 @@
                         stateGroups.coverageGroup.selectAll("path").style("fill", (d) => {
                             // Check if any row in dnaPrivacy matches the state's name and has a truthy selectedRowKey value
                             const stateName = d.properties.name;
-                            const isStateShadedBlue = dnaPrivacy.some((row) => row.State === stateName && row[selectedRowKey]);
+                            const isStateShadedBlue = dnaPrivacy.some((row) => row.State === stateName && hasCategory(row[selectedRowKey]));
 
                             // Return the color based on whether any row meets the criteria
                             return isStateShadedBlue ? "rgb(232,176,172)" : "rgb(251,247,245)";
@@ -1402,9 +1417,9 @@
                             ? stateData.codes
                                   .map((code) => {
                                       let entries = [];
-                                      if (code.disability) entries.push("Disability");
-                                      if (code.life) entries.push("Life");
-                                      if (code.ltc) entries.push("LTC");
+                                      if (hasCategory(code.disability)) entries.push("Disability");
+                                      if (hasCategory(code.life)) entries.push("Life");
+                                      if (hasCategory(code.ltc)) entries.push("LTC");
                                       let entriesText = entries.length > 1 ? entries.join(", ") : entries[0] || "N/A";
 
                                       // Conditionally create the row with or without the hyperlink
@@ -1526,11 +1541,11 @@
 
                         // Apply filters based on newFilters
                         if (newFilters.life) {
-                            stateData.codes = stateData.codes.filter((code) => code.life);
+                            stateData.codes = stateData.codes.filter((code) => hasCategory(code.life));
                         } else if (newFilters.disability) {
-                            stateData.codes = stateData.codes.filter((code) => code.disability);
+                            stateData.codes = stateData.codes.filter((code) => hasCategory(code.disability));
                         } else if (newFilters.ltc) {
-                            stateData.codes = stateData.codes.filter((code) => code.ltc);
+                            stateData.codes = stateData.codes.filter((code) => hasCategory(code.ltc));
                         }
 
                         // Check if any checkboxes are checked
@@ -1543,7 +1558,7 @@
                         } else {
                             const selectedBox = Object.keys(subfilters).filter((key) => subfilters[key]);
                             stateData.codes = stateData.codes.filter((code) => {
-                                return selectedBox.some((value) => code[selectedFilter].includes(value));
+                                return selectedBox.some((value) => categoryCodes(code[selectedFilter]).includes(value));
                             });
                         }
 
@@ -1551,11 +1566,12 @@
                         const codeList = stateData.codes
                             .map((code) => {
                                 let entries = [];
-                                if (code[selectedFilter].includes("1")) entries.push("<div>• Requires informed consent</div>");
-                                if (code[selectedFilter].includes("2")) entries.push("<div>• Prohibits use of genetic info</div>");
-                                if (code[selectedFilter].includes("3")) entries.push("<div>• Allowed if actuarially justified</div>");
-                                if (code[selectedFilter].includes("4")) entries.push("<div>• Bars use of a specific trait</div>");
-                                if (code[selectedFilter].includes("5")) entries.push("<div>• Other</div>");
+                                const selectedCodes = categoryCodes(code[selectedFilter]);
+                                if (selectedCodes.includes("1")) entries.push("<div>• Requires informed consent</div>");
+                                if (selectedCodes.includes("2")) entries.push("<div>• Prohibits use of genetic info</div>");
+                                if (selectedCodes.includes("3")) entries.push("<div>• Allowed if actuarially justified</div>");
+                                if (selectedCodes.includes("4")) entries.push("<div>• Bars use of a specific trait</div>");
+                                if (selectedCodes.includes("5")) entries.push("<div>• Other</div>");
 
                                 let entriesText = entries.length > 0 ? entries.join("") : "N/A";
                                 return `<tr><td><a style="color:#004b9b;" href="${code.link || "#"}" target="_blank">${code.code || "N/A"}</a></td><td>${entriesText}</td></tr>`;
@@ -1608,7 +1624,7 @@
 
             function applyFilters(states, dnaPrivacy, filters, subfilters) {
                 const filteredData = dnaPrivacy.filter((row) => {
-                    return !filters.life || row["Life"] || !filters.disability || row["Disability"] || !filters.ltc || row["LTC"];
+                    return !filters.life || hasCategory(row["Life"]) || !filters.disability || hasCategory(row["Disability"]) || !filters.ltc || hasCategory(row["LTC"]);
                 });
 
                 const groupedData = groupAndCountEntriesForStates(filteredData);
@@ -1648,11 +1664,11 @@
                     // Apply filters if they are defined
                     if (filters) {
                         if (filters.life) {
-                            filteredCodes = filteredCodes.filter((code) => code.life);
+                            filteredCodes = filteredCodes.filter((code) => hasCategory(code.life));
                         } else if (filters.disability) {
-                            filteredCodes = filteredCodes.filter((code) => code.disability);
+                            filteredCodes = filteredCodes.filter((code) => hasCategory(code.disability));
                         } else if (filters.ltc) {
-                            filteredCodes = filteredCodes.filter((code) => code.ltc);
+                            filteredCodes = filteredCodes.filter((code) => hasCategory(code.ltc));
                         }
                     }
 
@@ -1669,7 +1685,7 @@
                         // Filter the codes based on the selectedBox values
                         filteredCodes = filteredCodes.filter((code) => {
                             // Return the codes where code[selectedFilter] includes one of the values in selectedBox
-                            return selectedBox.some((value) => code[selectedFilter].includes(value));
+                            return selectedBox.some((value) => categoryCodes(code[selectedFilter]).includes(value));
                         });
                     }
 
@@ -1687,11 +1703,12 @@
                             codeList = filteredCodes
                                 .map((code) => {
                                     let entries = [];
-                                    if (code[selectedFilter].includes("1")) entries.push("<li>Requires informed consent</li>");
-                                    if (code[selectedFilter].includes("2")) entries.push("<li>Prohibits use of genetic info</li>");
-                                    if (code[selectedFilter].includes("3")) entries.push("<li>Allowed if actuarially justified</li>");
-                                    if (code[selectedFilter].includes("4")) entries.push("<li>Bars use of a specific trait</li>");
-                                    if (code[selectedFilter].includes("5")) entries.push("<li>Other</li>");
+                                    const selectedCodes = categoryCodes(code[selectedFilter]);
+                                    if (selectedCodes.includes("1")) entries.push("<li>Requires informed consent</li>");
+                                    if (selectedCodes.includes("2")) entries.push("<li>Prohibits use of genetic info</li>");
+                                    if (selectedCodes.includes("3")) entries.push("<li>Allowed if actuarially justified</li>");
+                                    if (selectedCodes.includes("4")) entries.push("<li>Bars use of a specific trait</li>");
+                                    if (selectedCodes.includes("5")) entries.push("<li>Other</li>");
                                     // Combine entries into a single string
                                     let entriesText = entries.length > 0 ? entries.join("<br>") : "<li>N/A</li>";
                                     return `<tr><td><a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : "N/A"}"><ul>${entriesText}</ul></td></tr>`;
@@ -1701,9 +1718,9 @@
                             codeList = filteredCodes
                                 .map((code) => {
                                     let entries = [];
-                                    if (code.life) entries.push("Life");
-                                    if (code.disability) entries.push("Disability");
-                                    if (code.ltc) entries.push("LTC");
+                                    if (hasCategory(code.life)) entries.push("Life");
+                                    if (hasCategory(code.disability)) entries.push("Disability");
+                                    if (hasCategory(code.ltc)) entries.push("LTC");
                                     let entriesText = entries.length > 1 ? entries.join(", ") : entries[0] || "N/A";
                                     return `<tr><td><a style="color:#004b9b;" href="${code.link}" target="_blank">${code.code}</a></td><td title="${entries.length ? entriesText : "N/A"}">${entriesText}</td></tr>`;
                                 })
@@ -1752,41 +1769,19 @@
                                 codes: [],
                             };
                         }
-                        if (row.Life) selection1DataMap[state].life = true;
-                        if (row.Disability) selection1DataMap[state].disability = true;
-                        if (row.LTC) selection1DataMap[state].ltc = true;
+                        if (hasCategory(row.Life)) selection1DataMap[state].life = true;
+                        if (hasCategory(row.Disability)) selection1DataMap[state].disability = true;
+                        if (hasCategory(row.LTC)) selection1DataMap[state].ltc = true;
 
-                        // Process subfilter selections
-                        // Check if row.Life exists and process subfilter selections
-                        if (row.Life) {
-                            // Split the string into an array of values
-                            const lifeSubValues = row["Life"].split(",");
-                            // Iterate over each value and...
-                            lifeSubValues.forEach((value) => {
-                                // ...update corresponding object keys
-                                selection1DataMap[state]["life" + value] = true;
-                            });
-                        }
-                        // Check if row.Disability exists and process subfilter selections
-                        if (row.Disability) {
-                            // Split the string into an array of values
-                            const disabilitySubValues = row["Disability"].split(",");
-                            // Iterate over each value and...
-                            disabilitySubValues.forEach((value) => {
-                                // ...update corresponding object keys
-                                selection1DataMap[state]["disability" + value] = true;
-                            });
-                        }
-                        // Check if row.LTC exists and process subfilter selections
-                        if (row.LTC) {
-                            // Split the string into an array of values
-                            const ltcSubValues = row["LTC"].split(",");
-                            // Iterate over each value and...
-                            ltcSubValues.forEach((value) => {
-                                // ...update corresponding object keys
-                                selection1DataMap[state]["ltc" + value] = true;
-                            });
-                        }
+                        categoryCodes(row.Life).forEach((value) => {
+                            selection1DataMap[state]["life" + value] = true;
+                        });
+                        categoryCodes(row.Disability).forEach((value) => {
+                            selection1DataMap[state]["disability" + value] = true;
+                        });
+                        categoryCodes(row.LTC).forEach((value) => {
+                            selection1DataMap[state]["ltc" + value] = true;
+                        });
                         // Push the code object to the codes array
                         selection1DataMap[state].codes.push({
                             code: row.Code,
@@ -1820,41 +1815,19 @@
                                 codes: [],
                             };
                         }
-                        if (row.Life) selection2DataMap[state].life = true;
-                        if (row.Disability) selection2DataMap[state].disability = true;
-                        if (row.LTC) selection2DataMap[state].ltc = true;
+                        if (hasCategory(row.Life)) selection2DataMap[state].life = true;
+                        if (hasCategory(row.Disability)) selection2DataMap[state].disability = true;
+                        if (hasCategory(row.LTC)) selection2DataMap[state].ltc = true;
 
-                        // Process subfilter selections
-                        // Check if row.Life exists and process subfilter selections
-                        if (row.Life) {
-                            // Split the string into an array of values
-                            const lifeSubValues = row["Life"].split(",");
-                            // Iterate over each value and...
-                            lifeSubValues.forEach((value) => {
-                                // ...update corresponding object keys
-                                selection2DataMap[state]["life" + value] = true;
-                            });
-                        }
-                        // Check if row.Disability exists and process subfilter selections
-                        if (row.Disability) {
-                            // Split the string into an array of values
-                            const disabilitySubValues = row["Disability"].split(",");
-                            // Iterate over each value and...
-                            disabilitySubValues.forEach((value) => {
-                                // ...update corresponding object keys
-                                selection2DataMap[state]["disability" + value] = true;
-                            });
-                        }
-                        // Check if row.LTC exists and process subfilter selections
-                        if (row.LTC) {
-                            // Split the string into an array of values
-                            const ltcSubValues = row["LTC"].split(",");
-                            // Iterate over each value and...
-                            ltcSubValues.forEach((value) => {
-                                // ...update corresponding object keys
-                                selection2DataMap[state]["ltc" + value] = true;
-                            });
-                        }
+                        categoryCodes(row.Life).forEach((value) => {
+                            selection2DataMap[state]["life" + value] = true;
+                        });
+                        categoryCodes(row.Disability).forEach((value) => {
+                            selection2DataMap[state]["disability" + value] = true;
+                        });
+                        categoryCodes(row.LTC).forEach((value) => {
+                            selection2DataMap[state]["ltc" + value] = true;
+                        });
 
                         selection2DataMap[state].codes.push({
                             code: row.Code,
@@ -1874,7 +1847,9 @@
                 const stateDataMap = {};
 
                 data.forEach((row) => {
-                    const state = row.State;
+                    const state = (row.State || "").trim();
+                    // Blank rows and the codebook at the bottom of the file are not states.
+                    if (!state) return;
                     if (!stateDataMap[state]) {
                         stateDataMap[state] = {
                             name: state,
@@ -1889,20 +1864,13 @@
                             codes: [],
                         };
                     }
-                    if (row.Life) stateDataMap[state].life = true;
-                    if (row.Disability) stateDataMap[state].disability = true;
-                    if (row.LTC) stateDataMap[state].ltc = true;
+                    if (hasCategory(row.Life)) stateDataMap[state].life = true;
+                    if (hasCategory(row.Disability)) stateDataMap[state].disability = true;
+                    if (hasCategory(row.LTC)) stateDataMap[state].ltc = true;
 
-                    // Check if row[selectedRowKey] exists and process subfilter selections
-                    if (row[selectedRowKey]) {
-                        // Split the selectedRowKey string into an array of values
-                        const selectedValues = row[selectedRowKey].split(",");
-
-                        // Iterate over each value and update corresponding object keys
-                        selectedValues.forEach((value) => {
-                            stateDataMap[state][value] = true;
-                        });
-                    }
+                    categoryCodes(row[selectedRowKey]).forEach((value) => {
+                        stateDataMap[state][value] = true;
+                    });
 
                     stateDataMap[state].codes.push({
                         code: row.Code,
